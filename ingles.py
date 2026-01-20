@@ -14,7 +14,7 @@ st.set_page_config(page_title="Nexus Pro: C1 Bootcamp", page_icon="🦅", layout
 OPENAI_API_KEY = "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"
 
 # --- 2. USUARIOS ---
-USUARIOS = {"nasly": "1234", "invitado": "5678"}
+USUARIOS = {"nasly": "1994", "sofia": "2009"}
 
 if "usuario_activo" not in st.session_state:
     st.session_state.usuario_activo = None
@@ -145,4 +145,5 @@ if audio and audio.get("id") != st.session_state.last_audio_id:
 elif txt:
     st.session_state.chat.append({"role": "user", "content": txt})
     st.session_state.chat.append({"role": "assistant", "content": hablar_coach(f"El alumno dice: {txt}. Responde con traducción.")})
+
     st.rerun()
