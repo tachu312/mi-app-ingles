@@ -143,6 +143,17 @@ def generar_frase_ia(nivel, tema, numero_frase):
     )
     return resp.choices[0].message.content
 
+def generar_audio_ingles(texto_ingles):
+    """Genera audio de la frase en inglés con acento nativo"""
+    try:
+        tts = gTTS(text=texto_ingles, lang='en', slow=False)
+        fp = io.BytesIO()
+        tts.write_to_fp(fp)
+        fp.seek(0)
+        return fp.read()
+    except:
+        return None
+
 def generar_examen(nivel, tema):
     """Genera 5 preguntas para el examen del nivel"""
     client = openai.OpenAI(api_key=OPENAI_API_KEY)
@@ -247,6 +258,8 @@ st.progress(progreso_nivel / 100)
 
 # --- LÓGICA DE INICIO ---
 if not st.session_state.chat and not st.session_state.en_examen:
+    frase_contenido = generar_frase_ia(nivel_actual, config_nivel['tema'], 1)
+    
     msg_bienvenida = f"""🦁 **¡Bienvenido al Nivel {nivel_actual}!**
 
 Tema: **{config_nivel['tema']}**
@@ -257,11 +270,26 @@ Después harás un examen de {config_nivel['examen_req']}% para avanzar.
 
 📢 **Primera frase:**
 
-{generar_frase_ia(nivel_actual, config_nivel['tema'], 1)}
+{frase_contenido}
 
-🎤 **Repite la frase en inglés con tu micrófono.**"""
+🔊 **Escucha el audio de abajo para aprender la pronunciación.**
+
+🎤 **Luego repite la frase con tu micrófono.**"""
     
-    st.session_state.chat.append({"role": "assistant", "content": msg_bienvenida})
+    # Extraer la frase en inglés para generar audio
+    match = re.search(r'Inglés:\s*(.+?)(?:\n|$)', frase_contenido, re.IGNORECASE)
+    audio_ingles = None
+    if match:
+        texto_ingles = match.group(1).strip()
+        audio_bytes = generar_audio_ingles(texto_ingles)
+        if audio_bytes:
+            audio_ingles = base64.b64encode(audio_bytes).decode()
+    
+    mensaje_inicial = {"role": "assistant", "content": msg_bienvenida}
+    if audio_ingles:
+        mensaje_inicial["audio_ingles"] = audio_ingles
+    
+    st.session_state.chat.append(mensaje_inicial)
     guardar_datos()
 
 # --- MOSTRAR CHAT ---
@@ -272,6 +300,11 @@ for msg in st.session_state.chat:
         # Audio del usuario
         if "audio_ver" in msg:
             st.audio(base64.b64decode(msg["audio_ver"]), format="audio/wav")
+        
+        # Audio del profesor en inglés (solo para mensajes del asistente)
+        if msg["role"] == "assistant" and "audio_ingles" in msg:
+            st.markdown("🔊 **Escucha la pronunciación correcta:**")
+            st.audio(base64.b64decode(msg["audio_ingles"]), format="audio/mp3")
 
 # --- CONTROLES ---
 st.divider()
@@ -338,17 +371,34 @@ Prepara tu micrófono. El examen comienza en el próximo mensaje."""
                     else:
                         # Siguiente frase
                         siguiente_num = st.session_state.frases_correctas + 1
+                        frase_contenido = generar_frase_ia(nivel_actual, config_nivel['tema'], siguiente_num)
+                        
                         respuesta = f"""✅ **¡CORRECTO! Precisión: {precision}%**
 
 Frase {siguiente_num}/{config_nivel['frases']}:
 
-{generar_frase_ia(nivel_actual, config_nivel['tema'], siguiente_num)}
+{frase_contenido}
+
+🔊 **Escucha el audio de abajo para aprender la pronunciación.**
 
 🎤 **Repítela con tu voz.**"""
                         
-                        st.session_state.chat.append({"role": "assistant", "content": respuesta})
+                        # Generar audio de la nueva frase
+                        match_siguiente = re.search(r'Inglés:\s*(.+?)(?:\n|$)', frase_contenido, re.IGNORECASE)
+                        audio_ingles = None
+                        if match_siguiente:
+                            texto_ingles_sig = match_siguiente.group(1).strip()
+                            audio_bytes_sig = generar_audio_ingles(texto_ingles_sig)
+                            if audio_bytes_sig:
+                                audio_ingles = base64.b64encode(audio_bytes_sig).decode()
+                        
+                        mensaje_respuesta = {"role": "assistant", "content": respuesta}
+                        if audio_ingles:
+                            mensaje_respuesta["audio_ingles"] = audio_ingles
+                        
+                        st.session_state.chat.append(mensaje_respuesta)
                 else:
-                    # Pronunciación incorrecta
+                    # Pronunciación incorrecta - reproducir audio correcto
                     respuesta = f"""❌ **Precisión: {precision}% - Necesitas ≥85%**
 
 **Objetivo:** {frase_objetivo}
@@ -356,9 +406,21 @@ Frase {siguiente_num}/{config_nivel['frases']}:
 
 💡 **Consejo:** Escucha bien la pronunciación y repite más despacio.
 
+🔊 **Escucha de nuevo el audio correcto abajo.**
+
 🔄 **Intenta de nuevo.**"""
                     
-                    st.session_state.chat.append({"role": "assistant", "content": respuesta})
+                    # Generar audio de la frase correcta
+                    audio_bytes_correcto = generar_audio_ingles(frase_objetivo)
+                    audio_ingles_correcto = None
+                    if audio_bytes_correcto:
+                        audio_ingles_correcto = base64.b64encode(audio_bytes_correcto).decode()
+                    
+                    mensaje_error = {"role": "assistant", "content": respuesta}
+                    if audio_ingles_correcto:
+                        mensaje_error["audio_ingles"] = audio_ingles_correcto
+                    
+                    st.session_state.chat.append(mensaje_error)
         
         # MODO EXAMEN
         else:
