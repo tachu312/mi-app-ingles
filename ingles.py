@@ -995,9 +995,5 @@ elif st.session_state.fase == "practica":
 # ==================== FOOTER ====================
 
 st.divider()
-st.markdown("""
-<div style='text-align: center; color: white; padding: 20px;'>
-    <p>🎓 Nexus Pro Elite v4.0 | Sistema Profesional de Inglés A1→C1</p>
-    <p>Desarrollado con ❤️ para tu éxito</p>
-</div>
-""", unsafe_allow_html=True)
+st.markdown(config['explicacion'], unsafe_allow_html=True)
+
