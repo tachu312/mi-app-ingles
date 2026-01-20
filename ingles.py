@@ -19,22 +19,20 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# CSS Personalizado (CORREGIDO PARA VER TEXTO NEGRO EN FONDO BLANCO)
+# CSS Personalizado (CORREGIDO: TEXTO NEGRO FORZADO)
 st.markdown("""
 <style>
     .stApp {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
-    
-    /* Forzar texto negro dentro de las tarjetas */
+    /* Forzar texto negro para legibilidad */
     .metric-card, .word-card, .success-box, .error-box, .info-box {
         color: #000000 !important;
     }
-    
-    .metric-card h1, .metric-card h2, .metric-card h3, .metric-card h4, .metric-card p, .metric-card span, .metric-card div {
+    .metric-card h1, .metric-card h2, .metric-card h3, .metric-card h4, .metric-card p, .metric-card span, .metric-card div, .metric-card li {
         color: #000000 !important;
     }
-
+    
     .metric-card {
         background: white;
         padding: 20px;
@@ -42,7 +40,6 @@ st.markdown("""
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         margin: 10px 0;
     }
-    
     .success-box {
         background: #d4edda;
         border-left: 4px solid #28a745;
@@ -85,11 +82,11 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Manejo seguro de la API Key
+# Manejo de API Key
 try:
     OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 except:
-    OPENAI_API_KEY = "" # Evita que rompa si no hay secrets
+    OPENAI_API_KEY = ""
 
 # ==================== USUARIOS ====================
 USUARIOS = {"nasly": "1994", "sofia": "2009", "andres": "1988"}
@@ -121,53 +118,17 @@ if not st.session_state.usuario_activo:
                     st.rerun()
                 else:
                     st.error("❌ Credenciales incorrectas")
-            
             st.markdown("</div>", unsafe_allow_html=True)
-            
-            st.markdown("""
-            <div style='background: white; padding: 15px; border-radius: 5px; margin-top: 20px; color: black;'>
-                <strong>📚 Características del Sistema:</strong>
-                <ul>
-                <li>✅ Explicaciones detalladas con gramática</li>
-                <li>✅ 10 ejercicios variados por nivel</li>
-                <li>✅ Pronunciación nativa con audio</li>
-                <li>✅ Sistema de repetición hasta dominar (85%+)</li>
-                </ul>
-            </div>
-            """, unsafe_allow_html=True)
     st.stop()
 
-# ==================== CURRÍCULO PROFESIONAL COMPLETO ====================
+# ==================== CURRÍCULO COMPLETO ====================
 
 CURRICULO = {
     "A1.1": {
         "tema": "Saludos y Presentaciones Básicas",
-        "objetivo": "Aprender a saludar y presentarse formalmente e informalmente",
+        "objetivo": "Aprender a saludar y presentarse",
         "duracion": "30-45 minutos",
-        "explicacion": """
-<div style="background-color: white; color: black; padding: 20px; border-radius: 10px;">
-## 📚 LECCIÓN 1: Saludos y Presentaciones
-### 🎯 OBJETIVO DE LA LECCIÓN
-Al finalizar esta lección podrás:
-- ✅ Saludar en diferentes contextos (formal/informal)
-- ✅ Presentarte diciendo tu nombre
-- ✅ Preguntar el nombre de otras personas
-- ✅ Despedirte apropiadamente
----
-### 📖 GRAMÁTICA FUNDAMENTAL
-#### 1. ESTRUCTURA DE PRESENTACIÓN
-Formal: "My name is [nombre]"
-Informal: "I'm [nombre]"
-#### 2. PREGUNTAR EL NOMBRE
-Formal: "What is your name?"
-Informal: "What's your name?"
-#### 3. SALUDOS POR HORARIO
-- **Good morning** → Buenos días (hasta las 12pm)
-- **Good afternoon** → Buenas tardes (12pm - 6pm)
-- **Good evening** → Buenas noches (después de 6pm)
-- **Hello / Hi** → Hola (cualquier momento)
-</div>
-""",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 1: Saludos</h3><p>Aprende a decir Hello, Hi, Good Morning y presentarte con 'My name is'.</p></div>""",
         "frases": [
             {"ingles": "Hello", "español": "Hola", "fonética": "jelóu", "contexto": "Saludo universal", "tip": "H aspirada"},
             {"ingles": "My name is Anna", "español": "Mi nombre es Anna", "fonética": "mái néim is ána", "contexto": "Presentación formal", "tip": "Enfatiza name"},
@@ -187,28 +148,14 @@ Informal: "What's your name?"
             {"pregunta": "¿Cómo preguntas '¿Cómo estás?'", "respuesta": "How are you", "explicacion": "Común"},
             {"pregunta": "Responde 'Estoy bien gracias'", "respuesta": "I am fine thank you", "explicacion": "Formal"}
         ],
-        "umbral_practica": 85,
-        "umbral_examen": 80
+        "umbral_practica": 85, "umbral_examen": 80
     },
     
     "A1.2": {
         "tema": "Verbo TO BE (am/is/are)",
-        "objetivo": "Dominar el verbo más importante del inglés",
+        "objetivo": "Dominar el verbo ser/estar",
         "duracion": "45-60 minutos",
-        "explicacion": """
-<div style="background-color: white; color: black; padding: 20px; border-radius: 10px;">
-## 📚 LECCIÓN 2: Verbo TO BE
-### 📖 CONJUGACIÓN COMPLETA
-- I am (I'm)
-- You are (You're)
-- He/She/It is (He's/She's/It's)
-- We/They are (We're/They're)
-### 🎯 USOS
-A) Identidad (I am a student)
-B) Ubicación (I am in Colombia)
-C) Estado (I am happy)
-</div>
-""",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 2: Verbo TO BE</h3><p>Usa I am, You are, She is para describir personas y estados.</p></div>""",
         "frases": [
             {"ingles": "I am a student", "español": "Soy estudiante", "fonética": "ái am a stiúdent", "contexto": "Ocupación", "tip": "I'm"},
             {"ingles": "You are my friend", "español": "Eres mi amigo", "fonética": "iú ar mái frend", "contexto": "Relación", "tip": "You're"},
@@ -228,48 +175,307 @@ C) Estado (I am happy)
             {"pregunta": "Di 'Él es alto'", "respuesta": "He is tall", "explicacion": "He is"},
             {"pregunta": "Pregunta '¿Estás listo?'", "respuesta": "Are you ready", "explicacion": "Invertido"}
         ],
-        "umbral_practica": 85,
-        "umbral_examen": 80
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A1.3": {
+        "tema": "Artículos (a/an/the) y Pronombres",
+        "objetivo": "Usar correctamente artículos y pronombres",
+        "duracion": "40 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 3: Artículos</h3><p>A/An para uno, The para específico. Pronombres: My, Your, His, Her.</p></div>""",
+        "frases": [
+            {"ingles": "This is a pen", "español": "Este es un bolígrafo", "fonética": "dis is a pen", "contexto": "Objeto común", "tip": "A pen"},
+            {"ingles": "That is an orange", "español": "Eso es una naranja", "fonética": "dat is an óranch", "contexto": "Vocal", "tip": "An orange"},
+            {"ingles": "The book is red", "español": "El libro es rojo", "fonética": "de buk is red", "contexto": "Específico", "tip": "The=De"},
+            {"ingles": "My car is new", "español": "Mi carro es nuevo", "fonética": "mái car is niú", "contexto": "Posesivo", "tip": "My"},
+            {"ingles": "Your phone is here", "español": "Tu teléfono está aquí", "fonética": "ior fón is jír", "contexto": "Ubicación", "tip": "Here=Jír"},
+            {"ingles": "His name is John", "español": "Su nombre es John", "fonética": "jis néim is yon", "contexto": "De él", "tip": "His"},
+            {"ingles": "Her house is big", "español": "Su casa es grande", "fonética": "jer jáus is big", "contexto": "De ella", "tip": "Her"},
+            {"ingles": "It is a dog", "español": "Es un perro", "fonética": "it is a dog", "contexto": "Animal", "tip": "It"},
+            {"ingles": "We have a cat", "español": "Tenemos un gato", "fonética": "uí jav a cat", "contexto": "Posesión pl", "tip": "Have"},
+            {"ingles": "They are our friends", "español": "Son nuestros amigos", "fonética": "déi ar áuar frends", "contexto": "Plural", "tip": "Our"}
+        ],
+        "examen": [
+            {"pregunta": "Artículo para 'apple'", "respuesta": "an", "explicacion": "Vocal"},
+            {"pregunta": "Di 'El libro es rojo'", "respuesta": "The book is red", "explicacion": "The"},
+            {"pregunta": "Di 'Mi carro'", "respuesta": "My car", "explicacion": "My"},
+            {"pregunta": "Completa: ___ is a dog", "respuesta": "It", "explicacion": "It"},
+            {"pregunta": "Di 'Su casa' (ella)", "respuesta": "Her house", "explicacion": "Her"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A1.4": {
+        "tema": "Números, Cantidades y Fechas",
+        "objetivo": "Contar y decir cantidades",
+        "duracion": "40 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 4: Números</h3><p>One, two, three... How much? How many?</p></div>""",
+        "frases": [
+            {"ingles": "I am twenty five years old", "español": "Tengo 25 años", "fonética": "ái am tuénti fáiv yírs old", "contexto": "Edad", "tip": "Years old"},
+            {"ingles": "There are ten people", "español": "Hay diez personas", "fonética": "der ar ten pípol", "contexto": "Cantidad", "tip": "There are"},
+            {"ingles": "I have three cats", "español": "Tengo tres gatos", "fonética": "ái jav zrí cats", "contexto": "Mascotas", "tip": "Three=Zrí"},
+            {"ingles": "The price is fifteen dollars", "español": "Son quince dólares", "fonética": "de práis is fiftín dólars", "contexto": "Precio", "tip": "Fifteen"},
+            {"ingles": "She has two brothers", "español": "Tiene dos hermanos", "fonética": "shi jas tu bróders", "contexto": "Familia", "tip": "Two"},
+            {"ingles": "We need five chairs", "español": "Necesitamos 5 sillas", "fonética": "uí níd fáiv chérs", "contexto": "Necesidad", "tip": "Five"},
+            {"ingles": "It costs twenty dollars", "español": "Cuesta 20 dólares", "fonética": "it costs tuénti dólars", "contexto": "Costo", "tip": "Twenty"},
+            {"ingles": "I work eight hours", "español": "Trabajo 8 horas", "fonética": "ái uórk éit áuers", "contexto": "Tiempo", "tip": "Eight=Eit"},
+            {"ingles": "There are seven days", "español": "Hay 7 días", "fonética": "der ar séven déis", "contexto": "Semana", "tip": "Seven"},
+            {"ingles": "I have one hundred dollars", "español": "Tengo 100 dólares", "fonética": "ái jav uan jándred dólars", "contexto": "Dinero", "tip": "Hundred"}
+        ],
+        "examen": [
+            {"pregunta": "Di 'cinco'", "respuesta": "five", "explicacion": "5"},
+            {"pregunta": "Di 'Tengo 20 años'", "respuesta": "I am twenty years old", "explicacion": "Age"},
+            {"pregunta": "Di 'Tres gatos'", "respuesta": "three cats", "explicacion": "3"},
+            {"pregunta": "Di 'diez'", "respuesta": "ten", "explicacion": "10"},
+            {"pregunta": "Completa: It costs ___ dollars (15)", "respuesta": "fifteen", "explicacion": "15"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A1.5": {
+        "tema": "Días, Meses y Horarios",
+        "objetivo": "Decir la fecha y la hora",
+        "duracion": "40 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 5: Tiempo</h3><p>Monday, Tuesday... January, February... What time is it?</p></div>""",
+        "frases": [
+            {"ingles": "Today is Monday", "español": "Hoy es lunes", "fonética": "tudéi is mándei", "contexto": "Día", "tip": "Monday"},
+            {"ingles": "My birthday is in May", "español": "Mi cumple es en mayo", "fonética": "mái bérzdei is in méi", "contexto": "Mes", "tip": "In May"},
+            {"ingles": "What time is it", "español": "¿Qué hora es?", "fonética": "uát táim is it", "contexto": "Pregunta", "tip": "Time"},
+            {"ingles": "It is three o clock", "español": "Son las 3 en punto", "fonética": "it is zrí o clok", "contexto": "Hora", "tip": "O'clock"},
+            {"ingles": "I wake up at six", "español": "Me despierto a las 6", "fonética": "ái uéik ap at siks", "contexto": "Rutina", "tip": "At six"},
+            {"ingles": "The class starts at nine", "español": "La clase empieza a las 9", "fonética": "de clas starts at náin", "contexto": "Horario", "tip": "Nine"},
+            {"ingles": "We work from Monday to Friday", "español": "Trabajamos lun a vie", "fonética": "uí uórk from mándei tu fráidei", "contexto": "Rango", "tip": "From-To"},
+            {"ingles": "Christmas is in December", "español": "Navidad es en diciembre", "fonética": "crísmas is in disémber", "contexto": "Festivo", "tip": "December"},
+            {"ingles": "See you on Saturday", "español": "Nos vemos el sábado", "fonética": "si iú on sáterdei", "contexto": "Cita", "tip": "On Saturday"},
+            {"ingles": "The meeting is at two thirty", "español": "La reunión es 2:30", "fonética": "de mítin is at tu zérti", "contexto": "Reunión", "tip": "Thirty"}
+        ],
+        "examen": [
+            {"pregunta": "Di 'lunes'", "respuesta": "Monday", "explicacion": "Día"},
+            {"pregunta": "Pregunta la hora", "respuesta": "What time is it", "explicacion": "Hora"},
+            {"pregunta": "Di 'Son las 3'", "respuesta": "It is three o clock", "explicacion": "3:00"},
+            {"pregunta": "Di 'mayo'", "respuesta": "May", "explicacion": "Mes"},
+            {"pregunta": "Completa: at ___ (6)", "respuesta": "six", "explicacion": "6"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A1.6": {
+        "tema": "Familia y Relaciones",
+        "objetivo": "Hablar de la familia",
+        "duracion": "40 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 6: Familia</h3><p>Father, Mother, Brother, Sister, Son, Daughter.</p></div>""",
+        "frases": [
+            {"ingles": "This is my father", "español": "Este es mi padre", "fonética": "dis is mái fáder", "contexto": "Presentación", "tip": "Father"},
+            {"ingles": "I have two brothers", "español": "Tengo 2 hermanos", "fonética": "ái jav tu bróders", "contexto": "Cantidad", "tip": "Brothers"},
+            {"ingles": "My sister is a doctor", "español": "Mi hermana es doctora", "fonética": "mái síster is a dóctor", "contexto": "Profesión", "tip": "Sister"},
+            {"ingles": "Her husband is tall", "español": "Su esposo es alto", "fonética": "jer jásband is tol", "contexto": "Esposo", "tip": "Husband"},
+            {"ingles": "My mother cooks well", "español": "Mi madre cocina bien", "fonética": "mái máder cuks uél", "contexto": "Madre", "tip": "Mother"},
+            {"ingles": "I love my family", "español": "Amo a mi familia", "fonética": "ái lav mái fámili", "contexto": "Sentimiento", "tip": "Family"},
+            {"ingles": "My parents live in Colombia", "español": "Mis padres viven en Colombia", "fonética": "mái pérents liv in colómbia", "contexto": "Padres", "tip": "Parents"},
+            {"ingles": "She has one daughter", "español": "Tiene una hija", "fonética": "shi jas uan dóter", "contexto": "Hija", "tip": "Daughter"},
+            {"ingles": "We are a big family", "español": "Somos familia grande", "fonética": "uí ar a big fámili", "contexto": "Descripción", "tip": "Big"},
+            {"ingles": "My grandparents are old", "español": "Mis abuelos son viejos", "fonética": "mái grándpérents ar old", "contexto": "Abuelos", "tip": "Grandparents"}
+        ],
+        "examen": [
+            {"pregunta": "Di 'padre'", "respuesta": "father", "explicacion": "Papá"},
+            {"pregunta": "Di 'Tengo 2 hermanos'", "respuesta": "I have two brothers", "explicacion": "Hermanos"},
+            {"pregunta": "Di 'hermana'", "respuesta": "sister", "explicacion": "Sister"},
+            {"pregunta": "Completa: My ___ (madre)", "respuesta": "mother", "explicacion": "Mamá"},
+            {"pregunta": "Di 'Mi familia'", "respuesta": "My family", "explicacion": "Familia"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A2.1": {
+        "tema": "Presente Simple - Rutinas",
+        "objetivo": "Hablar de hábitos",
+        "duracion": "50 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 7: Rutinas</h3><p>I work, She works (add S), I don't work, Do you work?</p></div>""",
+        "frases": [
+            {"ingles": "I wake up at seven", "español": "Despierto a las 7", "fonética": "ái uéik ap at séven", "contexto": "Rutina", "tip": "Wake up"},
+            {"ingles": "She drinks coffee every day", "español": "Ella toma café diario", "fonética": "shi drinks cófi évri déi", "contexto": "Hábito 3ra", "tip": "Drinks"},
+            {"ingles": "We go to work by bus", "español": "Vamos en bus", "fonética": "uí góu tu uórk bái bas", "contexto": "Transporte", "tip": "Go"},
+            {"ingles": "He plays soccer on weekends", "español": "Juega fútbol findes", "fonética": "ji pléis sóker on uíkends", "contexto": "Deporte", "tip": "Plays"},
+            {"ingles": "They study English", "español": "Estudian inglés", "fonética": "déi stádi ínglish", "contexto": "Estudio", "tip": "Study"},
+            {"ingles": "I do not like vegetables", "español": "No me gustan verduras", "fonética": "ái du not láik véyetabols", "contexto": "Gustos neg", "tip": "Don't"},
+            {"ingles": "She does not work here", "español": "No trabaja aquí", "fonética": "shi das not uórk jír", "contexto": "Neg 3ra", "tip": "Doesn't"},
+            {"ingles": "Do you speak Spanish", "español": "¿Hablas español?", "fonética": "du iú spík spánish", "contexto": "Pregunta", "tip": "Do"},
+            {"ingles": "Does he live in Madrid", "español": "¿Vive en Madrid?", "fonética": "das ji liv in mádrid", "contexto": "Pregunta 3ra", "tip": "Does"},
+            {"ingles": "We always eat breakfast", "español": "Siempre desayunamos", "fonética": "uí ólueis ít brékfast", "contexto": "Frecuencia", "tip": "Always"}
+        ],
+        "examen": [
+            {"pregunta": "Completa: She ___ coffee (drink)", "respuesta": "drinks", "explicacion": "+S"},
+            {"pregunta": "Negativo: I ___ like", "respuesta": "do not", "explicacion": "Don't"},
+            {"pregunta": "Pregunta: ___ you speak?", "respuesta": "Do", "explicacion": "Do"},
+            {"pregunta": "Di 'Ella trabaja aquí'", "respuesta": "She works here", "explicacion": "Works"},
+            {"pregunta": "Negativo: He ___ work", "respuesta": "doesn't", "explicacion": "Doesn't"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A2.2": {
+        "tema": "Pasado Simple Regular",
+        "objetivo": "Verbos con ED",
+        "duracion": "50 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 8: Pasado Regular</h3><p>Work -> Worked, Play -> Played. Did you work? I didn't work.</p></div>""",
+        "frases": [
+            {"ingles": "I worked yesterday", "español": "Trabajé ayer", "fonética": "ái uórkt yésterdei", "contexto": "Trabajo", "tip": "Worked"},
+            {"ingles": "She studied English", "español": "Estudió inglés", "fonética": "shi stádid ínglish", "contexto": "Estudio", "tip": "Studied"},
+            {"ingles": "We played soccer", "español": "Jugamos fútbol", "fonética": "uí pléid sóker", "contexto": "Juego", "tip": "Played"},
+            {"ingles": "They visited Paris", "español": "Visitaron París", "fonética": "déi vísited páris", "contexto": "Viaje", "tip": "Visited"},
+            {"ingles": "I watched a movie", "español": "Vi una película", "fonética": "ái uócht a múvi", "contexto": "TV", "tip": "Watched"},
+            {"ingles": "He cooked dinner", "español": "Cocinó cena", "fonética": "ji cukt díner", "contexto": "Cocina", "tip": "Cooked"},
+            {"ingles": "I did not work", "español": "No trabajé", "fonética": "ái did not uórk", "contexto": "Negativo", "tip": "Didn't"},
+            {"ingles": "Did you study", "español": "¿Estudiaste?", "fonética": "did iú stádi", "contexto": "Pregunta", "tip": "Did"},
+            {"ingles": "We lived in Spain", "español": "Vivimos en España", "fonética": "uí livd in spéin", "contexto": "Vivir", "tip": "Lived"},
+            {"ingles": "She called me yesterday", "español": "Me llamó ayer", "fonética": "shi cold mi yésterdei", "contexto": "Llamada", "tip": "Called"}
+        ],
+        "examen": [
+            {"pregunta": "Pasado de work", "respuesta": "worked", "explicacion": "ED"},
+            {"pregunta": "Di 'Trabajé ayer'", "respuesta": "I worked yesterday", "explicacion": "Pasado"},
+            {"pregunta": "Negativo: I ___ work", "respuesta": "didn't", "explicacion": "Didn't"},
+            {"pregunta": "Pregunta: ___ you study?", "respuesta": "Did", "explicacion": "Did"},
+            {"pregunta": "Pasado de play", "respuesta": "played", "explicacion": "ED"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A2.3": {
+        "tema": "Pasado Simple Irregular",
+        "objetivo": "Verbos que cambian",
+        "duracion": "50 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 9: Pasado Irregular</h3><p>Go->Went, Have->Had, Do->Did, See->Saw.</p></div>""",
+        "frases": [
+            {"ingles": "I went to the park", "español": "Fui al parque", "fonética": "ái uent tu de park", "contexto": "Ir", "tip": "Went"},
+            {"ingles": "She had breakfast", "español": "Ella desayunó", "fonética": "shi jad brékfast", "contexto": "Tener", "tip": "Had"},
+            {"ingles": "We saw a movie", "español": "Vimos película", "fonética": "uí so a múvi", "contexto": "Ver", "tip": "Saw"},
+            {"ingles": "They ate pizza", "español": "Comieron pizza", "fonética": "déi éit pítsa", "contexto": "Comer", "tip": "Ate"},
+            {"ingles": "I drank water", "español": "Bebí agua", "fonética": "ái drank uóter", "contexto": "Beber", "tip": "Drank"},
+            {"ingles": "He came home late", "español": "Llegó tarde", "fonética": "ji kéim jóum léit", "contexto": "Venir", "tip": "Came"},
+            {"ingles": "She said yes", "español": "Dijo sí", "fonética": "shi sed yes", "contexto": "Decir", "tip": "Said"},
+            {"ingles": "I made a cake", "español": "Hice pastel", "fonética": "ái méid a kéik", "contexto": "Hacer", "tip": "Made"},
+            {"ingles": "We got a gift", "español": "Recibimos regalo", "fonética": "uí got a gift", "contexto": "Obtener", "tip": "Got"},
+            {"ingles": "They did homework", "español": "Hicieron tarea", "fonética": "déi did jómuork", "contexto": "Hacer", "tip": "Did"}
+        ],
+        "examen": [
+            {"pregunta": "Pasado de Go", "respuesta": "went", "explicacion": "Went"},
+            {"pregunta": "Di 'Fui al parque'", "respuesta": "I went to the park", "explicacion": "Went"},
+            {"pregunta": "Pasado de Eat", "respuesta": "ate", "explicacion": "Ate"},
+            {"pregunta": "Pasado de See", "respuesta": "saw", "explicacion": "Saw"},
+            {"pregunta": "Di 'Ella tuvo suerte' (had)", "respuesta": "She had luck", "explicacion": "Had"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A2.4": {
+        "tema": "Futuro (Will / Going to)",
+        "objetivo": "Planes y predicciones",
+        "duracion": "50 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 10: Futuro</h3><p>Will (espontáneo), Going to (plan). I will help, I am going to travel.</p></div>""",
+        "frases": [
+            {"ingles": "I will help you", "español": "Te ayudaré", "fonética": "ái uil jelp iú", "contexto": "Ayuda", "tip": "Will"},
+            {"ingles": "She is going to travel", "español": "Va a viajar", "fonética": "shi is góin tu trável", "contexto": "Plan", "tip": "Going to"},
+            {"ingles": "It will rain tomorrow", "español": "Lloverá mañana", "fonética": "it uil réin tumórou", "contexto": "Clima", "tip": "Will"},
+            {"ingles": "We are going to study", "español": "Vamos a estudiar", "fonética": "uí ar góin tu stádi", "contexto": "Plan", "tip": "Going to"},
+            {"ingles": "They will arrive soon", "español": "Llegarán pronto", "fonética": "déi uil aráiv sun", "contexto": "Llegada", "tip": "Will"},
+            {"ingles": "I am going to buy a car", "español": "Voy a comprar carro", "fonética": "ái am góin tu bái a car", "contexto": "Compra", "tip": "Going to"},
+            {"ingles": "He will call you", "español": "Te llamará", "fonética": "ji uil col iú", "contexto": "Promesa", "tip": "Will"},
+            {"ingles": "We will not go", "español": "No iremos", "fonética": "uí uil not góu", "contexto": "Negativo", "tip": "Won't"},
+            {"ingles": "Are you going to come", "español": "¿Vas a venir?", "fonética": "ar iú góin tu cam", "contexto": "Pregunta", "tip": "Going to"},
+            {"ingles": "It is going to snow", "español": "Va a nevar", "fonética": "it is góin tu snóu", "contexto": "Predicción", "tip": "Going to"}
+        ],
+        "examen": [
+            {"pregunta": "Completa: I ___ help you", "respuesta": "will", "explicacion": "Will"},
+            {"pregunta": "Di 'Voy a estudiar'", "respuesta": "I am going to study", "explicacion": "Going to"},
+            {"pregunta": "Futuro de rain (will)", "respuesta": "will rain", "explicacion": "Will"},
+            {"pregunta": "Negativo: We ___ not go", "respuesta": "will", "explicacion": "Will"},
+            {"pregunta": "Pregunta: ___ you going to?", "respuesta": "Are", "explicacion": "Are"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "B1.1": {
+        "tema": "Presente Perfecto",
+        "objetivo": "Experiencias (Have/Has + Participio)",
+        "duracion": "60 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 11: Presente Perfecto</h3><p>I have worked, She has eaten. Ever, Never, Just, Yet.</p></div>""",
+        "frases": [
+            {"ingles": "I have been to Paris", "español": "He estado en París", "fonética": "ái jav bin tu páris", "contexto": "Experiencia", "tip": "Have been"},
+            {"ingles": "She has just arrived", "español": "Acaba de llegar", "fonética": "shi jas yast aráivd", "contexto": "Reciente", "tip": "Has just"},
+            {"ingles": "Have you ever tried sushi", "español": "¿Alguna vez sushi?", "fonética": "jav iú éver tráid súshi", "contexto": "Pregunta", "tip": "Ever"},
+            {"ingles": "I have never seen snow", "español": "Nunca vi nieve", "fonética": "ái jav néver sin snóu", "contexto": "Nunca", "tip": "Never"},
+            {"ingles": "We have lived here for five years", "español": "Vivimos aquí 5 años", "fonética": "uí jav livd jir for fáiv yírs", "contexto": "Duración", "tip": "For"},
+            {"ingles": "He has worked since Monday", "español": "Trabaja desde el lunes", "fonética": "ji jas uórkt sins mándei", "contexto": "Inicio", "tip": "Since"},
+            {"ingles": "They have already eaten", "español": "Ya comieron", "fonética": "déi jav olrédi íten", "contexto": "Ya", "tip": "Already"},
+            {"ingles": "I have not finished yet", "español": "No terminé aún", "fonética": "ái jav not fínisht yet", "contexto": "Aún", "tip": "Yet"},
+            {"ingles": "She has lost her keys", "español": "Perdió llaves", "fonética": "shi jas lost jer kíis", "contexto": "Efecto", "tip": "Lost"},
+            {"ingles": "Have they arrived yet", "español": "¿Ya llegaron?", "fonética": "jav déi aráivd yet", "contexto": "Pregunta", "tip": "Yet"}
+        ],
+        "examen": [
+            {"pregunta": "Completa: I ___ been", "respuesta": "have", "explicacion": "Have"},
+            {"pregunta": "Completa: She ___ just", "respuesta": "has", "explicacion": "Has"},
+            {"pregunta": "Di 'He estado en París'", "respuesta": "I have been to Paris", "explicacion": "Have been"},
+            {"pregunta": "Completa: lived ___ 5 years", "respuesta": "for", "explicacion": "For"},
+            {"pregunta": "Pregunta: ___ you ever?", "respuesta": "Have", "explicacion": "Have"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "B1.2": {
+        "tema": "Modales (Can, Could, Should, Must)",
+        "objetivo": "Poder, deber, consejo",
+        "duracion": "60 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 12: Modales</h3><p>Can (poder), Could (podría), Should (consejo), Must (obligación).</p></div>""",
+        "frases": [
+            {"ingles": "I can speak English", "español": "Puedo hablar inglés", "fonética": "ái can spík ínglish", "contexto": "Habilidad", "tip": "Can"},
+            {"ingles": "She could help you", "español": "Podría ayudarte", "fonética": "shi cud jelp iú", "contexto": "Posibilidad", "tip": "Could"},
+            {"ingles": "You should study more", "español": "Deberías estudiar", "fonética": "iú shud stádi mor", "contexto": "Consejo", "tip": "Should"},
+            {"ingles": "I must go now", "español": "Debo irme", "fonética": "ái mast góu náu", "contexto": "Obligación", "tip": "Must"},
+            {"ingles": "Can you swim", "español": "¿Puedes nadar?", "fonética": "can iú suím", "contexto": "Pregunta", "tip": "Can"},
+            {"ingles": "I cannot drive", "español": "No puedo conducir", "fonética": "ái cánot dráiv", "contexto": "Negativo", "tip": "Cannot"},
+            {"ingles": "We should not lie", "español": "No deberíamos mentir", "fonética": "uí shúdnt lái", "contexto": "Consejo neg", "tip": "Shouldn't"},
+            {"ingles": "Could I ask a question", "español": "¿Podría preguntar?", "fonética": "cud ái ask a cuéschen", "contexto": "Permiso", "tip": "Could"},
+            {"ingles": "You must wear a seatbelt", "español": "Debes usar cinturón", "fonética": "iú mast uér a sítbelt", "contexto": "Ley", "tip": "Must"},
+            {"ingles": "She can play the piano", "español": "Puede tocar piano", "fonética": "shi can pléi de piáno", "contexto": "Habilidad", "tip": "Can"}
+        ],
+        "examen": [
+            {"pregunta": "Completa: I ___ speak (habilidad)", "respuesta": "can", "explicacion": "Can"},
+            {"pregunta": "Consejo: You ___ study", "respuesta": "should", "explicacion": "Should"},
+            {"pregunta": "Obligación: I ___ go", "respuesta": "must", "explicacion": "Must"},
+            {"pregunta": "Posibilidad: I ___ help", "respuesta": "could", "explicacion": "Could"},
+            {"pregunta": "Negativo de can", "respuesta": "cannot", "explicacion": "Cannot"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
     },
 
     "B2.1": {
         "tema": "Condicionales Tipo 1 y 2",
-        "objetivo": "Expresar condiciones reales e hipotéticas",
+        "objetivo": "Condiciones reales e hipotéticas",
         "duracion": "60 minutos",
-        "explicacion": """
-<div style="background-color: white; color: black; padding: 20px; border-radius: 10px;">
-## 📚 LECCIÓN 13: Condicionales
-### 📖 CONDICIONAL TIPO 1 (Real)
-If + Presente, Will + Verbo
-(If it rains, I will stay home)
-### 📝 CONDICIONAL TIPO 2 (Hipotético)
-If + Pasado, Would + Verbo
-(If I had money, I would travel)
-</div>
-""",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 13: Condicionales</h3><p>Tipo 1: If + Presente, Will. Tipo 2: If + Pasado, Would.</p></div>""",
         "frases": [
-            {"ingles": "If it rains I will stay home", "español": "Si llueve me quedaré", "fonética": "if it réins ái uil stéi jóum", "contexto": "Condición real", "tip": "Coma imaginaria"},
-            {"ingles": "If I study I will pass", "español": "Si estudio aprobaré", "fonética": "if ái stádi ái uil pas", "contexto": "Causa real", "tip": "Will futuro"},
-            {"ingles": "If I had money I would travel", "español": "Si tuviera dinero viajaría", "fonética": "if ái jad máni ái uud trável", "contexto": "Hipotético", "tip": "Had pasado"},
-            {"ingles": "If I were you I would go", "español": "Si fuera tú iría", "fonética": "if ái uér iú ái uud góu", "contexto": "Consejo", "tip": "Were no Was"},
-            {"ingles": "I will call you if I have time", "español": "Te llamaré si tengo tiempo", "fonética": "ái uil col iú if ái jav táim", "contexto": "Orden inverso", "tip": "Sin coma"},
-            {"ingles": "What would you do", "español": "¿Qué harías?", "fonética": "uát uud iú du", "contexto": "Pregunta", "tip": "Would antes"},
-            {"ingles": "If he works hard he will succeed", "español": "Si trabaja duro tendrá éxito", "fonética": "if ji uórks járd ji uil saksíd", "contexto": "3ra persona", "tip": "Works"},
-            {"ingles": "I would buy a car if I could", "español": "Compraría carro si pudiera", "fonética": "ái uud bái a car if ái cud", "contexto": "Deseo", "tip": "Could"},
-            {"ingles": "She will come if you call her", "español": "Ella vendrá si la llamas", "fonética": "shi uil cam if iú col jer", "contexto": "Futuro", "tip": "Will"},
-            {"ingles": "If they arrive late we will start", "español": "Si llegan tarde empezamos", "fonética": "if déi aráiv léit uí uil start", "contexto": "Aviso", "tip": "Arrive"}
+            {"ingles": "If it rains I will stay home", "español": "Si llueve me quedo", "fonética": "if it réins ái uil stéi jóum", "contexto": "Real", "tip": "Will"},
+            {"ingles": "If I study I will pass", "español": "Si estudio paso", "fonética": "if ái stádi ái uil pas", "contexto": "Causa", "tip": "Will"},
+            {"ingles": "If I had money I would travel", "español": "Si tuviera dinero viajaría", "fonética": "if ái jad máni ái uud trável", "contexto": "Hipotético", "tip": "Had-Would"},
+            {"ingles": "If I were you I would go", "español": "Si fuera tú iría", "fonética": "if ái uér iú ái uud góu", "contexto": "Consejo", "tip": "Were"},
+            {"ingles": "She will come if you call her", "español": "Vendrá si llamas", "fonética": "shi uil cam if iú col jer", "contexto": "Inverso", "tip": "Will"},
+            {"ingles": "I would buy a car if I could", "español": "Compraría si pudiera", "fonética": "ái uud bái a car if ái cud", "contexto": "Deseo", "tip": "Could"},
+            {"ingles": "If they arrive late we will start", "español": "Si llegan tarde empezamos", "fonética": "if déi aráiv léit uí uil start", "contexto": "Futuro", "tip": "Will"},
+            {"ingles": "What would you do", "español": "¿Qué harías?", "fonética": "uát uud iú du", "contexto": "Pregunta", "tip": "Would"},
+            {"ingles": "If he works hard he will succeed", "español": "Si trabaja duro triunfa", "fonética": "if ji uórks járd ji uil saksíd", "contexto": "3ra", "tip": "Works"},
+            {"ingles": "I will call you if I have time", "español": "Llamaré si tengo tiempo", "fonética": "ái uil col iú if ái jav táim", "contexto": "Posible", "tip": "Have"}
         ],
         "examen": [
-            {"pregunta": "Completa Tipo 1: If it rains, I ___ stay", "respuesta": "will", "explicacion": "Real = Will"},
-            {"pregunta": "Completa Tipo 2: If I had money, I ___ buy", "respuesta": "would", "explicacion": "Hipotético = Would"},
-            {"pregunta": "Traduce: 'Si yo fuera tú'", "respuesta": "If I were you", "explicacion": "Were"},
-            {"pregunta": "Estructura: If she ___(study), she will pass", "respuesta": "studies", "explicacion": "Presente"},
-            {"pregunta": "Completa: What ___ you do? (harías)", "respuesta": "would", "explicacion": "Would"}
+            {"pregunta": "Tipo 1: If rains, I ___ stay", "respuesta": "will", "explicacion": "Will"},
+            {"pregunta": "Tipo 2: If I had money, I ___ buy", "respuesta": "would", "explicacion": "Would"},
+            {"pregunta": "Traduce: Si yo fuera tú", "respuesta": "If I were you", "explicacion": "Were"},
+            {"pregunta": "If she ___ (study), she will pass", "respuesta": "studies", "explicacion": "Studies"},
+            {"pregunta": "What ___ you do?", "respuesta": "would", "explicacion": "Would"}
         ],
-        "umbral_practica": 85,
-        "umbral_examen": 80
+        "umbral_practica": 85, "umbral_examen": 80
     }
 }
+
 # ==================== FUNCIONES ====================
 
 def similitud_texto(texto1, texto2):
@@ -377,7 +583,7 @@ for var, default in variables_default.items():
     if var not in st.session_state:
         st.session_state[var] = default
 
-# ==================== MAIN APP ====================
+# ==================== APP LÓGICA ====================
 
 nivel_actual = st.session_state.nivel_actual
 config = CURRICULO.get(nivel_actual, CURRICULO["A1.1"])
@@ -385,142 +591,89 @@ niveles_list = list(CURRICULO.keys())
 indice = niveles_list.index(nivel_actual)
 progreso_total = int((indice / len(niveles_list)) * 100)
 
-# ==================== SIDEBAR ====================
-
 with st.sidebar:
     if st.session_state.usuario_activo:
-        st.markdown(f"""
-        <div style='text-align: center; background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; color: black;'>
-            <h2 style='color: #667eea; margin: 0;'>👤 {st.session_state.usuario_activo.upper()}</h2>
-        </div>
-        """, unsafe_allow_html=True)
-        
+        st.markdown(f"<div style='text-align:center;color:black;'><h2>👤 {st.session_state.usuario_activo.upper()}</h2></div>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
-        with col1:
-            st.metric("📊 Progreso", f"{progreso_total}%")
-        with col2:
-            st.metric("🔥 Racha", f"{st.session_state.racha_dias}")
-        
+        with col1: st.metric("📊 Progreso", f"{progreso_total}%")
+        with col2: st.metric("🔥 Racha", f"{st.session_state.racha_dias}")
         st.divider()
-        st.subheader("🗺️ Roadmap")
-        for i, key in enumerate(niveles_list):
-            tema = CURRICULO[key]["tema"]
-            if i < indice:
-                st.success(f"✅ {key}: {tema[:25]}...")
-            elif i == indice:
-                st.info(f"🎯 {key}: {tema[:25]}...")
-            else:
-                st.caption(f"🔒 {key}: {tema[:25]}...")
-        
+        st.markdown(f"<div class='metric-card'><h4>Nivel: {nivel_actual}</h4><p>{config['tema']}</p></div>", unsafe_allow_html=True)
         st.divider()
         if st.button("🚪 Cerrar Sesión", use_container_width=True):
             st.session_state.usuario_activo = None
             st.rerun()
 
-# ==================== HEADER & LOGIC ====================
-
 if st.session_state.usuario_activo:
-    st.markdown("""
-    <div class='metric-card'>
-        <h1 style='color: #667eea; margin: 0;'>🎓 Nexus Pro Elite</h1>
-        <p style='color: #333; margin: 5px 0 0 0;'>Sistema Profesional A1 → C1</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div class='metric-card'><h1>🎓 Nexus Pro Elite</h1></div>", unsafe_allow_html=True)
 
-    # 1. EXPLICACIÓN
     if st.session_state.fase == "explicacion":
-        st.markdown(f"## 📖 {nivel_actual}: {config['tema']}")
-        st.info(f"Objetivo: {config['objetivo']} | Duración: {config['duracion']}")
-        
+        st.markdown(f"## {nivel_actual}: {config['tema']}")
         st.markdown(config['explicacion'], unsafe_allow_html=True)
-        
         if st.button("✅ COMENZAR PRÁCTICA", use_container_width=True, type="primary"):
             st.session_state.fase = "practica"
             st.session_state.frase_actual = 0
             guardar_datos()
             st.rerun()
 
-    # 2. PRÁCTICA
     elif st.session_state.fase == "practica":
+        # SEGURO ANTI-ERROR INDEXERROR
+        if st.session_state.frase_actual >= len(config['frases']):
+            st.session_state.fase = "examen"
+            st.session_state.pregunta_actual = 0
+            st.rerun()
+            
         frase_obj = config['frases'][st.session_state.frase_actual]
         total = len(config['frases'])
-        
         st.progress(st.session_state.frase_actual / total)
-        st.markdown(f"<div class='metric-card'><h3>💪 Ejercicio {st.session_state.frase_actual + 1}/{total}</h3></div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='metric-card'><h3>Ejercicio {st.session_state.frase_actual + 1}/{total}</h3></div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='word-card'><h2>{frase_obj['ingles']}</h2><p>{frase_obj['español']}</p></div>", unsafe_allow_html=True)
         
-        st.markdown(f"""
-        <div class='word-card'>
-            <p style='font-size: 28px; color: #667eea;'><strong>{frase_obj['ingles']}</strong></p>
-            <p style='color: #333;'>🇪🇸 {frase_obj['español']}</p>
-        </div>
-        """, unsafe_allow_html=True)
-
         col1, col2 = st.columns(2)
         with col1:
-            audio_b64 = generar_audio_ingles(frase_obj['ingles'], lento=False)
+            audio_b64 = generar_audio_ingles(frase_obj['ingles'], False)
             if audio_b64: st.audio(base64.b64decode(audio_b64), format="audio/mp3")
         with col2:
-            audio_lento = generar_audio_ingles(frase_obj['ingles'], lento=True)
+            audio_lento = generar_audio_ingles(frase_obj['ingles'], True)
             if audio_lento: st.audio(base64.b64decode(audio_lento), format="audio/mp3")
             
-        st.divider()
-        st.markdown("### 🎤 Tu turno:")
-        
         audio = mic_recorder(start_prompt="🎙️ GRABAR", stop_prompt="⏹️ DETENER", key=f"mic_{st.session_state.frase_actual}")
         
         if audio and audio.get("id") != st.session_state.last_audio_id:
             st.session_state.last_audio_id = audio.get("id")
-            texto_usuario = transcribir_audio(audio['bytes'])
-            
-            if texto_usuario:
-                st.markdown(f"**Dijiste:** {texto_usuario}")
-                prec = similitud_texto(texto_usuario, frase_obj['ingles'])
-                
+            texto = transcribir_audio(audio['bytes'])
+            if texto:
+                prec = similitud_texto(texto, frase_obj['ingles'])
                 if prec >= config['umbral_practica']:
-                    st.success(f"🎉 ¡Bien! ({prec}%)")
+                    st.success(f"¡Bien! ({prec}%)")
                     time.sleep(1)
-                    if st.session_state.frase_actual < total - 1:
-                        st.session_state.frase_actual += 1
-                        st.rerun()
-                    else:
-                        st.session_state.fase = "examen"
-                        st.session_state.pregunta_actual = 0
-                        st.rerun()
+                    st.session_state.frase_actual += 1
+                    st.rerun()
                 else:
                     st.error(f"Intenta de nuevo ({prec}%)")
 
-    # 3. EXAMEN
     elif st.session_state.fase == "examen":
-        preg = config['examen'][st.session_state.pregunta_actual]
-        total_ex = len(config['examen'])
-        st.progress(st.session_state.pregunta_actual / total_ex)
-        
-        st.markdown(f"<div class='info-box'><h3>📝 {preg['pregunta']}</h3></div>", unsafe_allow_html=True)
-        
-        audio = mic_recorder(start_prompt="🎙️ RESPONDER", stop_prompt="⏹️ DETENER", key=f"ex_{st.session_state.pregunta_actual}")
-        
-        if audio and audio.get("id") != st.session_state.last_audio_id:
-            st.session_state.last_audio_id = audio.get("id")
-            texto = transcribir_audio(audio['bytes'])
+        if st.session_state.pregunta_actual >= len(config['examen']):
+             st.balloons()
+             st.success(f"Nivel Completado. Nota: {st.session_state.respuestas_correctas}")
+             if st.button("Siguiente Nivel / Inicio"):
+                 st.session_state.fase = "explicacion"
+                 st.rerun()
+        else:
+            preg = config['examen'][st.session_state.pregunta_actual]
+            st.markdown(f"<div class='info-box'><h3>{preg['pregunta']}</h3></div>", unsafe_allow_html=True)
+            audio = mic_recorder(start_prompt="🎙️ RESPONDER", stop_prompt="⏹️ DETENER", key=f"ex_{st.session_state.pregunta_actual}")
             
-            if texto:
-                prec = similitud_texto(texto, preg['respuesta'])
-                if prec >= config['umbral_examen']:
-                    st.success("Correcto")
-                    st.session_state.respuestas_correctas += 1
-                else:
-                    st.error(f"Incorrecto. Era: {preg['respuesta']}")
-                
-                time.sleep(2)
-                if st.session_state.pregunta_actual < total_ex - 1:
+            if audio and audio.get("id") != st.session_state.last_audio_id:
+                st.session_state.last_audio_id = audio.get("id")
+                texto = transcribir_audio(audio['bytes'])
+                if texto:
+                    prec = similitud_texto(texto, preg['respuesta'])
+                    if prec >= config['umbral_examen']:
+                        st.success("Correcto")
+                        st.session_state.respuestas_correctas += 1
+                    else:
+                        st.error(f"Incorrecto. Era: {preg['respuesta']}")
+                    time.sleep(2)
                     st.session_state.pregunta_actual += 1
                     st.rerun()
-                else:
-                    st.balloons()
-                    st.success(f"Fin del nivel. Nota: {st.session_state.respuestas_correctas}/{total_ex}")
-                    if st.button("Volver al Inicio"):
-                        st.session_state.fase = "explicacion"
-                        st.rerun()
-
-st.divider()
-st.markdown("<div style='text-align: center; color: white;'>Nexus Pro Elite v4.0</div>", unsafe_allow_html=True)
