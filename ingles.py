@@ -14,7 +14,7 @@ st.set_page_config(page_title="Nexus Pro: C1 Bootcamp", page_icon="🦅", layout
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
 # --- 2. USUARIOS ---
-USUARIOS = {"nasly": "1994", "sofia": "2009"}
+USUARIOS = {"nasly": "1994", "sofia": "2009", "andres": "1988"}
 
 if "usuario_activo" not in st.session_state:
     st.session_state.usuario_activo = None
@@ -147,4 +147,5 @@ elif txt:
     st.session_state.chat.append({"role": "assistant", "content": hablar_coach(f"El alumno dice: {txt}. Responde con traducción.")})
 
     st.rerun()
+
 
