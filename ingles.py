@@ -19,29 +19,22 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ==================== CSS (COLORES CORREGIDOS) ====================
-# Aquí forzamos que el texto sea NEGRO (#000000) dentro de las tarjetas blancas
+# CSS Personalizado (CORREGIDO PARA VER TEXTO NEGRO EN FONDO BLANCO)
 st.markdown("""
 <style>
-    /* Fondo general */
     .stApp {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
     
-    /* REGLA MAESTRA: Todo texto dentro de estas clases debe ser NEGRO */
+    /* Forzar texto negro para legibilidad */
     .metric-card, .word-card, .success-box, .error-box, .info-box {
         color: #000000 !important;
     }
+    .metric-card h1, .metric-card h2, .metric-card h3, .metric-card h4, .metric-card p, .metric-card span, .metric-card div, .metric-card li {
+        color: #000000 !important;
+    }
     
-    /* Forzar color negro en títulos y párrafos específicos dentro de las tarjetas */
-    .metric-card h1, .metric-card h2, .metric-card h3, .metric-card h4, .metric-card p, .metric-card span, .metric-card div, .metric-card li, .metric-card strong {
-        color: #000000 !important;
-    }
-    .word-card h1, .word-card h2, .word-card h3, .word-card h4, .word-card p, .word-card span, .word-card div, .word-card strong {
-        color: #000000 !important;
-    }
-
-    /* Estilos de las Tarjetas */
+    /* Estilos de Cajas */
     .metric-card {
         background: white;
         padding: 20px;
@@ -49,15 +42,15 @@ st.markdown("""
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         margin: 10px 0;
     }
-    
     .success-box {
         background: #d4edda;
         border-left: 4px solid #28a745;
         padding: 15px;
         border-radius: 5px;
         margin: 10px 0;
-        color: #155724 !important; /* Verde oscuro */
+        color: #155724 !important;
     }
+    .success-box h3, .success-box p { color: #155724 !important; }
     
     .error-box {
         background: #f8d7da;
@@ -65,8 +58,9 @@ st.markdown("""
         padding: 15px;
         border-radius: 5px;
         margin: 10px 0;
-        color: #721c24 !important; /* Rojo oscuro */
+        color: #721c24 !important;
     }
+    .error-box p, .error-box h4 { color: #721c24 !important; }
     
     .info-box {
         background: #d1ecf1;
@@ -74,8 +68,9 @@ st.markdown("""
         padding: 15px;
         border-radius: 5px;
         margin: 10px 0;
-        color: #0c5460 !important; /* Azul oscuro */
+        color: #0c5460 !important;
     }
+    .info-box p, .info-box h3 { color: #0c5460 !important; }
     
     .word-card {
         background: #f8f9fa;
@@ -85,10 +80,11 @@ st.markdown("""
         border-left: 3px solid #667eea;
         color: #333333 !important;
     }
+    .word-card h4, .word-card p { color: #333333 !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# Manejo de API Key (Evita errores si no hay secrets)
+# Manejo de API Key
 try:
     OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 except:
@@ -124,7 +120,6 @@ if not st.session_state.usuario_activo:
                     st.rerun()
                 else:
                     st.error("❌ Credenciales incorrectas")
-            
             st.markdown("</div>", unsafe_allow_html=True)
     st.stop()
 
@@ -391,6 +386,32 @@ CURRICULO = {
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
+    "B1.2": {
+        "tema": "Modales (Can, Could, Should, Must)",
+        "objetivo": "Poder, deber, consejo",
+        "duracion": "60 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 12: Modales</h3><p>Can (poder), Could (podría), Should (consejo), Must (obligación).</p></div>""",
+        "frases": [
+            {"ingles": "I can speak English", "español": "Puedo hablar inglés", "fonética": "ái can spík ínglish", "contexto": "Habilidad", "tip": "Can"},
+            {"ingles": "She could help you", "español": "Podría ayudarte", "fonética": "shi cud jelp iú", "contexto": "Posibilidad", "tip": "Could"},
+            {"ingles": "You should study more", "español": "Deberías estudiar", "fonética": "iú shud stádi mor", "contexto": "Consejo", "tip": "Should"},
+            {"ingles": "I must go now", "español": "Debo irme", "fonética": "ái mast góu náu", "contexto": "Obligación", "tip": "Must"},
+            {"ingles": "Can you swim", "español": "¿Puedes nadar?", "fonética": "can iú suím", "contexto": "Pregunta", "tip": "Can"},
+            {"ingles": "I cannot drive", "español": "No puedo conducir", "fonética": "ái cánot dráiv", "contexto": "Negativo", "tip": "Cannot"},
+            {"ingles": "We should not lie", "español": "No deberíamos mentir", "fonética": "uí shúdnt lái", "contexto": "Consejo neg", "tip": "Shouldn't"},
+            {"ingles": "Could I ask a question", "español": "¿Podría preguntar?", "fonética": "cud ái ask a cuéschen", "contexto": "Permiso", "tip": "Could"},
+            {"ingles": "You must wear a seatbelt", "español": "Debes usar cinturón", "fonética": "iú mast uér a sítbelt", "contexto": "Ley", "tip": "Must"},
+            {"ingles": "She can play the piano", "español": "Puede tocar piano", "fonética": "shi can pléi de piáno", "contexto": "Habilidad", "tip": "Can"}
+        ],
+        "examen": [
+            {"pregunta": "Completa: I ___ speak (habilidad)", "respuesta": "can", "explicacion": "Can"},
+            {"pregunta": "Consejo: You ___ study", "respuesta": "should", "explicacion": "Should"},
+            {"pregunta": "Obligación: I ___ go", "respuesta": "must", "explicacion": "Must"},
+            {"pregunta": "Posibilidad: I ___ help", "respuesta": "could", "explicacion": "Could"},
+            {"pregunta": "Negativo de can", "respuesta": "cannot", "explicacion": "Cannot"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
     "B2.1": {
         "tema": "Condicionales Tipo 1 y 2",
         "objetivo": "Condiciones reales e hipotéticas",
@@ -437,7 +458,6 @@ def analizar_palabras(texto_usuario, texto_objetivo):
     for i in range(max_len):
         p_usuario = palabras_usuario[i] if i < len(palabras_usuario) else "---"
         p_objetivo = palabras_objetivo[i] if i < len(palabras_objetivo) else "---"
-        
         p_usuario_limpio = re.sub(r'[^\w]', '', p_usuario)
         p_objetivo_limpio = re.sub(r'[^\w]', '', p_objetivo)
         
@@ -582,7 +602,7 @@ if st.session_state.usuario_activo:
         st.markdown(f"## 📖 {nivel_actual}: {config['tema']}")
         st.info(f"Objetivo: {config['objetivo']} | Duración: {config['duracion']}")
         
-        # AQUÍ ESTABA EL PROBLEMA DEL TEXTO RARO: SE ARREGLA CON unsafe_allow_html=True
+        # Corrección: Agregado unsafe_allow_html=True para que se vea bien la tarjeta
         st.markdown(config['explicacion'], unsafe_allow_html=True)
         
         if st.button("✅ COMENZAR PRÁCTICA", use_container_width=True, type="primary"):
@@ -595,7 +615,6 @@ if st.session_state.usuario_activo:
     elif st.session_state.fase == "practica":
         
         # --- FRENO DE SEGURIDAD (ARREGLO DEL INDEXERROR) ---
-        # Si ya no quedan frases, forzamos el paso al examen inmediatamente
         frases_disponibles = config.get('frases', [])
         if st.session_state.frase_actual >= len(frases_disponibles):
             st.session_state.fase = "examen"
@@ -614,12 +633,22 @@ if st.session_state.usuario_activo:
         </div>
         """, unsafe_allow_html=True)
         
+        # Tarjeta de la Frase
         st.markdown(f"""
         <div class='word-card'>
             <p style='font-size: 28px; color: #667eea;'><strong>{frase_obj['ingles']}</strong></p>
             <p style='color: #333; font-size: 18px;'>🇪🇸 {frase_obj['español']}</p>
         </div>
         """, unsafe_allow_html=True)
+
+        # === AQUÍ ESTÁ TU CAJA AMARILLA DE PRONUNCIACIÓN (RECUPERADA) ===
+        st.markdown(f"""
+        <div style='background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 5px; margin: 15px 0;'>
+            <h4 style='color: #856404; margin: 0 0 10px 0;'>🗣️ CÓMO SE PRONUNCIA:</h4>
+            <p style='font-size: 24px; color: #856404; margin: 0; font-family: monospace;'><strong>{frase_obj['fonética']}</strong></p>
+        </div>
+        """, unsafe_allow_html=True)
+        # =================================================================
 
         col1, col2 = st.columns(2)
         with col1:
@@ -643,6 +672,7 @@ if st.session_state.usuario_activo:
                 prec = similitud_texto(texto_usuario, frase_obj['ingles'])
                 
                 if prec >= config['umbral_practica']:
+                    st.balloons()
                     st.success(f"🎉 ¡Bien! ({prec}%)")
                     time.sleep(1)
                     # Avanzar
