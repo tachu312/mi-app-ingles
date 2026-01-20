@@ -502,6 +502,152 @@ Precisión ≥85% para avanzar
         ],
         "umbral_practica": 85,
         "umbral_examen": 80
+    },
+    
+    "A1.3": {
+        "tema": "Artículos (a/an/the) y Pronombres",
+        "objetivo": "Usar correctamente artículos y pronombres básicos",
+        "duracion": "40 minutos",
+        "explicacion": """
+## 📚 LECCIÓN 3: Artículos y Pronombres
+
+### 🎯 OBJETIVO
+Dominar artículos indefinidos (a/an), definido (the) y pronombres personales.
+
+### 📖 ARTÍCULOS
+
+**A / AN = Un, Una**
+- **A** antes de consonante: a cat, a dog, a house
+- **AN** antes de vocal: an apple, an egg, an umbrella
+
+**THE = El, La, Los, Las**
+- Usado para algo específico: the book (el libro específico)
+
+### 📝 PRONOMBRES PERSONALES
+- I (yo) - You (tú/usted) - He (él) - She (ella)
+- It (eso/ello) - We (nosotros) - They (ellos/ellas)
+
+### 💡 PRONOMBRES POSESIVOS
+- My (mi) - Your (tu) - His (su-él) - Her (su-ella)
+- Our (nuestro) - Their (su-ellos)
+""",
+        "frases": [
+            {"ingles": "This is a pen", "español": "Este es un bolígrafo", "fonética": "dis is a pen", "contexto": "Presentar un objeto común", "tip": "'Pen' es corto y claro"},
+            {"ingles": "That is an orange", "español": "Eso es una naranja", "fonética": "dat is an óranch", "contexto": "Identificar frutas u objetos redondos", "tip": "'An' porque 'orange' empieza con vocal"},
+            {"ingles": "The book is red", "español": "El libro es rojo", "fonética": "de buk is red", "contexto": "Describir un objeto específico", "tip": "'The' se pronuncia 'de' (corto)"},
+            {"ingles": "My car is new", "español": "Mi carro es nuevo", "fonética": "mái car is niú", "contexto": "Hablar de posesiones", "tip": "'New' suena como 'niu'"},
+            {"ingles": "Your phone is here", "español": "Tu teléfono está aquí", "fonética": "ior fón is jír", "contexto": "Indicar ubicación de objetos", "tip": "'Here' con H aspirada"},
+            {"ingles": "His name is John", "español": "Su nombre es John", "fonética": "jis néim is yon", "contexto": "Hablar del nombre de un hombre", "tip": "'His' = de él"},
+            {"ingles": "Her house is big", "español": "Su casa es grande", "fonética": "jer jáus is big", "contexto": "Describir propiedad de una mujer", "tip": "'Her' = de ella"},
+            {"ingles": "It is a dog", "español": "Es un perro", "fonética": "it is a dog", "contexto": "Identificar animales u objetos", "tip": "'Dog' con 'g' suave"},
+            {"ingles": "We have a cat", "español": "Tenemos un gato", "fonética": "uí jav a cat", "contexto": "Hablar de mascotas familiares", "tip": "'Have' se pronuncia 'jav'"},
+            {"ingles": "They are our friends", "español": "Ellos son nuestros amigos", "fonética": "déi ar áuar frends", "contexto": "Presentar grupos de personas", "tip": "'Our' suena como 'auar'"}
+        ],
+        "examen": [
+            {"pregunta": "¿Qué artículo va antes de 'apple'?", "respuesta": "an", "explicacion": "AN porque 'apple' empieza con vocal"},
+            {"pregunta": "Di 'El libro es rojo' en inglés", "respuesta": "The book is red", "explicacion": "THE para objeto específico"},
+            {"pregunta": "¿Cómo se dice 'Mi carro'?", "respuesta": "My car", "explicacion": "MY = mi/mis (posesivo)"},
+            {"pregunta": "Completa: ___ is a dog", "respuesta": "It", "explicacion": "IT para animales y objetos"},
+            {"pregunta": "Di 'Su casa' (de ella)", "respuesta": "Her house", "explicacion": "HER = su (de ella)"}
+        ],
+        "umbral_practica": 85,
+        "umbral_examen": 80
+    },
+    
+    "A1.4": {
+        "tema": "Números, Cantidades y Fechas",
+        "objetivo": "Contar, decir números y expresar cantidades",
+        "duracion": "40 minutos",
+        "explicacion": """
+## 📚 LECCIÓN 4: Números y Cantidades
+
+### 🎯 OBJETIVO
+Contar del 1 al 100, decir la edad, precios y fechas básicas.
+
+### 📖 NÚMEROS 1-20
+1=one, 2=two, 3=three, 4=four, 5=five, 6=six, 7=seven, 8=eight, 9=nine, 10=ten
+11=eleven, 12=twelve, 13=thirteen, 14=fourteen, 15=fifteen, 20=twenty
+
+### 📝 DECENAS
+30=thirty, 40=forty, 50=fifty, 60=sixty, 70=seventy, 80=eighty, 90=ninety, 100=one hundred
+
+### 💡 EXPRESIONES
+- How old are you? = ¿Cuántos años tienes?
+- I am 25 years old = Tengo 25 años
+- How much is it? = ¿Cuánto cuesta?
+""",
+        "frases": [
+            {"ingles": "I am twenty five years old", "español": "Tengo 25 años", "fonética": "ái am tuénti fáiv yírs old", "contexto": "Decir tu edad", "tip": "No olvides 'years old' al final"},
+            {"ingles": "There are ten people", "español": "Hay diez personas", "fonética": "der ar ten pípol", "contexto": "Contar personas", "tip": "'There are' para plural"},
+            {"ingles": "I have three cats", "español": "Tengo tres gatos", "fonética": "ái jav zrí cats", "contexto": "Hablar de mascotas", "tip": "'Three' con TH suave"},
+            {"ingles": "The price is fifteen dollars", "español": "El precio es quince dólares", "fonética": "de práis is fiftín dólars", "contexto": "Decir precios", "tip": "Dólares = dollars"},
+            {"ingles": "She has two brothers", "español": "Ella tiene dos hermanos", "fonética": "shi jas tu bróders", "contexto": "Hablar de familia", "tip": "'Brothers' = hermanos"},
+            {"ingles": "We need five chairs", "español": "Necesitamos cinco sillas", "fonética": "uí níd fáiv chérs", "contexto": "Expresar necesidades", "tip": "'Chairs' con CH fuerte"},
+            {"ingles": "It costs twenty dollars", "español": "Cuesta veinte dólares", "fonética": "it costs tuénti dólars", "contexto": "Hablar de precios", "tip": "'Costs' = cuesta"},
+            {"ingles": "I work eight hours", "español": "Trabajo ocho horas", "fonética": "ái uórk éit áuers", "contexto": "Hablar de trabajo", "tip": "'Eight' suena como 'eit'"},
+            {"ingles": "There are seven days", "español": "Hay siete días", "fonética": "der ar séven déis", "contexto": "Hablar de tiempo", "tip": "'Days' = días"},
+            {"ingles": "I have one hundred dollars", "español": "Tengo cien dólares", "fonética": "ái jav uan jándred dólars", "contexto": "Hablar de dinero", "tip": "'Hundred' = cien"}
+        ],
+        "examen": [
+            {"pregunta": "Di el número 'cinco' en inglés", "respuesta": "five", "explicacion": "5 = five"},
+            {"pregunta": "¿Cómo dices 'Tengo 20 años'?", "respuesta": "I am twenty years old", "explicacion": "I am + edad + years old"},
+            {"pregunta": "Di 'Tres gatos' en inglés", "respuesta": "three cats", "explicacion": "número + sustantivo plural"},
+            {"pregunta": "¿Cómo se dice 'diez'?", "respuesta": "ten", "explicacion": "10 = ten"},
+            {"pregunta": "Completa: It costs ___ dollars (15)", "respuesta": "fifteen", "explicacion": "15 = fifteen"}
+        ],
+        "umbral_practica": 85,
+        "umbral_examen": 80
+    },
+    
+    "A2.1": {
+        "tema": "Presente Simple - Rutinas Diarias",
+        "objetivo": "Hablar de hábitos y rutinas cotidianas",
+        "duracion": "50 minutos",
+        "explicacion": """
+## 📚 LECCIÓN 5: Presente Simple
+
+### 🎯 OBJETIVO
+Expresar acciones habituales, rutinas y verdades generales.
+
+### 📖 ESTRUCTURA
+**Afirmativo:** I/You/We/They + verbo | He/She/It + verbo+s
+- I work (trabajo)
+- She works (ella trabaja)
+
+**Negativo:** don't/doesn't + verbo
+- I don't work (no trabajo)
+- She doesn't work (ella no trabaja)
+
+**Pregunta:** Do/Does + sujeto + verbo?
+- Do you work? (¿trabajas?)
+- Does she work? (¿trabaja ella?)
+
+### 💡 USO
+- Rutinas: I wake up at 7am
+- Hábitos: She drinks coffee
+- Verdades: The sun rises in the east
+""",
+        "frases": [
+            {"ingles": "I wake up at seven", "español": "Me despierto a las siete", "fonética": "ái uéik ap at séven", "contexto": "Rutina matutina", "tip": "'Wake up' = despertar"},
+            {"ingles": "She drinks coffee every day", "español": "Ella toma café todos los días", "fonética": "shi drinks cófi évri déi", "contexto": "Hábito diario", "tip": "Añadir 's' en tercera persona"},
+            {"ingles": "We go to work by bus", "español": "Vamos al trabajo en bus", "fonética": "uí góu tu uórk bái bas", "contexto": "Transporte diario", "tip": "'By bus' = en bus"},
+            {"ingles": "He plays soccer on weekends", "español": "Él juega fútbol los fines de semana", "fonética": "ji pléis sóker on uíkends", "contexto": "Actividades recreativas", "tip": "'Plays' con 's' final"},
+            {"ingles": "They study English", "español": "Ellos estudian inglés", "fonética": "déi stádi ínglish", "contexto": "Actividades educativas", "tip": "'Study' = estudiar"},
+            {"ingles": "I do not like vegetables", "español": "No me gustan las verduras", "fonética": "ái du not láik véyetabols", "contexto": "Preferencias negativas", "tip": "'Don't' = do not"},
+            {"ingles": "She does not work here", "español": "Ella no trabaja aquí", "fonética": "shi das not uórk jír", "contexto": "Negación en tercera persona", "tip": "'Doesn't' = does not"},
+            {"ingles": "Do you speak Spanish", "español": "¿Hablas español?", "fonética": "du iú spík spánish", "contexto": "Preguntar habilidades", "tip": "Pregunta con 'Do'"},
+            {"ingles": "Does he live in Madrid", "español": "¿Vive él en Madrid?", "fonética": "das ji liv in mádrid", "contexto": "Preguntar residencia", "tip": "'Does' para tercera persona"},
+            {"ingles": "We always eat breakfast", "español": "Siempre desayunamos", "fonética": "uí ólueis ít brékfast", "contexto": "Hábito alimenticio", "tip": "'Always' = siempre"}
+        ],
+        "examen": [
+            {"pregunta": "Completa: She ___ coffee (drink)", "respuesta": "drinks", "explicacion": "Tercera persona añade 's'"},
+            {"pregunta": "Forma negativa: I ___ like vegetables", "respuesta": "do not", "explicacion": "I/You/We/They + do not"},
+            {"pregunta": "Pregunta: ___ you speak English?", "respuesta": "Do", "explicacion": "Do para I/You/We/They"},
+            {"pregunta": "Di 'Ella trabaja aquí' en inglés", "respuesta": "She works here", "explicacion": "She + verbo+s"},
+            {"pregunta": "Negativo: He ___ work (doesn't/don't)", "respuesta": "doesn't", "explicacion": "He/She/It + doesn't"}
+        ],
+        "umbral_practica": 85,
+        "umbral_examen": 80
     }
 }
 
@@ -832,31 +978,29 @@ elif st.session_state.fase == "practica":
                     for palabra in analisis:
                         st.markdown(palabra)
                 
-                st.divider()
-                
-                # Actualizar progreso ANTES de mostrar botón
+                # Actualizar INMEDIATAMENTE el progreso
+                st.session_state.frase_actual += 1
+                st.session_state.intentos_frase = 0
+                st.session_state.last_audio_id = None
                 guardar_datos()
                 
-                # ¿Última frase?
-                if st.session_state.frase_actual >= total_frases - 1:
+                st.divider()
+                
+                # ¿Era la última frase?
+                if st.session_state.frase_actual >= total_frases:
                     st.markdown("### 🔥 ¡COMPLETASTE TODAS LAS FRASES!")
-                    col1, col2, col3 = st.columns([1,2,1])
-                    with col2:
-                        if st.button("🎯 IR AL EXAMEN FINAL", use_container_width=True, type="primary", key="btn_examen"):
-                            st.session_state.fase = "examen"
-                            st.session_state.pregunta_actual = 0
-                            st.session_state.respuestas_correctas = 0
-                            guardar_datos()
-                            st.rerun()
+                    st.info("Haz click en el botón para ir al examen final")
+                    
+                    if st.button("🎯 IR AL EXAMEN FINAL", use_container_width=True, type="primary", key="btn_examen"):
+                        st.session_state.fase = "examen"
+                        st.session_state.pregunta_actual = 0
+                        st.session_state.respuestas_correctas = 0
+                        guardar_datos()
+                        st.rerun()
                 else:
-                    col1, col2, col3 = st.columns([1,2,1])
-                    with col2:
-                        if st.button("➡️ SIGUIENTE FRASE", use_container_width=True, type="primary", key="btn_siguiente"):
-                            st.session_state.frase_actual += 1
-                            st.session_state.intentos_frase = 0
-                            st.session_state.last_audio_id = None  # Resetear para nueva frase
-                            guardar_datos()
-                            st.rerun()
+                    st.info(f"✅ Avanzaste a la frase {st.session_state.frase_actual + 1}/{total_frases}")
+                    time.sleep(1)
+                    st.rerun()
             
             # REPROBADO
             else:
