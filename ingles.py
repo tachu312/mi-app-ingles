@@ -167,18 +167,31 @@ def generar_examen(nivel, tema):
     """Genera 5 preguntas para el examen del nivel"""
     client = openai.OpenAI(api_key=OPENAI_API_KEY)
     prompt = f"""Genera EXACTAMENTE 5 preguntas de examen para nivel {nivel}: {tema}.
-    
-    Formato por pregunta:
-    P1: [pregunta en español]
-    R1_CORRECTA: [respuesta correcta en inglés]
-    
-    Las preguntas deben validar dominio completo del tema."""
+
+Cada pregunta debe tener este formato EXACTO:
+
+P1: ¿Cómo se dice en inglés: "Hola, mi nombre es Juan"?
+R1_CORRECTA: Hello, my name is Juan
+
+P2: Traduce al inglés: "Yo soy estudiante"
+R2_CORRECTA: I am a student
+
+(etc.)
+
+Las preguntas deben validar dominio completo del tema {tema}.
+Cada pregunta en una línea diferente, separadas por doble salto de línea."""
     
     resp = client.chat.completions.create(
         model="gpt-4o-mini",
-        messages=[{"role": "user", "content": prompt}]
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.7
     )
-    return resp.choices[0].message.content
+    
+    # Dividir por doble salto de línea
+    contenido = resp.choices[0].message.content
+    preguntas = [p.strip() for p in contenido.split('\n\n') if p.strip() and 'P' in p]
+    
+    return preguntas[:5]  # Asegurar solo 5 preguntas
 
 # --- INICIALIZACIÓN ---
 if "datos_cargados" not in st.session_state:
@@ -367,15 +380,26 @@ if audio and audio.get("id") != st.session_state.last_audio_id:
 
 Necesitas {config_nivel['examen_req']}% para avanzar al siguiente nivel.
 
-Prepara tu micrófono. El examen comienza en el próximo mensaje."""
+Prepara tu micrófono. El examen comienza ahora."""
                         
                         st.session_state.chat.append({"role": "assistant", "content": respuesta})
                         st.session_state.en_examen = True
                         st.session_state.respuestas_correctas = 0
                         
-                        # Generar examen
-                        examen_content = generar_examen(nivel_actual, config_nivel['tema'])
-                        st.session_state.preguntas_examen = examen_content.split('\n\n')
+                        # Generar examen (devuelve lista de preguntas)
+                        with st.spinner("Generando examen..."):
+                            st.session_state.preguntas_examen = generar_examen(nivel_actual, config_nivel['tema'])
+                        
+                        # Mostrar primera pregunta inmediatamente
+                        if len(st.session_state.preguntas_examen) > 0:
+                            primera_pregunta = st.session_state.preguntas_examen[0]
+                            st.session_state.chat.append({
+                                "role": "assistant",
+                                "content": f"📝 **Pregunta 1/5:**\n\n{primera_pregunta}\n\n🎤 **Responde en inglés con tu micrófono.**"
+                            })
+                        
+                        guardar_datos()
+                        st.rerun()
                         
                     else:
                         # Siguiente frase
@@ -433,78 +457,114 @@ Frase {siguiente_num}/{config_nivel['frases']}:
         
         # MODO EXAMEN
         else:
-            # Lógica del examen
-            pregunta_actual = len([m for m in st.session_state.chat if m["role"] == "user" and st.session_state.en_examen])
+            # Contar respuestas de examen (solo audios después de que comenzó el examen)
+            inicio_examen_idx = None
+            for i, msg in enumerate(st.session_state.chat):
+                if msg["role"] == "assistant" and "EXAMEN FINAL" in msg.get("content", ""):
+                    inicio_examen_idx = i
+                    break
             
-            if pregunta_actual <= 5:
-                # Evaluar respuesta
-                # Aquí deberías implementar la validación contra la respuesta correcta
-                # Por simplicidad, asumimos que está correcta si tiene más de 5 palabras
-                if len(texto_usuario.split()) >= 3:
-                    st.session_state.respuestas_correctas += 1
-                    respuesta = f"✅ Respuesta {pregunta_actual}/5 correcta"
-                else:
-                    respuesta = f"❌ Respuesta {pregunta_actual}/5 incorrecta"
-                
-                st.session_state.chat.append({"role": "assistant", "content": respuesta})
-                
-                if pregunta_actual == 5:
-                    # Calcular resultado final
-                    nota_final = (st.session_state.respuestas_correctas / 5) * 100
+            if inicio_examen_idx is not None:
+                mensajes_despues = st.session_state.chat[inicio_examen_idx:]
+                respuestas_audio = [m for m in mensajes_despues if m["role"] == "user" and "audio_ver" in m]
+                num_respuesta = len(respuestas_audio)
+            else:
+                num_respuesta = 0
+            
+            # Evaluar la respuesta actual
+            if num_respuesta < 5:
+                # Extraer respuesta correcta de la pregunta
+                if num_respuesta < len(st.session_state.preguntas_examen):
+                    pregunta_texto = st.session_state.preguntas_examen[num_respuesta - 1] if num_respuesta > 0 else ""
                     
-                    if nota_final >= config_nivel['examen_req']:
-                        # ¡APROBADO!
-                        siguiente_key = list(CURRICULO.keys())[indice_nivel + 1] if indice_nivel + 1 < len(CURRICULO) else None
+                    # Buscar R#_CORRECTA en la pregunta
+                    match_correcta = re.search(r'R\d+_CORRECTA:\s*(.+?)(?:\n|$)', pregunta_texto, re.IGNORECASE)
+                    
+                    if match_correcta:
+                        respuesta_correcta = match_correcta.group(1).strip()
+                        precision = similitud_texto(texto_usuario, respuesta_correcta)
                         
-                        if siguiente_key:
-                            respuesta_final = f"""🎊 **¡FELICITACIONES!**
+                        if precision >= 75:  # 75% para examen (un poco más flexible)
+                            st.session_state.respuestas_correctas += 1
+                            feedback = f"✅ **Respuesta {num_respuesta}/5 - CORRECTA** (Precisión: {precision}%)"
+                        else:
+                            feedback = f"❌ **Respuesta {num_respuesta}/5 - INCORRECTA** (Precisión: {precision}%)\n\n**Esperaba:** {respuesta_correcta}\n**Dijiste:** {texto_usuario}"
+                    else:
+                        # Si no hay respuesta correcta definida, aceptar respuestas largas
+                        if len(texto_usuario.split()) >= 3:
+                            st.session_state.respuestas_correctas += 1
+                            feedback = f"✅ **Respuesta {num_respuesta}/5 - CORRECTA**"
+                        else:
+                            feedback = f"❌ **Respuesta {num_respuesta}/5 - INCORRECTA** (Muy corta)"
+                    
+                    st.session_state.chat.append({"role": "assistant", "content": feedback})
+                    
+                    # Si completó las 5 preguntas, calcular resultado
+                    if num_respuesta == 5:
+                        nota_final = (st.session_state.respuestas_correctas / 5) * 100
+                        
+                        if nota_final >= config_nivel['examen_req']:
+                            # APROBADO
+                            siguiente_idx = indice_nivel + 1
+                            if siguiente_idx < len(CURRICULO):
+                                siguiente_key = list(CURRICULO.keys())[siguiente_idx]
+                                
+                                respuesta_final = f"""🎊 **¡EXAMEN APROBADO!**
 
-Nota Final: **{nota_final}%**
+📊 **Nota Final: {nota_final:.0f}%** ({st.session_state.respuestas_correctas}/5 correctas)
 
-✅ Has completado el nivel {nivel_actual}
-🚀 Avanzando al nivel {siguiente_key}
+✅ Nivel {nivel_actual} COMPLETADO
+🚀 Avanzando a: **{siguiente_key} - {CURRICULO[siguiente_key]['tema']}**
 
-Tu dedicación te acerca al C1. ¡Continuemos!"""
+¡Excelente progreso! 🎯"""
+                                
+                                st.session_state.historial_niveles.append({
+                                    "nivel": nivel_actual,
+                                    "nota": nota_final,
+                                    "fecha": datetime.now().isoformat()
+                                })
+                                
+                                st.session_state.nivel_actual = siguiente_key
+                                st.session_state.frases_correctas = 0
+                                st.session_state.en_examen = False
+                                st.session_state.preguntas_examen = []
+                                st.session_state.respuestas_correctas = 0
+                                st.session_state.chat = []
+                            else:
+                                respuesta_final = f"""🏆 **¡CERTIFICACIÓN C1 COMPLETADA!**
+
+Has dominado TODOS los niveles de inglés.
+
+🎓 **Eres oficialmente bilingüe C1**
+
+¡Felicitaciones! 🎉"""
                             
-                            st.session_state.historial_niveles.append({
-                                "nivel": nivel_actual,
-                                "nota": nota_final,
-                                "fecha": datetime.now().isoformat()
-                            })
+                            st.session_state.chat.append({"role": "assistant", "content": respuesta_final})
+                            st.balloons()
+                        else:
+                            # REPROBADO
+                            respuesta_final = f"""😔 **Examen Reprobado**
+
+📊 **Nota: {nota_final:.0f}%** - Necesitabas {config_nivel['examen_req']}%
+
+🔄 Debes repetir el nivel {nivel_actual}
+
+💪 No te desanimes. Revisa el material y vuelve a intentar."""
                             
-                            st.session_state.nivel_actual = siguiente_key
+                            st.session_state.chat.append({"role": "assistant", "content": respuesta_final})
                             st.session_state.frases_correctas = 0
                             st.session_state.en_examen = False
+                            st.session_state.preguntas_examen = []
+                            st.session_state.respuestas_correctas = 0
                             st.session_state.chat = []
-                        else:
-                            respuesta_final = f"""🏆 **¡CERTIFICADO C1 OBTENIDO!**
-
-Has completado TODO el programa Nexus Pro.
-
-Eres oficialmente bilingüe nivel C1.
-
-¡Felicitaciones por tu dedicación y esfuerzo!"""
-                        
-                        st.session_state.chat.append({"role": "assistant", "content": respuesta_final})
-                        st.balloons()
-                    else:
-                        # REPROBADO
-                        respuesta_final = f"""😔 Nota: {nota_final}% - Necesitabas {config_nivel['examen_req']}%
-
-Debes repetir el nivel {nivel_actual}.
-
-No te desanimes. La práctica hace al maestro."""
-                        
-                        st.session_state.chat.append({"role": "assistant", "content": respuesta_final})
-                        st.session_state.frases_correctas = 0
-                        st.session_state.en_examen = False
-                        st.session_state.chat = []
-                
-                else:
-                    # Siguiente pregunta del examen
-                    if pregunta_actual < len(st.session_state.preguntas_examen):
-                        siguiente_pregunta = st.session_state.preguntas_examen[pregunta_actual]
-                        st.session_state.chat.append({"role": "assistant", "content": f"**Pregunta {pregunta_actual + 1}/5:**\n\n{siguiente_pregunta}"})
+                    
+                    # Mostrar siguiente pregunta si no terminó
+                    elif num_respuesta < 5 and num_respuesta < len(st.session_state.preguntas_examen):
+                        siguiente_pregunta = st.session_state.preguntas_examen[num_respuesta]
+                        st.session_state.chat.append({
+                            "role": "assistant",
+                            "content": f"📝 **Pregunta {num_respuesta + 1}/5:**\n\n{siguiente_pregunta}\n\n🎤 **Responde en inglés con tu micrófono.**"
+                        })
         
         guardar_datos()
         st.rerun()
@@ -512,19 +572,18 @@ No te desanimes. La práctica hace al maestro."""
 # --- PROCESAMIENTO DE TEXTO ---
 elif txt_input:
     st.session_state.chat.append({"role": "user", "content": txt_input})
-    st.session_state.chat.append({"role": "assistant", "content": "Por favor usa el micrófono para practicar tu pronunciación. 🎤"})
+    
+    # Si está en modo examen, rechazar texto
+    if st.session_state.en_examen:
+        st.session_state.chat.append({
+            "role": "assistant", 
+            "content": "🎤 El examen debe hacerse con audio. Por favor usa el micrófono para responder."
+        })
+    else:
+        st.session_state.chat.append({
+            "role": "assistant", 
+            "content": "Por favor usa el micrófono para practicar tu pronunciación. 🎤"
+        })
+    
     guardar_datos()
     st.rerun()
-
-# --- INICIAR EXAMEN SI ESTÁ LISTO ---
-if st.session_state.en_examen and len(st.session_state.preguntas_examen) > 0:
-    pregunta_actual_num = len([m for m in st.session_state.chat if m["role"] == "user" and st.session_state.en_examen])
-    
-    if pregunta_actual_num == 0:
-        primera_pregunta = st.session_state.preguntas_examen[0]
-        st.session_state.chat.append({
-            "role": "assistant",
-            "content": f"**Pregunta 1/5:**\n\n{primera_pregunta}"
-        })
-        guardar_datos()
-        st.rerun()
