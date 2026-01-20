@@ -701,12 +701,22 @@ if st.session_state.fase == "explicacion":
 
 # ==================== PRÁCTICA ====================
 
+# ==================== PRÁCTICA ====================
+
 elif st.session_state.fase == "practica":
+    
+    # ------------------ SEGURO ANTI-ERROR ------------------
+    # Esto evita el IndexError si el contador se pasa
+    if st.session_state.frase_actual >= len(config['frases']):
+        st.session_state.fase = "examen"
+        st.session_state.pregunta_actual = 0
+        st.rerun()
+    # -------------------------------------------------------
+
     frase_obj = config['frases'][st.session_state.frase_actual]
     total_frases = len(config['frases'])
     umbral = config['umbral_practica']
     
-    # Progreso
     progreso = st.session_state.frase_actual / total_frases
     st.progress(progreso)
     
@@ -718,7 +728,6 @@ elif st.session_state.fase == "practica":
     </div>
     """, unsafe_allow_html=True)
     
-    # Frase del día
     st.markdown(f"""
     <div class='word-card'>
         <h4>🎯 FRASE DEL EJERCICIO</h4>
@@ -740,9 +749,6 @@ elif st.session_state.fase == "practica":
     **💡 Tip de pronunciación:** {frase_obj['tip']}
     """)
     
-    # Audio
-    st.markdown("### 🔊 Escucha cómo se pronuncia:")
-    
     col1, col2 = st.columns(2)
     
     with col1:
@@ -759,9 +765,7 @@ elif st.session_state.fase == "practica":
     
     st.divider()
     st.markdown("### 🎤 Ahora repite con tu micrófono:")
-    st.warning("⚠️ **IMPORTANTE:** Debes alcanzar mínimo 85% de precisión para avanzar. ¡Puedes intentar las veces que necesites!")
     
-    # Micrófono
     audio = mic_recorder(
         start_prompt="🎙️ GRABAR",
         stop_prompt="⏹️ DETENER",
@@ -772,7 +776,6 @@ elif st.session_state.fase == "practica":
         st.session_state.last_audio_id = audio.get("id")
         st.session_state.intentos_frase += 1
         
-        # Mostrar audio del usuario
         st.markdown("### 🎤 Tu Audio:")
         st.audio(audio['bytes'], format="audio/wav")
         
@@ -783,7 +786,6 @@ elif st.session_state.fase == "practica":
             st.markdown(f"**📝 Transcripción:** {texto_usuario}")
             precision = similitud_texto(texto_usuario, frase_obj['ingles'])
             
-            # APROBADO
             if precision >= umbral:
                 st.balloons()
                 st.success(f"🎉 ¡EXCELENTE! Precisión: {precision}%")
@@ -795,7 +797,6 @@ elif st.session_state.fase == "practica":
                 
                 st.divider()
                 
-                # ¿Última frase?
                 if st.session_state.frase_actual >= total_frases - 1:
                     st.markdown("### 🔥 ¡COMPLETASTE TODAS LAS FRASES!")
                     col1, col2, col3 = st.columns([1,2,1])
@@ -814,11 +815,8 @@ elif st.session_state.fase == "practica":
                             st.session_state.intentos_frase = 0
                             guardar_datos()
                             st.rerun()
-            
-            # REPROBADO
             else:
                 st.error(f"❌ Precisión: {precision}% - Necesitas ≥{umbral}%")
-                
                 st.markdown(f"""
                 <div class='error-box'>
                     <h4>📊 Análisis de tu pronunciación:</h4>
@@ -838,10 +836,7 @@ elif st.session_state.fase == "practica":
                 2. Escucha el audio de arriba varias veces
                 3. Repite despacio primero, luego más rápido
                 4. Graba de nuevo cuando estés listo
-                
-                **Llevas {st.session_state.intentos_frase} intentos - ¡No te rindas!**
                 """)
-
 # ==================== EXAMEN ====================
 
 # Busca la línea: elif st.session_state.fase == "practica":
