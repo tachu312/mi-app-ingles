@@ -6,54 +6,92 @@ import io, re, json, os, base64
 from datetime import datetime
 from difflib import SequenceMatcher
 
-# ==================== 1. CONFIGURACIÓN Y ESTADO BLINDADO ====================
-st.set_page_config(page_title="Nexus Pro v9.5", page_icon="🦅", layout="wide")
+# ==================== 1. CONFIGURACIÓN E INICIALIZACIÓN GLOBAL ====================
+st.set_page_config(page_title="Nexus Pro v11.0: Global English Mastery", page_icon="🦅", layout="wide")
 
 def inicializar_sistema():
-    variables = {
+    """Garantiza estabilidad total del sistema y variables de memoria"""
+    defaults = {
         "usuario_activo": None, "nivel_actual": "A1.1", "fase": "explicacion",
         "frase_actual": 0, "pregunta_actual": 0, "respuestas_correctas": 0,
-        "examen_finalizado": False, "last_audio_id": None
+        "examen_finalizado": False, "last_audio_id": None, "feedback_ia": ""
     }
-    for key, value in variables.items():
+    for key, value in defaults.items():
         if key not in st.session_state: st.session_state[key] = value
 
 inicializar_sistema()
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
-# ==================== 2. ITINERARIO COMPLETO (RESTAURADO) ====================
-CURRICULO = {}
-niveles = {
-    "A1": ["Saludos", "Identidad", "Familia", "Tiempo", "Descripciones", "Hogar", "Comida", "Ropa", "Clima", "Repaso A1"],
-    "A2": ["Rutinas", "Pasado", "Futuro", "Compras", "Salud", "Viajes", "Habilidades", "Experiencias", "Sentimientos", "Repaso A2"],
-    "B1": ["Trabajo", "Consejos", "Opiniones", "Cultura", "Relaciones", "Ambiente", "Tecnología", "Sueños", "Narración", "Repaso B1"],
-    "B2": ["Debate", "Hipótesis", "Causas", "Conflictos", "Arte", "Ética", "Ciencia", "Historias", "Entrevistas", "Repaso B2"],
-    "C1": ["Matices", "Ironía", "Argumentación", "Jerga", "Escritura", "Análisis", "Filosofía", "Persuasión", "Debate Pro", "Certificación"]
+# ==================== 2. EL MAPA MAESTRO (ITINERARIO COMPLETO) ====================
+# Definimos 10 secciones por nivel para un total de 50 módulos
+ITINERARIO = {
+    "A1": ["Saludos", "Identidad", "Familia", "Tiempo", "Hogar", "Comida", "Ropa", "Ciudad", "Clima", "Repaso A1"],
+    "A2": ["Rutina", "Pasado", "Futuro", "Compras", "Salud", "Viajes", "Habilidades", "Experiencias", "Planes", "Certificación A2"],
+    "B1": ["Trabajo", "Consejos", "Opiniones", "Cultura", "Relaciones", "Ambiente", "Tecnología", "Sueños", "Narración", "Certificación B1"],
+    "B2": ["Debate", "Hipótesis", "Causas", "Conflictos", "Arte", "Ética", "Ciencia", "Historias", "Entrevistas", "Certificación B2"],
+    "C1": ["Matices", "Ironía", "Argumentación", "Jerga", "Escritura", "Análisis", "Filosofía", "Persuasión", "Debate Pro", "MAESTRÍA FINAL"]
 }
 
-for n, temas in niveles.items():
+# Generamos las llaves del currículo
+CURRICULO = {}
+for nivel, temas in ITINERARIO.items():
     for i, tema in enumerate(temas, 1):
-        CURRICULO[f"{n}.{i}"] = {"tema": tema, "frases": [], "examen": []}
+        CURRICULO[f"{nivel}.{i}"] = {"tema": tema, "clase": "", "frases": [], "examen": []}
 
-# CONTENIDO A1.1 (EJEMPLO PARA PRUEBAS)
-CURRICULO["A1.1"]["clase"] = "En inglés, conecta los sonidos. 'My name is' suena como 'mainéimis'."
-CURRICULO["A1.1"]["frases"] = [
-    {"ingles": "Hello", "español": "Hola", "fonetica": "jelóu"},
-    {"ingles": "My name is Anna", "español": "Mi nombre es Anna", "fonetica": "mai néim is ána"}
-]
-CURRICULO["A1.1"]["examen"] = [
-    {"pregunta": "¿Cómo saludas formalmente?", "respuesta": "Hello"},
-    {"pregunta": "Di 'Mucho gusto' en inglés", "respuesta": "Nice to meet you"}
-]
+# --- CONTENIDO DE ALTA CALIDAD PRE-CARGADO (NIVEL A1.1) ---
+CURRICULO["A1.1"] = {
+    "tema": "Saludos y Presentaciones",
+    "clase": "Para sonar natural, conecta sonidos: 'My name is' suena 'mainéimis'. La 'H' en 'Hello' es un suspiro suave.",
+    "frases": [
+        {"ingles": "Hello, good morning", "español": "Hola, buenos días", "fonetica": "jelóu, gud mórnin"},
+        {"ingles": "My name is David", "español": "Mi nombre es David", "fonetica": "mai néim is déivid"},
+        {"ingles": "I am from Colombia", "español": "Soy de Colombia", "fonetica": "ái am from colómbia"},
+        {"ingles": "It is nice to meet you", "español": "Es un gusto conocerte", "fonetica": "it is náis tu míit iu"},
+        {"ingles": "How are you today?", "español": "¿Cómo estás hoy?", "fonetica": "jáu ar iu tudéi"},
+        {"ingles": "I am fine, thank you", "español": "Estoy bien, gracias", "fonetica": "ái am fáin, zank iu"},
+        {"ingles": "What is your name?", "español": "¿Cuál es tu nombre?", "fonetica": "uát is ior néim"},
+        {"ingles": "Where are you from?", "español": "¿De dónde eres?", "fonetica": "uér ar iu from"},
+        {"ingles": "Excuse me, please", "español": "Disculpe, por favor", "fonetica": "ekskiús mi, plíis"},
+        {"ingles": "Goodbye, see you later", "español": "Adiós, nos vemos luego", "fonetica": "gudbái, si iu léiter"}
+    ],
+    "examen": [
+        {"pregunta": "Saluda formalmente por la mañana", "respuesta": "Good morning"},
+        {"pregunta": "Di: Mi nombre es...", "respuesta": "My name is"},
+        {"pregunta": "Pregunta: ¿Cómo estás hoy?", "respuesta": "How are you today"},
+        {"pregunta": "Responde: Estoy bien, gracias", "respuesta": "I am fine thank you"},
+        {"pregunta": "Despídete: Nos vemos luego", "respuesta": "See you later"}
+    ]
+}
 
-# ==================== 3. LÓGICA DE EXAMEN PROFESIONAL ====================
-def mentor_ia_examen(objetivo, dicho):
+# ==================== 3. MOTOR DE GENERACIÓN INTELIGENTE (ELIMINA EL 'VACÍO') ====================
+def cargar_leccion_dinamica(nivel_key):
+    """Si la lección está vacía, la IA la genera instantáneamente con alta calidad"""
+    if CURRICULO[nivel_key]["frases"]: return CURRICULO[nivel_key]
+    
     client = openai.OpenAI(api_key=OPENAI_API_KEY)
-    prompt = f"Profesor de inglés: El alumno dijo '{dicho}' pero la respuesta era '{objetivo}'. Explica brevemente en español qué sonido falló."
+    tema = CURRICULO[nivel_key]["tema"]
+    prompt = f"""Genera una lección de inglés nivel {nivel_key} sobre '{tema}'. 
+    Retorna un JSON con: 
+    'clase': una breve explicación fonética, 
+    'frases': 10 frases (ingles, español, fonetica),
+    'examen': 5 preguntas (pregunta, respuesta). 
+    Enfoque conversacional real."""
+    
+    try:
+        resp = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": prompt}], response_format={"type": "json_object"})
+        data = json.loads(resp.choices[0].message.content)
+        CURRICULO[nivel_key].update(data)
+        return CURRICULO[nivel_key]
+    except: return CURRICULO["A1.1"] # Fallback de seguridad
+
+# ==================== 4. LÓGICA DE EXAMEN Y MENTORÍA ====================
+def mentor_ia(objetivo, dicho):
+    client = openai.OpenAI(api_key=OPENAI_API_KEY)
+    prompt = f"Profesor de inglés: El alumno dijo '{dicho}' para '{objetivo}'. Explica en español y en una frase qué sonido falló para no llegar al 100%."
     try:
         resp = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": prompt}])
         return resp.choices[0].message.content
-    except: return "Casi lo logras. Revisa la pronunciación de las vocales."
+    except: return "Sigue practicando la entonación."
 
 def procesar_audio(audio_bytes, objetivo):
     try:
@@ -65,44 +103,49 @@ def procesar_audio(audio_bytes, objetivo):
         return dicho, prec
     except: return "", 0
 
-# ==================== 4. INTERFAZ Y NAVEGACIÓN ====================
+# ==================== 5. INTERFAZ Y BARRA LATERAL ====================
 if not st.session_state.usuario_activo:
-    st.title("🦅 Nexus Pro v9.5")
-    u = st.text_input("👤 Usuario"); p = st.text_input("🔒 Contraseña", type="password")
-    if st.button("🚀 Entrar"):
+    st.title("🦅 Nexus Pro v11.0")
+    u = st.text_input("Usuario"); p = st.text_input("Contraseña", type="password")
+    if st.button("🚀 Iniciar Bootcamp"):
         if u in {"nasly": "1994", "sofia": "2009", "andres": "1988"}:
             st.session_state.usuario_activo = u; st.rerun()
     st.stop()
 
 niveles_list = list(CURRICULO.keys())
 indice_actual = niveles_list.index(st.session_state.nivel_actual)
+config = cargar_leccion_dinamica(st.session_state.nivel_actual)
 
 with st.sidebar:
     st.title(f"👤 {st.session_state.usuario_activo.upper()}")
     st.metric("📊 Progreso", f"{int((indice_actual/len(CURRICULO))*100)}%")
-    st.divider(); st.subheader("🗺️ Itinerario Elite")
-    for k in niveles_list: # MOSTRANDO ITINERARIO COMPLETO SIN MODIFICAR
+    st.divider(); st.subheader("🗺️ Itinerario Completo")
+    for k in niveles_list:
         if k == st.session_state.nivel_actual: st.info(f"🎯 {k}: {CURRICULO[k]['tema']}")
         elif niveles_list.index(k) < indice_actual: st.success(f"✅ {k}: {CURRICULO[k]['tema']}")
         else: st.caption(f"🔒 {k}: {CURRICULO[k]['tema']}")
 
-# ==================== 5. EL AULA DE CLASE ====================
-st.title("🦅 Nexus Pro: Aula de Aprendizaje")
-config = CURRICULO[st.session_state.nivel_actual]
+# ==================== 6. FASES DE APRENDIZAJE ====================
+st.title(f"🦅 Nexus Pro: {st.session_state.nivel_actual}")
+st.markdown(f"### Tema: {config['tema']}")
 
 if st.session_state.fase == "explicacion":
-    st.markdown(f"### {st.session_state.nivel_actual}: {config['tema']}")
-    st.write(config.get('clase', 'Cargando lección...'))
-    if st.button("🚀 Ir a la Práctica"):
+    st.subheader("👨‍🏫 Clase Magistral")
+    st.write(config['clase'])
+    if st.button("🚀 Comenzar Práctica", type="primary"):
         st.session_state.fase = "practica"; st.rerun()
 
 elif st.session_state.fase == "practica":
     total_f = len(config['frases'])
     frase_obj = config['frases'][st.session_state.frase_actual]
-    st.subheader(f"Práctica: Frase {st.session_state.frase_actual + 1}/{total_f}")
-    st.info(f"📝 **Inglés:** {frase_obj['ingles']} | 🇪🇸 {frase_obj['español']}")
+    st.progress(st.session_state.frase_actual / total_f)
+    st.subheader(f"Frase {st.session_state.frase_actual + 1}/{total_f}")
     
-    audio_p = mic_recorder(start_prompt="🎙️ Grabar", key=f"p_{st.session_state.frase_actual}")
+    with st.container(border=True):
+        st.write(f"🇬🇧 **{frase_obj['ingles']}**"); st.write(f"🇪🇸 {frase_obj['español']}")
+        tts = gTTS(text=frase_obj['ingles'], lang='en'); fp = io.BytesIO(); tts.write_to_fp(fp); fp.seek(0); st.audio(fp)
+
+    audio_p = mic_recorder(start_prompt="🎙️ Grabar", key=f"p_{st.session_state.nivel_actual}_{st.session_state.frase_actual}")
     if audio_p and audio_p.get("id") != st.session_state.last_audio_id:
         st.session_state.last_audio_id = audio_p.get("id")
         dicho, prec = procesar_audio(audio_p['bytes'], frase_obj['ingles'])
@@ -111,56 +154,44 @@ elif st.session_state.fase == "practica":
     if "res_practica" in st.session_state:
         res = st.session_state.res_practica
         if res["prec"] >= 85:
-            st.success(f"✅ ¡Bien hecho! ({res['prec']}%)")
-            if st.button("➡️ SIGUIENTE"):
+            st.success(f"✅ ¡Correcto! ({res['prec']}%)")
+            if st.button("➡️ Siguiente"):
                 if st.session_state.frase_actual < total_f - 1: st.session_state.frase_actual += 1
                 else: st.session_state.fase = "examen"; st.session_state.pregunta_actual = 0
                 del st.session_state.res_practica; st.rerun()
-        else: st.error(f"❌ Intenta de nuevo ({res['prec']}%)")
+        else: st.error(f"❌ Precisión insuficiente ({res['prec']}%)")
 
-# --- FASE EXAMEN: CORRECCIÓN DE FEEDBACK Y RESULTADOS ---
 elif st.session_state.fase == "examen":
     total_ex = len(config['examen'])
     if st.session_state.examen_finalizado:
-        # PANTALLA DE RESULTADOS FINALES (YA NO TE MANDA AL VACÍO)
-        st.subheader("📊 Resultado Final del Examen")
-        nota = (st.session_state.respuestas_correctas / total_ex) * 100
-        st.metric("Puntaje", f"{nota:.0f}%", f"{st.session_state.respuestas_correctas}/{total_ex} correctas")
-
+        st.subheader("📊 Resultados")
         if st.session_state.respuestas_correctas == total_ex:
-            st.balloons(); st.success("🎊 ¡Felicidades! Has superado el nivel.")
-            if st.button("🚀 IR AL SIGUIENTE NIVEL"):
+            st.balloons(); st.success("🏆 ¡DOMINIO TOTAL! Nivel superado al 100%.")
+            if st.button("🚀 SIGUIENTE NIVEL"):
                 st.session_state.nivel_actual = niveles_list[indice_actual + 1]
                 st.session_state.fase = "explicacion"; st.session_state.examen_finalizado = False
                 st.session_state.respuestas_correctas = 0; st.session_state.pregunta_actual = 0; st.rerun()
         else:
-            st.error("😔 No superaste el examen. Debes volver a empezar la Fase de Práctica.")
-            if st.button("🔄 REINICIAR NIVEL"):
-                st.session_state.fase = "practica"; st.session_state.examen_finalizado = False
-                st.session_state.respuestas_correctas = 0; st.session_state.pregunta_actual = 0; st.session_state.frase_actual = 0; st.rerun()
+            st.error(f"No superaste el examen ({st.session_state.respuestas_correctas}/{total_ex}). Repite la práctica.")
+            if st.button("🔄 REPETIR PRÁCTICA"):
+                st.session_state.fase = "practica"; st.session_state.examen_finalizado = False; st.session_state.respuestas_correctas = 0; st.session_state.pregunta_actual = 0; st.session_state.frase_actual = 0; st.rerun()
     else:
         pregunta = config['examen'][st.session_state.pregunta_actual]
-        st.subheader(f"📝 Examen: Pregunta {st.session_state.pregunta_actual + 1}/{total_ex}")
-        st.info(f"**Traduce o responde:** {pregunta['pregunta']}")
-        
-        audio_ex = mic_recorder(start_prompt="🎙️ Responder", key=f"ex_{st.session_state.pregunta_actual}")
+        st.subheader(f"📝 Examen {st.session_state.pregunta_actual + 1}/{total_ex}"); st.info(f"**Traduce:** {pregunta['pregunta']}")
+        audio_ex = mic_recorder(start_prompt="🎙️ Responder", key=f"ex_{st.session_state.nivel_actual}_{st.session_state.pregunta_actual}")
         if audio_ex and audio_ex.get("id") != st.session_state.last_audio_id:
             st.session_state.last_audio_id = audio_ex.get("id")
             dicho, prec = procesar_audio(audio_ex['bytes'], pregunta['respuesta'])
             if dicho:
-                correcta = prec >= 75
+                correcta = prec >= 90
                 if correcta: st.session_state.respuestas_correctas += 1
                 st.session_state.res_examen = {"prec": prec, "texto": dicho, "correcta": correcta}
-
+        
         if "res_examen" in st.session_state:
             res = st.session_state.res_examen
-            if res["correcta"]: st.success(f"✅ ¡Correcta! ({res['prec']}%)")
-            else:
-                st.error(f"❌ Incorrecta ({res['prec']}%)")
-                with st.expander("👨‍🏫 Tip del Profesor"):
-                    st.write(mentor_ia_examen(pregunta['respuesta'], res['texto']))
-            
-            if st.button("➡️ CONTINUAR"):
+            if res["correcta"]: st.success("✅ Correcto")
+            else: st.error(f"❌ Incorrecto."); with st.expander("👨‍🏫 Tip"): st.write(mentor_ia(pregunta['respuesta'], res['texto']))
+            if st.button("➡️ Continuar"):
                 if st.session_state.pregunta_actual < total_ex - 1: st.session_state.pregunta_actual += 1
                 else: st.session_state.examen_finalizado = True
                 del st.session_state.res_examen; st.rerun()
