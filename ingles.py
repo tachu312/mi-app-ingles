@@ -118,388 +118,351 @@ CURRICULO = {
         "tema": "Saludos y Presentaciones Básicas",
         "objetivo": "Aprender a saludar y presentarse formalmente e informalmente",
         "duracion": "30-45 minutos",
-        "explicacion": """
-## 📚 LECCIÓN 1: Saludos y Presentaciones
-
-### 🎯 OBJETIVO DE LA LECCIÓN
-Al finalizar esta lección podrás:
-- ✅ Saludar en diferentes contextos (formal/informal)
-- ✅ Presentarte diciendo tu nombre
-- ✅ Preguntar el nombre de otras personas
-- ✅ Despedirte apropiadamente
-
----
-
-### 📖 GRAMÁTICA FUNDAMENTAL
-
-#### 1. ESTRUCTURA DE PRESENTACIÓN
-```
-Formal:   "My name is [nombre]"
-Informal: "I'm [nombre]"
-```
-
-**Ejemplos:**
-- My name is María → Mi nombre es María
-- I'm John → Soy John
-
-#### 2. PREGUNTAR EL NOMBRE
-```
-Formal:   "What is your name?"
-Informal: "What's your name?"
-```
-
-#### 3. SALUDOS POR HORARIO
-- **Good morning** → Buenos días (hasta las 12pm)
-- **Good afternoon** → Buenas tardes (12pm - 6pm)
-- **Good evening** → Buenas noches (después de 6pm)
-- **Hello / Hi** → Hola (cualquier momento)
-
----
-
-### 📝 VOCABULARIO CLAVE
-
-| Inglés | Español | Pronunciación |
-|--------|---------|---------------|
-| Hello | Hola | jelóu |
-| Hi | Hola (informal) | jái |
-| My | Mi/mis | mái |
-| Name | Nombre | néim |
-| I am | Yo soy/estoy | ái am |
-| You | Tú/usted | iú |
-| From | De/desde | from |
-| Nice | Agradable/lindo | náis |
-| Meet | Conocer/encontrar | míit |
-| Goodbye | Adiós | gudbái |
-
----
-
-### 💡 CONSEJOS DE PRONUNCIACIÓN
-
-1. **La "H" siempre se pronuncia** (como aspirada)
-   - Hello = JEH-loh (no "elo")
-   - Hi = JAI (no "i")
-
-2. **La "R" es suave**, no fuerte como en español
-   - Are = ar (suave, no "arre")
-
-3. **Las vocales son diferentes**
-   - "I" suena como "ai" → Nice = náis
-   - "E" puede sonar como "i" → Meet = míit
-
----
-
-### 🎭 SITUACIONES REALES
-
-**Situación 1: Conocer a alguien nuevo**
-```
-A: Hello! My name is Anna.
-B: Hi Anna! I'm Carlos. Nice to meet you.
-A: Nice to meet you too!
-```
-
-**Situación 2: Presentación formal**
-```
-A: Good morning. What is your name?
-B: Good morning. My name is Sofia Martinez.
-A: Where are you from?
-B: I am from Colombia.
-```
-
----
-
-### ⚠️ ERRORES COMUNES A EVITAR
-
-❌ "My name Anna" → ✅ "My name IS Anna"  
-❌ "I from Colombia" → ✅ "I AM from Colombia"  
-❌ "Nice meet you" → ✅ "Nice TO meet you"  
-
----
-
-### 📊 CRITERIOS DE EVALUACIÓN
-
-Para pasar al siguiente ejercicio necesitas:
-- ✅ Pronunciación ≥85% de precisión
-- ✅ Entonación natural
-- ✅ Fluidez sin pausas largas
-
-**¡Prepárate para practicar!** 💪
-""",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 1: Saludos</h3><p>Aprende a decir Hello, Hi, Good Morning y presentarte con 'My name is'.</p></div>""",
         "frases": [
-            {
-                "ingles": "Hello",
-                "español": "Hola",
-                "fonética": "jelóu",
-                "contexto": "Saludo universal - úsalo en cualquier situación",
-                "tip": "La H se pronuncia con aire, como si empañaras un vidrio"
-            },
-            {
-                "ingles": "My name is Anna",
-                "español": "Mi nombre es Anna",
-                "fonética": "mái néim is ána",
-                "contexto": "Presentación formal - úsalo en contextos profesionales",
-                "tip": "Enfatiza 'name' y 'Anna', son las palabras más importantes"
-            },
-            {
-                "ingles": "What is your name",
-                "español": "¿Cuál es tu nombre?",
-                "fonética": "uát is ior néim",
-                "contexto": "Para preguntar el nombre de alguien formalmente",
-                "tip": "La entonación sube al final porque es pregunta"
-            },
-            {
-                "ingles": "I am from Colombia",
-                "español": "Soy de Colombia",
-                "fonética": "ái am from colómbia",
-                "contexto": "Para indicar tu país de origen",
-                "tip": "Practica 'I am' como una sola palabra: áiam"
-            },
-            {
-                "ingles": "Nice to meet you",
-                "español": "Mucho gusto / Encantado de conocerte",
-                "fonética": "náis tu míit iú",
-                "contexto": "Respuesta educada al conocer a alguien",
-                "tip": "Es una frase fija, memorízala completa"
-            },
-            {
-                "ingles": "How are you",
-                "español": "¿Cómo estás?",
-                "fonética": "jáu ar iú",
-                "contexto": "Pregunta común para iniciar conversación",
-                "tip": "La 'r' en 'are' es muy suave, casi no se escucha"
-            },
-            {
-                "ingles": "I am fine thank you",
-                "español": "Estoy bien, gracias",
-                "fonética": "ái am fáin zánk iú",
-                "contexto": "Respuesta estándar a 'How are you?'",
-                "tip": "'Thank' lleva TH, saca un poco la lengua entre los dientes"
-            },
-            {
-                "ingles": "Good morning",
-                "español": "Buenos días",
-                "fonética": "gud mórnin",
-                "contexto": "Saludo antes del mediodía",
-                "tip": "La 'g' de 'good' es suave, no como 'gato'"
-            },
-            {
-                "ingles": "Where are you from",
-                "español": "¿De dónde eres?",
-                "fonética": "uér ar iú from",
-                "contexto": "Para preguntar el origen de alguien",
-                "tip": "Enfatiza 'where' y 'from'"
-            },
-            {
-                "ingles": "Goodbye see you later",
-                "español": "Adiós, nos vemos luego",
-                "fonética": "gudbái si iú léiter",
-                "contexto": "Despedida informal con expectativa de verse pronto",
-                "tip": "'Later' rima con 'waiter' (mesero)"
-            }
+            {"ingles": "Hello", "español": "Hola", "fonética": "jelóu", "contexto": "Saludo universal", "tip": "H aspirada"},
+            {"ingles": "My name is Anna", "español": "Mi nombre es Anna", "fonética": "mái néim is ána", "contexto": "Presentación formal", "tip": "Enfatiza name"},
+            {"ingles": "What is your name", "español": "¿Cuál es tu nombre?", "fonética": "uát is ior néim", "contexto": "Pregunta formal", "tip": "Entonación sube"},
+            {"ingles": "I am from Colombia", "español": "Soy de Colombia", "fonética": "ái am from colómbia", "contexto": "Origen", "tip": "I am junto"},
+            {"ingles": "Nice to meet you", "español": "Mucho gusto", "fonética": "náis tu míit iú", "contexto": "Saludo cortés", "tip": "Frase fija"},
+            {"ingles": "How are you", "español": "¿Cómo estás?", "fonética": "jáu ar iú", "contexto": "Saludo común", "tip": "R suave"},
+            {"ingles": "I am fine thank you", "español": "Estoy bien, gracias", "fonética": "ái am fáin zánk iú", "contexto": "Respuesta estándar", "tip": "TH lengua dientes"},
+            {"ingles": "Good morning", "español": "Buenos días", "fonética": "gud mórnin", "contexto": "Mañana", "tip": "G suave"},
+            {"ingles": "Where are you from", "español": "¿De dónde eres?", "fonética": "uér ar iú from", "contexto": "Preguntar origen", "tip": "Enfatiza where"},
+            {"ingles": "Goodbye see you later", "español": "Adiós, nos vemos luego", "fonética": "gudbái si iú léiter", "contexto": "Despedida", "tip": "Later rima con waiter"}
         ],
         "examen": [
-            {
-                "pregunta": "¿Cómo saludas formalmente en inglés?",
-                "respuesta": "Hello",
-                "explicacion": "Hello es el saludo más formal y universal"
-            },
-            {
-                "pregunta": "¿Cómo te presentas diciendo tu nombre formalmente?",
-                "respuesta": "My name is",
-                "explicacion": "My name is [nombre] es la forma más formal de presentarse"
-            },
-            {
-                "pregunta": "Di 'Mucho gusto' en inglés",
-                "respuesta": "Nice to meet you",
-                "explicacion": "Nice to meet you es la expresión estándar"
-            },
-            {
-                "pregunta": "¿Cómo preguntas '¿Cómo estás?' en inglés?",
-                "respuesta": "How are you",
-                "explicacion": "How are you es la forma más común y neutral"
-            },
-            {
-                "pregunta": "Responde 'Estoy bien, gracias' en inglés",
-                "respuesta": "I am fine thank you",
-                "explicacion": "I am fine thank you es la respuesta formal estándar"
-            }
+            {"pregunta": "¿Cómo saludas formalmente?", "respuesta": "Hello", "explicacion": "Hello es formal"},
+            {"pregunta": "Preséntate formalmente", "respuesta": "My name is", "explicacion": "My name is..."},
+            {"pregunta": "Di 'Mucho gusto'", "respuesta": "Nice to meet you", "explicacion": "Estándar"},
+            {"pregunta": "¿Cómo preguntas '¿Cómo estás?'", "respuesta": "How are you", "explicacion": "Común"},
+            {"pregunta": "Responde 'Estoy bien gracias'", "respuesta": "I am fine thank you", "explicacion": "Formal"}
         ],
-        "umbral_practica": 85,
-        "umbral_examen": 80
+        "umbral_practica": 85, "umbral_examen": 80
     },
     
     "A1.2": {
         "tema": "Verbo TO BE (am/is/are)",
         "objetivo": "Dominar el verbo más importante del inglés",
         "duracion": "45-60 minutos",
-        "explicacion": """
-## 📚 LECCIÓN 2: Verbo TO BE
-
-### 🎯 OBJETIVO DE LA LECCIÓN
-Al finalizar podrás:
-- ✅ Usar correctamente I am, You are, He/She is
-- ✅ Formar oraciones afirmativas y negativas
-- ✅ Hacer preguntas con el verbo to be
-- ✅ Describir personas, lugares y estados
-
----
-
-### 📖 CONJUGACIÓN COMPLETA
-
-| Sujeto | Verbo | Contracción | Negativo |
-|--------|-------|-------------|----------|
-| I | am | I'm | I'm not |
-| You | are | You're | You aren't |
-| He | is | He's | He isn't |
-| She | is | She's | She isn't |
-| It | is | It's | It isn't |
-| We | are | We're | We aren't |
-| They | are | They're | They aren't |
-
----
-
-### 🎯 USOS DEL VERBO TO BE
-
-**A) IDENTIDAD** (quién eres)
-- I am a student → Soy estudiante
-
-**B) UBICACIÓN** (dónde estás)
-- I am in Colombia → Estoy en Colombia
-
-**C) ESTADO** (cómo estás)
-- I am happy → Estoy feliz
-
-**D) DESCRIPCIÓN** (características)
-- She is tall → Ella es alta
-
----
-
-### 💡 DIFERENCIAS CON EL ESPAÑOL
-
-1. **En inglés SIEMPRE necesitas el verbo**
-   - ❌ I student → ✅ I AM a student
-
-2. **"Estar" y "Ser" = TO BE**
-   - Soy alto → I AM tall
-   - Estoy cansado → I AM tired
-
-3. **El sujeto es OBLIGATORIO**
-   - ❌ Am a student → ✅ I AM a student
-
----
-
-### ⚠️ ERRORES COMUNES
-
-❌ They is students → ✅ They ARE students  
-❌ He am tall → ✅ He IS tall  
-❌ She happy → ✅ She IS happy
-
----
-
-### 📊 CRITERIOS DE DOMINIO
-
-Precisión ≥85% para avanzar
-""",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 2: Verbo TO BE</h3><p>Usa I am, You are, She is para describir personas y estados.</p></div>""",
         "frases": [
-            {
-                "ingles": "I am a student",
-                "español": "Soy un estudiante",
-                "fonética": "ái am a stiúdent",
-                "contexto": "Para identificar tu ocupación",
-                "tip": "Contracción natural: I'm a student"
-            },
-            {
-                "ingles": "You are my friend",
-                "español": "Eres mi amigo",
-                "fonética": "iú ar mái frend",
-                "contexto": "Expresar relación con otra persona",
-                "tip": "You're my friend suena más natural"
-            },
-            {
-                "ingles": "She is a teacher",
-                "español": "Ella es una profesora",
-                "fonética": "shi is a tícher",
-                "contexto": "Describir profesión (mujer)",
-                "tip": "She's a teacher en conversación"
-            },
-            {
-                "ingles": "He is tall",
-                "español": "Él es alto",
-                "fonética": "ji is tol",
-                "contexto": "Describir características físicas",
-                "tip": "La 'l' final es importante"
-            },
-            {
-                "ingles": "It is a book",
-                "español": "Es un libro",
-                "fonética": "it is a buk",
-                "contexto": "Identificar objetos",
-                "tip": "It's a book - muy común"
-            },
-            {
-                "ingles": "We are happy",
-                "español": "Estamos felices",
-                "fonética": "uí ar jápi",
-                "contexto": "Expresar estados emocionales",
-                "tip": "La 'pp' en happy con fuerza"
-            },
-            {
-                "ingles": "They are from Spain",
-                "español": "Ellos son de España",
-                "fonética": "déi ar from spéin",
-                "contexto": "Indicar origen de varias personas",
-                "tip": "'They' suena como 'day'"
-            },
-            {
-                "ingles": "I am not tired",
-                "español": "No estoy cansado",
-                "fonética": "ái am not táierd",
-                "contexto": "Negar un estado",
-                "tip": "I'm not tired - más natural"
-            },
-            {
-                "ingles": "Are you ready",
-                "español": "¿Estás listo?",
-                "fonética": "ar iú rédi",
-                "contexto": "Pregunta sobre preparación",
-                "tip": "La entonación sube al final"
-            },
-            {
-                "ingles": "This is my house",
-                "español": "Esta es mi casa",
-                "fonética": "dis is mái jáus",
-                "contexto": "Presentar algo que te pertenece",
-                "tip": "'This' con 'th' - lengua entre dientes"
-            }
+            {"ingles": "I am a student", "español": "Soy estudiante", "fonética": "ái am a stiúdent", "contexto": "Ocupación", "tip": "I'm"},
+            {"ingles": "You are my friend", "español": "Eres mi amigo", "fonética": "iú ar mái frend", "contexto": "Relación", "tip": "You're"},
+            {"ingles": "She is a teacher", "español": "Ella es profesora", "fonética": "shi is a tícher", "contexto": "Profesión", "tip": "She's"},
+            {"ingles": "He is tall", "español": "Él es alto", "fonética": "ji is tol", "contexto": "Descripción", "tip": "L final"},
+            {"ingles": "It is a book", "español": "Es un libro", "fonética": "it is a buk", "contexto": "Objeto", "tip": "It's"},
+            {"ingles": "We are happy", "español": "Estamos felices", "fonética": "uí ar jápi", "contexto": "Emoción", "tip": "H fuerte"},
+            {"ingles": "They are from Spain", "español": "Son de España", "fonética": "déi ar from spéin", "contexto": "Origen", "tip": "They=Day"},
+            {"ingles": "I am not tired", "español": "No estoy cansado", "fonética": "ái am not táierd", "contexto": "Negación", "tip": "Not"},
+            {"ingles": "Are you ready", "español": "¿Estás listo?", "fonética": "ar iú rédi", "contexto": "Pregunta", "tip": "Sube tono"},
+            {"ingles": "This is my house", "español": "Esta es mi casa", "fonética": "dis is mái jáus", "contexto": "Posesión", "tip": "This=Dis"}
         ],
         "examen": [
-            {
-                "pregunta": "Completa: I ___ a student",
-                "respuesta": "am",
-                "explicacion": "Con 'I' siempre usamos 'am'"
-            },
-            {
-                "pregunta": "Completa: She ___ happy",
-                "respuesta": "is",
-                "explicacion": "Con She/He/It usamos 'is'"
-            },
-            {
-                "pregunta": "Completa: They ___ friends",
-                "respuesta": "are",
-                "explicacion": "Con They/We/You usamos 'are'"
-            },
-            {
-                "pregunta": "Di 'Él es alto' en inglés",
-                "respuesta": "He is tall",
-                "explicacion": "He is tall - describir altura"
-            },
-            {
-                "pregunta": "Pregunta '¿Estás listo?' en inglés",
-                "respuesta": "Are you ready",
-                "explicacion": "Orden invertido para pregunta"
-            }
+            {"pregunta": "Completa: I ___ a student", "respuesta": "am", "explicacion": "I am"},
+            {"pregunta": "Completa: She ___ happy", "respuesta": "is", "explicacion": "She is"},
+            {"pregunta": "Completa: They ___ friends", "respuesta": "are", "explicacion": "They are"},
+            {"pregunta": "Di 'Él es alto'", "respuesta": "He is tall", "explicacion": "He is"},
+            {"pregunta": "Pregunta '¿Estás listo?'", "respuesta": "Are you ready", "explicacion": "Invertido"}
         ],
-        "umbral_practica": 85,
-        "umbral_examen": 80
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A1.3": {
+        "tema": "Artículos (a/an/the) y Pronombres",
+        "objetivo": "Usar correctamente artículos y pronombres",
+        "duracion": "40 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 3: Artículos</h3><p>A/An para uno, The para específico. Pronombres: My, Your, His, Her.</p></div>""",
+        "frases": [
+            {"ingles": "This is a pen", "español": "Este es un bolígrafo", "fonética": "dis is a pen", "contexto": "Objeto común", "tip": "A pen"},
+            {"ingles": "That is an orange", "español": "Eso es una naranja", "fonética": "dat is an óranch", "contexto": "Vocal", "tip": "An orange"},
+            {"ingles": "The book is red", "español": "El libro es rojo", "fonética": "de buk is red", "contexto": "Específico", "tip": "The=De"},
+            {"ingles": "My car is new", "español": "Mi carro es nuevo", "fonética": "mái car is niú", "contexto": "Posesivo", "tip": "My"},
+            {"ingles": "Your phone is here", "español": "Tu teléfono está aquí", "fonética": "ior fón is jír", "contexto": "Ubicación", "tip": "Here=Jír"},
+            {"ingles": "His name is John", "español": "Su nombre es John", "fonética": "jis néim is yon", "contexto": "De él", "tip": "His"},
+            {"ingles": "Her house is big", "español": "Su casa es grande", "fonética": "jer jáus is big", "contexto": "De ella", "tip": "Her"},
+            {"ingles": "It is a dog", "español": "Es un perro", "fonética": "it is a dog", "contexto": "Animal", "tip": "It"},
+            {"ingles": "We have a cat", "español": "Tenemos un gato", "fonética": "uí jav a cat", "contexto": "Posesión pl", "tip": "Have"},
+            {"ingles": "They are our friends", "español": "Son nuestros amigos", "fonética": "déi ar áuar frends", "contexto": "Plural", "tip": "Our"}
+        ],
+        "examen": [
+            {"pregunta": "Artículo para 'apple'", "respuesta": "an", "explicacion": "Vocal"},
+            {"pregunta": "Di 'El libro es rojo'", "respuesta": "The book is red", "explicacion": "The"},
+            {"pregunta": "Di 'Mi carro'", "respuesta": "My car", "explicacion": "My"},
+            {"pregunta": "Completa: ___ is a dog", "respuesta": "It", "explicacion": "It"},
+            {"pregunta": "Di 'Su casa' (ella)", "respuesta": "Her house", "explicacion": "Her"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A1.4": {
+        "tema": "Números, Cantidades y Fechas",
+        "objetivo": "Contar y decir cantidades",
+        "duracion": "40 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 4: Números</h3><p>One, two, three... How much? How many?</p></div>""",
+        "frases": [
+            {"ingles": "I am twenty five years old", "español": "Tengo 25 años", "fonética": "ái am tuénti fáiv yírs old", "contexto": "Edad", "tip": "Years old"},
+            {"ingles": "There are ten people", "español": "Hay diez personas", "fonética": "der ar ten pípol", "contexto": "Cantidad", "tip": "There are"},
+            {"ingles": "I have three cats", "español": "Tengo tres gatos", "fonética": "ái jav zrí cats", "contexto": "Mascotas", "tip": "Three=Zrí"},
+            {"ingles": "The price is fifteen dollars", "español": "Son quince dólares", "fonética": "de práis is fiftín dólars", "contexto": "Precio", "tip": "Fifteen"},
+            {"ingles": "She has two brothers", "español": "Tiene dos hermanos", "fonética": "shi jas tu bróders", "contexto": "Familia", "tip": "Two"},
+            {"ingles": "We need five chairs", "español": "Necesitamos 5 sillas", "fonética": "uí níd fáiv chérs", "contexto": "Necesidad", "tip": "Five"},
+            {"ingles": "It costs twenty dollars", "español": "Cuesta 20 dólares", "fonética": "it costs tuénti dólars", "contexto": "Costo", "tip": "Twenty"},
+            {"ingles": "I work eight hours", "español": "Trabajo 8 horas", "fonética": "ái uórk éit áuers", "contexto": "Tiempo", "tip": "Eight=Eit"},
+            {"ingles": "There are seven days", "español": "Hay 7 días", "fonética": "der ar séven déis", "contexto": "Semana", "tip": "Seven"},
+            {"ingles": "I have one hundred dollars", "español": "Tengo 100 dólares", "fonética": "ái jav uan jándred dólars", "contexto": "Dinero", "tip": "Hundred"}
+        ],
+        "examen": [
+            {"pregunta": "Di 'cinco'", "respuesta": "five", "explicacion": "5"},
+            {"pregunta": "Di 'Tengo 20 años'", "respuesta": "I am twenty years old", "explicacion": "Age"},
+            {"pregunta": "Di 'Tres gatos'", "respuesta": "three cats", "explicacion": "3"},
+            {"pregunta": "Di 'diez'", "respuesta": "ten", "explicacion": "10"},
+            {"pregunta": "Completa: It costs ___ dollars (15)", "respuesta": "fifteen", "explicacion": "15"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A1.5": {
+        "tema": "Días, Meses y Horarios",
+        "objetivo": "Decir la fecha y la hora",
+        "duracion": "40 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 5: Tiempo</h3><p>Monday, Tuesday... January, February... What time is it?</p></div>""",
+        "frases": [
+            {"ingles": "Today is Monday", "español": "Hoy es lunes", "fonética": "tudéi is mándei", "contexto": "Día", "tip": "Monday"},
+            {"ingles": "My birthday is in May", "español": "Mi cumple es en mayo", "fonética": "mái bérzdei is in méi", "contexto": "Mes", "tip": "In May"},
+            {"ingles": "What time is it", "español": "¿Qué hora es?", "fonética": "uát táim is it", "contexto": "Pregunta", "tip": "Time"},
+            {"ingles": "It is three o clock", "español": "Son las 3 en punto", "fonética": "it is zrí o clok", "contexto": "Hora", "tip": "O'clock"},
+            {"ingles": "I wake up at six", "español": "Me despierto a las 6", "fonética": "ái uéik ap at siks", "contexto": "Rutina", "tip": "At six"},
+            {"ingles": "The class starts at nine", "español": "La clase empieza a las 9", "fonética": "de clas starts at náin", "contexto": "Horario", "tip": "Nine"},
+            {"ingles": "We work from Monday to Friday", "español": "Trabajamos lun a vie", "fonética": "uí uórk from mándei tu fráidei", "contexto": "Rango", "tip": "From-To"},
+            {"ingles": "Christmas is in December", "español": "Navidad es en diciembre", "fonética": "crísmas is in disémber", "contexto": "Festivo", "tip": "December"},
+            {"ingles": "See you on Saturday", "español": "Nos vemos el sábado", "fonética": "si iú on sáterdei", "contexto": "Cita", "tip": "On Saturday"},
+            {"ingles": "The meeting is at two thirty", "español": "La reunión es 2:30", "fonética": "de mítin is at tu zérti", "contexto": "Reunión", "tip": "Thirty"}
+        ],
+        "examen": [
+            {"pregunta": "Di 'lunes'", "respuesta": "Monday", "explicacion": "Día"},
+            {"pregunta": "Pregunta la hora", "respuesta": "What time is it", "explicacion": "Hora"},
+            {"pregunta": "Di 'Son las 3'", "respuesta": "It is three o clock", "explicacion": "3:00"},
+            {"pregunta": "Di 'mayo'", "respuesta": "May", "explicacion": "Mes"},
+            {"pregunta": "Completa: at ___ (6)", "respuesta": "six", "explicacion": "6"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A1.6": {
+        "tema": "Familia y Relaciones",
+        "objetivo": "Hablar de la familia",
+        "duracion": "40 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 6: Familia</h3><p>Father, Mother, Brother, Sister, Son, Daughter.</p></div>""",
+        "frases": [
+            {"ingles": "This is my father", "español": "Este es mi padre", "fonética": "dis is mái fáder", "contexto": "Presentación", "tip": "Father"},
+            {"ingles": "I have two brothers", "español": "Tengo 2 hermanos", "fonética": "ái jav tu bróders", "contexto": "Cantidad", "tip": "Brothers"},
+            {"ingles": "My sister is a doctor", "español": "Mi hermana es doctora", "fonética": "mái síster is a dóctor", "contexto": "Profesión", "tip": "Sister"},
+            {"ingles": "Her husband is tall", "español": "Su esposo es alto", "fonética": "jer jásband is tol", "contexto": "Esposo", "tip": "Husband"},
+            {"ingles": "My mother cooks well", "español": "Mi madre cocina bien", "fonética": "mái máder cuks uél", "contexto": "Madre", "tip": "Mother"},
+            {"ingles": "I love my family", "español": "Amo a mi familia", "fonética": "ái lav mái fámili", "contexto": "Sentimiento", "tip": "Family"},
+            {"ingles": "My parents live in Colombia", "español": "Mis padres viven en Colombia", "fonética": "mái pérents liv in colómbia", "contexto": "Padres", "tip": "Parents"},
+            {"ingles": "She has one daughter", "español": "Tiene una hija", "fonética": "shi jas uan dóter", "contexto": "Hija", "tip": "Daughter"},
+            {"ingles": "We are a big family", "español": "Somos familia grande", "fonética": "uí ar a big fámili", "contexto": "Descripción", "tip": "Big"},
+            {"ingles": "My grandparents are old", "español": "Mis abuelos son viejos", "fonética": "mái grándpérents ar old", "contexto": "Abuelos", "tip": "Grandparents"}
+        ],
+        "examen": [
+            {"pregunta": "Di 'padre'", "respuesta": "father", "explicacion": "Papá"},
+            {"pregunta": "Di 'Tengo 2 hermanos'", "respuesta": "I have two brothers", "explicacion": "Hermanos"},
+            {"pregunta": "Di 'hermana'", "respuesta": "sister", "explicacion": "Sister"},
+            {"pregunta": "Completa: My ___ (madre)", "respuesta": "mother", "explicacion": "Mamá"},
+            {"pregunta": "Di 'Mi familia'", "respuesta": "My family", "explicacion": "Familia"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A2.1": {
+        "tema": "Presente Simple - Rutinas",
+        "objetivo": "Hablar de hábitos",
+        "duracion": "50 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 7: Rutinas</h3><p>I work, She works (add S), I don't work, Do you work?</p></div>""",
+        "frases": [
+            {"ingles": "I wake up at seven", "español": "Despierto a las 7", "fonética": "ái uéik ap at séven", "contexto": "Rutina", "tip": "Wake up"},
+            {"ingles": "She drinks coffee every day", "español": "Ella toma café diario", "fonética": "shi drinks cófi évri déi", "contexto": "Hábito 3ra", "tip": "Drinks"},
+            {"ingles": "We go to work by bus", "español": "Vamos en bus", "fonética": "uí góu tu uórk bái bas", "contexto": "Transporte", "tip": "Go"},
+            {"ingles": "He plays soccer on weekends", "español": "Juega fútbol findes", "fonética": "ji pléis sóker on uíkends", "contexto": "Deporte", "tip": "Plays"},
+            {"ingles": "They study English", "español": "Estudian inglés", "fonética": "déi stádi ínglish", "contexto": "Estudio", "tip": "Study"},
+            {"ingles": "I do not like vegetables", "español": "No me gustan verduras", "fonética": "ái du not láik véyetabols", "contexto": "Gustos neg", "tip": "Don't"},
+            {"ingles": "She does not work here", "español": "No trabaja aquí", "fonética": "shi das not uórk jír", "contexto": "Neg 3ra", "tip": "Doesn't"},
+            {"ingles": "Do you speak Spanish", "español": "¿Hablas español?", "fonética": "du iú spík spánish", "contexto": "Pregunta", "tip": "Do"},
+            {"ingles": "Does he live in Madrid", "español": "¿Vive en Madrid?", "fonética": "das ji liv in mádrid", "contexto": "Pregunta 3ra", "tip": "Does"},
+            {"ingles": "We always eat breakfast", "español": "Siempre desayunamos", "fonética": "uí ólueis ít brékfast", "contexto": "Frecuencia", "tip": "Always"}
+        ],
+        "examen": [
+            {"pregunta": "Completa: She ___ coffee (drink)", "respuesta": "drinks", "explicacion": "+S"},
+            {"pregunta": "Negativo: I ___ like", "respuesta": "do not", "explicacion": "Don't"},
+            {"pregunta": "Pregunta: ___ you speak?", "respuesta": "Do", "explicacion": "Do"},
+            {"pregunta": "Di 'Ella trabaja aquí'", "respuesta": "She works here", "explicacion": "Works"},
+            {"pregunta": "Negativo: He ___ work", "respuesta": "doesn't", "explicacion": "Doesn't"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A2.2": {
+        "tema": "Pasado Simple Regular",
+        "objetivo": "Verbos con ED",
+        "duracion": "50 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 8: Pasado Regular</h3><p>Work -> Worked, Play -> Played. Did you work? I didn't work.</p></div>""",
+        "frases": [
+            {"ingles": "I worked yesterday", "español": "Trabajé ayer", "fonética": "ái uórkt yésterdei", "contexto": "Trabajo", "tip": "Worked"},
+            {"ingles": "She studied English", "español": "Estudió inglés", "fonética": "shi stádid ínglish", "contexto": "Estudio", "tip": "Studied"},
+            {"ingles": "We played soccer", "español": "Jugamos fútbol", "fonética": "uí pléid sóker", "contexto": "Juego", "tip": "Played"},
+            {"ingles": "They visited Paris", "español": "Visitaron París", "fonética": "déi vísited páris", "contexto": "Viaje", "tip": "Visited"},
+            {"ingles": "I watched a movie", "español": "Vi una película", "fonética": "ái uócht a múvi", "contexto": "TV", "tip": "Watched"},
+            {"ingles": "He cooked dinner", "español": "Cocinó cena", "fonética": "ji cukt díner", "contexto": "Cocina", "tip": "Cooked"},
+            {"ingles": "I did not work", "español": "No trabajé", "fonética": "ái did not uórk", "contexto": "Negativo", "tip": "Didn't"},
+            {"ingles": "Did you study", "español": "¿Estudiaste?", "fonética": "did iú stádi", "contexto": "Pregunta", "tip": "Did"},
+            {"ingles": "We lived in Spain", "español": "Vivimos en España", "fonética": "uí livd in spéin", "contexto": "Vivir", "tip": "Lived"},
+            {"ingles": "She called me yesterday", "español": "Me llamó ayer", "fonética": "shi cold mi yésterdei", "contexto": "Llamada", "tip": "Called"}
+        ],
+        "examen": [
+            {"pregunta": "Pasado de work", "respuesta": "worked", "explicacion": "ED"},
+            {"pregunta": "Di 'Trabajé ayer'", "respuesta": "I worked yesterday", "explicacion": "Pasado"},
+            {"pregunta": "Negativo: I ___ work", "respuesta": "didn't", "explicacion": "Didn't"},
+            {"pregunta": "Pregunta: ___ you study?", "respuesta": "Did", "explicacion": "Did"},
+            {"pregunta": "Pasado de play", "respuesta": "played", "explicacion": "ED"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A2.3": {
+        "tema": "Pasado Simple Irregular",
+        "objetivo": "Verbos que cambian",
+        "duracion": "50 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 9: Pasado Irregular</h3><p>Go->Went, Have->Had, Do->Did, See->Saw.</p></div>""",
+        "frases": [
+            {"ingles": "I went to the park", "español": "Fui al parque", "fonética": "ái uent tu de park", "contexto": "Ir", "tip": "Went"},
+            {"ingles": "She had breakfast", "español": "Ella desayunó", "fonética": "shi jad brékfast", "contexto": "Tener", "tip": "Had"},
+            {"ingles": "We saw a movie", "español": "Vimos película", "fonética": "uí so a múvi", "contexto": "Ver", "tip": "Saw"},
+            {"ingles": "They ate pizza", "español": "Comieron pizza", "fonética": "déi éit pítsa", "contexto": "Comer", "tip": "Ate"},
+            {"ingles": "I drank water", "español": "Bebí agua", "fonética": "ái drank uóter", "contexto": "Beber", "tip": "Drank"},
+            {"ingles": "He came home late", "español": "Llegó tarde", "fonética": "ji kéim jóum léit", "contexto": "Venir", "tip": "Came"},
+            {"ingles": "She said yes", "español": "Dijo sí", "fonética": "shi sed yes", "contexto": "Decir", "tip": "Said"},
+            {"ingles": "I made a cake", "español": "Hice pastel", "fonética": "ái méid a kéik", "contexto": "Hacer", "tip": "Made"},
+            {"ingles": "We got a gift", "español": "Recibimos regalo", "fonética": "uí got a gift", "contexto": "Obtener", "tip": "Got"},
+            {"ingles": "They did homework", "español": "Hicieron tarea", "fonética": "déi did jómuork", "contexto": "Hacer", "tip": "Did"}
+        ],
+        "examen": [
+            {"pregunta": "Pasado de Go", "respuesta": "went", "explicacion": "Went"},
+            {"pregunta": "Di 'Fui al parque'", "respuesta": "I went to the park", "explicacion": "Went"},
+            {"pregunta": "Pasado de Eat", "respuesta": "ate", "explicacion": "Ate"},
+            {"pregunta": "Pasado de See", "respuesta": "saw", "explicacion": "Saw"},
+            {"pregunta": "Di 'Ella tuvo suerte' (had)", "respuesta": "She had luck", "explicacion": "Had"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "A2.4": {
+        "tema": "Futuro (Will / Going to)",
+        "objetivo": "Planes y predicciones",
+        "duracion": "50 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 10: Futuro</h3><p>Will (espontáneo), Going to (plan). I will help, I am going to travel.</p></div>""",
+        "frases": [
+            {"ingles": "I will help you", "español": "Te ayudaré", "fonética": "ái uil jelp iú", "contexto": "Ayuda", "tip": "Will"},
+            {"ingles": "She is going to travel", "español": "Va a viajar", "fonética": "shi is góin tu trável", "contexto": "Plan", "tip": "Going to"},
+            {"ingles": "It will rain tomorrow", "español": "Lloverá mañana", "fonética": "it uil réin tumórou", "contexto": "Clima", "tip": "Will"},
+            {"ingles": "We are going to study", "español": "Vamos a estudiar", "fonética": "uí ar góin tu stádi", "contexto": "Plan", "tip": "Going to"},
+            {"ingles": "They will arrive soon", "español": "Llegarán pronto", "fonética": "déi uil aráiv sun", "contexto": "Llegada", "tip": "Will"},
+            {"ingles": "I am going to buy a car", "español": "Voy a comprar carro", "fonética": "ái am góin tu bái a car", "contexto": "Compra", "tip": "Going to"},
+            {"ingles": "He will call you", "español": "Te llamará", "fonética": "ji uil col iú", "contexto": "Promesa", "tip": "Will"},
+            {"ingles": "We will not go", "español": "No iremos", "fonética": "uí uil not góu", "contexto": "Negativo", "tip": "Won't"},
+            {"ingles": "Are you going to come", "español": "¿Vas a venir?", "fonética": "ar iú góin tu cam", "contexto": "Pregunta", "tip": "Going to"},
+            {"ingles": "It is going to snow", "español": "Va a nevar", "fonética": "it is góin tu snóu", "contexto": "Predicción", "tip": "Going to"}
+        ],
+        "examen": [
+            {"pregunta": "Completa: I ___ help you", "respuesta": "will", "explicacion": "Will"},
+            {"pregunta": "Di 'Voy a estudiar'", "respuesta": "I am going to study", "explicacion": "Going to"},
+            {"pregunta": "Futuro de rain (will)", "respuesta": "will rain", "explicacion": "Will"},
+            {"pregunta": "Negativo: We ___ not go", "respuesta": "will", "explicacion": "Will"},
+            {"pregunta": "Pregunta: ___ you going to?", "respuesta": "Are", "explicacion": "Are"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "B1.1": {
+        "tema": "Presente Perfecto",
+        "objetivo": "Experiencias (Have/Has + Participio)",
+        "duracion": "60 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 11: Presente Perfecto</h3><p>I have worked, She has eaten. Ever, Never, Just, Yet.</p></div>""",
+        "frases": [
+            {"ingles": "I have been to Paris", "español": "He estado en París", "fonética": "ái jav bin tu páris", "contexto": "Experiencia", "tip": "Have been"},
+            {"ingles": "She has just arrived", "español": "Acaba de llegar", "fonética": "shi jas yast aráivd", "contexto": "Reciente", "tip": "Has just"},
+            {"ingles": "Have you ever tried sushi", "español": "¿Alguna vez sushi?", "fonética": "jav iú éver tráid súshi", "contexto": "Pregunta", "tip": "Ever"},
+            {"ingles": "I have never seen snow", "español": "Nunca vi nieve", "fonética": "ái jav néver sin snóu", "contexto": "Nunca", "tip": "Never"},
+            {"ingles": "We have lived here for five years", "español": "Vivimos aquí 5 años", "fonética": "uí jav livd jir for fáiv yírs", "contexto": "Duración", "tip": "For"},
+            {"ingles": "He has worked since Monday", "español": "Trabaja desde el lunes", "fonética": "ji jas uórkt sins mándei", "contexto": "Inicio", "tip": "Since"},
+            {"ingles": "They have already eaten", "español": "Ya comieron", "fonética": "déi jav olrédi íten", "contexto": "Ya", "tip": "Already"},
+            {"ingles": "I have not finished yet", "español": "No terminé aún", "fonética": "ái jav not fínisht yet", "contexto": "Aún", "tip": "Yet"},
+            {"ingles": "She has lost her keys", "español": "Perdió llaves", "fonética": "shi jas lost jer kíis", "contexto": "Efecto", "tip": "Lost"},
+            {"ingles": "Have they arrived yet", "español": "¿Ya llegaron?", "fonética": "jav déi aráivd yet", "contexto": "Pregunta", "tip": "Yet"}
+        ],
+        "examen": [
+            {"pregunta": "Completa: I ___ been", "respuesta": "have", "explicacion": "Have"},
+            {"pregunta": "Completa: She ___ just", "respuesta": "has", "explicacion": "Has"},
+            {"pregunta": "Di 'He estado en París'", "respuesta": "I have been to Paris", "explicacion": "Have been"},
+            {"pregunta": "Completa: lived ___ 5 years", "respuesta": "for", "explicacion": "For"},
+            {"pregunta": "Pregunta: ___ you ever?", "respuesta": "Have", "explicacion": "Have"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "B1.2": {
+        "tema": "Modales (Can, Could, Should, Must)",
+        "objetivo": "Poder, deber, consejo",
+        "duracion": "60 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 12: Modales</h3><p>Can (poder), Could (podría), Should (consejo), Must (obligación).</p></div>""",
+        "frases": [
+            {"ingles": "I can speak English", "español": "Puedo hablar inglés", "fonética": "ái can spík ínglish", "contexto": "Habilidad", "tip": "Can"},
+            {"ingles": "She could help you", "español": "Podría ayudarte", "fonética": "shi cud jelp iú", "contexto": "Posibilidad", "tip": "Could"},
+            {"ingles": "You should study more", "español": "Deberías estudiar", "fonética": "iú shud stádi mor", "contexto": "Consejo", "tip": "Should"},
+            {"ingles": "I must go now", "español": "Debo irme", "fonética": "ái mast góu náu", "contexto": "Obligación", "tip": "Must"},
+            {"ingles": "Can you swim", "español": "¿Puedes nadar?", "fonética": "can iú suím", "contexto": "Pregunta", "tip": "Can"},
+            {"ingles": "I cannot drive", "español": "No puedo conducir", "fonética": "ái cánot dráiv", "contexto": "Negativo", "tip": "Cannot"},
+            {"ingles": "We should not lie", "español": "No deberíamos mentir", "fonética": "uí shúdnt lái", "contexto": "Consejo neg", "tip": "Shouldn't"},
+            {"ingles": "Could I ask a question", "español": "¿Podría preguntar?", "fonética": "cud ái ask a cuéschen", "contexto": "Permiso", "tip": "Could"},
+            {"ingles": "You must wear a seatbelt", "español": "Debes usar cinturón", "fonética": "iú mast uér a sítbelt", "contexto": "Ley", "tip": "Must"},
+            {"ingles": "She can play the piano", "español": "Puede tocar piano", "fonética": "shi can pléi de piáno", "contexto": "Habilidad", "tip": "Can"}
+        ],
+        "examen": [
+            {"pregunta": "Completa: I ___ speak (habilidad)", "respuesta": "can", "explicacion": "Can"},
+            {"pregunta": "Consejo: You ___ study", "respuesta": "should", "explicacion": "Should"},
+            {"pregunta": "Obligación: I ___ go", "respuesta": "must", "explicacion": "Must"},
+            {"pregunta": "Posibilidad: I ___ help", "respuesta": "could", "explicacion": "Could"},
+            {"pregunta": "Negativo de can", "respuesta": "cannot", "explicacion": "Cannot"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
+    },
+
+    "B2.1": {
+        "tema": "Condicionales Tipo 1 y 2",
+        "objetivo": "Condiciones reales e hipotéticas",
+        "duracion": "60 minutos",
+        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 13: Condicionales</h3><p>Tipo 1: If + Presente, Will. Tipo 2: If + Pasado, Would.</p></div>""",
+        "frases": [
+            {"ingles": "If it rains I will stay home", "español": "Si llueve me quedo", "fonética": "if it réins ái uil stéi jóum", "contexto": "Real", "tip": "Will"},
+            {"ingles": "If I study I will pass", "español": "Si estudio paso", "fonética": "if ái stádi ái uil pas", "contexto": "Causa", "tip": "Will"},
+            {"ingles": "If I had money I would travel", "español": "Si tuviera dinero viajaría", "fonética": "if ái jad máni ái uud trável", "contexto": "Hipotético", "tip": "Had-Would"},
+            {"ingles": "If I were you I would go", "español": "Si fuera tú iría", "fonética": "if ái uér iú ái uud góu", "contexto": "Consejo", "tip": "Were"},
+            {"ingles": "She will come if you call her", "español": "Vendrá si llamas", "fonética": "shi uil cam if iú col jer", "contexto": "Inverso", "tip": "Will"},
+            {"ingles": "I would buy a car if I could", "español": "Compraría si pudiera", "fonética": "ái uud bái a car if ái cud", "contexto": "Deseo", "tip": "Could"},
+            {"ingles": "If they arrive late we will start", "español": "Si llegan tarde empezamos", "fonética": "if déi aráiv léit uí uil start", "contexto": "Futuro", "tip": "Will"},
+            {"ingles": "What would you do", "español": "¿Qué harías?", "fonética": "uát uud iú du", "contexto": "Pregunta", "tip": "Would"},
+            {"ingles": "If he works hard he will succeed", "español": "Si trabaja duro triunfa", "fonética": "if ji uórks járd ji uil saksíd", "contexto": "3ra", "tip": "Works"},
+            {"ingles": "I will call you if I have time", "español": "Llamaré si tengo tiempo", "fonética": "ái uil col iú if ái jav táim", "contexto": "Posible", "tip": "Have"}
+        ],
+        "examen": [
+            {"pregunta": "Tipo 1: If rains, I ___ stay", "respuesta": "will", "explicacion": "Will"},
+            {"pregunta": "Tipo 2: If I had money, I ___ buy", "respuesta": "would", "explicacion": "Would"},
+            {"pregunta": "Traduce: Si yo fuera tú", "respuesta": "If I were you", "explicacion": "Were"},
+            {"pregunta": "If she ___ (study), she will pass", "respuesta": "studies", "explicacion": "Studies"},
+            {"pregunta": "What ___ you do?", "respuesta": "would", "explicacion": "Would"}
+        ],
+        "umbral_practica": 85, "umbral_examen": 80
     }
 }
 
@@ -1043,4 +1006,3 @@ st.markdown("""
     <p>Desarrollado con ❤️ para tu éxito</p>
 </div>
 """, unsafe_allow_html=True)
-
