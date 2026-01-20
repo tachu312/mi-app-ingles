@@ -1461,4 +1461,94 @@ elif st.session_state.fase == "examen":
             
             # INCORRECTA
             else:
-                st.error(f"❌ RESPUESTA INCORRECTA ({precisio
+                st.error(f"❌ RESPUESTA INCORRECTA ({precision}%)")
+                
+                st.warning(f"""
+                **Esperaba:** {pregunta_obj['respuesta']}  
+                **Dijiste:** {texto_usuario}
+                
+                **Explicación:** {pregunta_obj['explicacion']}
+                """)
+            
+            st.divider()
+            
+            # ¿Última pregunta?
+            if st.session_state.pregunta_actual >= total_preguntas - 1:
+                # RESULTADO FINAL
+                nota = (st.session_state.respuestas_correctas / total_preguntas) * 100
+                
+                st.markdown("## 📊 RESULTADO FINAL")
+                st.markdown(f"### Nota: {nota:.0f}%")
+                st.markdown(f"**Correctas:** {st.session_state.respuestas_correctas}/{total_preguntas}")
+                
+                # APROBADO
+                if st.session_state.respuestas_correctas == total_preguntas:
+                    st.balloons()
+                    st.success("🎊 ¡EXAMEN APROBADO!")
+                    
+                    siguiente_idx = indice + 1
+                    if siguiente_idx < len(niveles_list):
+                        siguiente = niveles_list[siguiente_idx]
+                        
+                        st.session_state.historial.append({
+                            "nivel": nivel_actual,
+                            "nota": nota,
+                            "fecha": datetime.now().isoformat()
+                        })
+                        
+                        st.markdown(f"""
+                        <div class='success-box'>
+                            <h3>✅ Nivel {nivel_actual} COMPLETADO</h3>
+                            <h3>🚀 Avanzando a {siguiente}: {CURRICULO[siguiente]['tema']}</h3>
+                        </div>
+                        """, unsafe_allow_html=True)
+                        
+                        col1, col2, col3 = st.columns([1,2,1])
+                        with col2:
+                            if st.button("➡️ COMENZAR SIGUIENTE NIVEL", use_container_width=True, type="primary"):
+                                st.session_state.nivel_actual = siguiente
+                                st.session_state.fase = "explicacion"
+                                st.session_state.frase_actual = 0
+                                st.session_state.intentos_frase = 0
+                                st.session_state.pregunta_actual = 0
+                                st.session_state.respuestas_correctas = 0
+                                guardar_datos()
+                                st.rerun()
+                    else:
+                        st.success("🏆 ¡COMPLETASTE TODO EL CURSO!")
+                
+                # REPROBADO
+                else:
+                    st.error("😔 Examen Reprobado")
+                    st.info(f"Necesitabas {total_preguntas}/{total_preguntas} correctas. Obtuviste {st.session_state.respuestas_correctas}/{total_preguntas}")
+                    
+                    col1, col2, col3 = st.columns([1,2,1])
+                    with col2:
+                        if st.button("🔄 REPETIR NIVEL", use_container_width=True, type="primary"):
+                            st.session_state.fase = "explicacion"
+                            st.session_state.frase_actual = 0
+                            st.session_state.intentos_frase = 0
+                            st.session_state.pregunta_actual = 0
+                            st.session_state.respuestas_correctas = 0
+                            guardar_datos()
+                            st.rerun()
+            
+            # Siguiente pregunta
+            else:
+                col1, col2, col3 = st.columns([1,2,1])
+                with col2:
+                    if st.button("➡️ SIGUIENTE PREGUNTA", use_container_width=True, type="primary", key=f"btn_sig_preg_{st.session_state.pregunta_actual}"):
+                        st.session_state.pregunta_actual += 1
+                        st.session_state.last_audio_id = None  # Resetear para nueva pregunta
+                        guardar_datos()
+                        st.rerun()
+
+# ==================== FOOTER ====================
+
+st.divider()
+st.markdown("""
+<div style='text-align: center; color: white; padding: 20px;'>
+    <p>🎓 Nexus Pro Elite v4.0 | Sistema Profesional de Inglés A1→C1</p>
+    <p>Desarrollado con ❤️ para tu éxito</p>
+</div>
+""", unsafe_allow_html=True)
