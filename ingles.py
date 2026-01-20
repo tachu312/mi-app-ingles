@@ -1150,7 +1150,7 @@ progreso_total = int((indice / len(niveles_list)) * 100)
 with st.sidebar:
     st.markdown(f"""
     <div style='text-align: center; background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;'>
-        <h2 style='color: #667eea;'>👤 {st.session_state.usuario_activo.upper()}</h2>
+        <h2 style='color: #667eea;'>Usuario: {st.session_state.usuario_activo.upper()}</h2>
     </div>
     """, unsafe_allow_html=True)
     
@@ -1167,7 +1167,7 @@ with st.sidebar:
     
     st.markdown(f"""
     <div style='background: #667eea; color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px;'>
-        <h4>🎯 Nivel Actual</h4>
+        <h4>Nivel Actual</h4>
         <p style='font-size: 18px; margin: 0;'><strong>{nivel_actual}</strong></p>
         <p style='font-size: 14px; margin: 5px 0 0 0;'>{config['tema']}</p>
     </div>
@@ -1217,8 +1217,8 @@ with st.sidebar:
 
 st.markdown("""
 <div style='background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>
-    <h1 style='color: #667eea; margin: 0;'>🎓 Nexus Pro Elite</h1>
-    <p style='color: #333; margin: 5px 0 0 0;'>Sistema Profesional A1 → C1</p>
+    <h1 style='color: #667eea; margin: 0;'>Nexus Pro Elite</h1>
+    <p style='color: #333; margin: 5px 0 0 0;'>Sistema Profesional A1 a C1</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1263,8 +1263,8 @@ elif st.session_state.fase == "practica":
     
     st.markdown(f"""
     <div class='metric-card'>
-        <h3 style='color: #333;'>💪 Ejercicio {st.session_state.frase_actual + 1}/{total_frases}</h3>
-        <p style='color: #333;'><strong>Necesitas ≥{umbral}% para avanzar</strong></p>
+        <h3 style='color: #333;'>Ejercicio {st.session_state.frase_actual + 1}/{total_frases}</h3>
+        <p style='color: #333;'><strong>Necesitas mayor o igual a {umbral}% para avanzar</strong></p>
         <p style='color: #666;'>Intentos en esta frase: {st.session_state.intentos_frase}</p>
     </div>
     """, unsafe_allow_html=True)
@@ -1272,27 +1272,27 @@ elif st.session_state.fase == "practica":
     # Frase del día
     st.markdown(f"""
     <div class='word-card'>
-        <h4 style='color: #333;'>🎯 FRASE DEL EJERCICIO</h4>
+        <h4 style='color: #333;'>FRASE DEL EJERCICIO</h4>
         <p style='font-size: 28px; color: #667eea; margin: 10px 0;'><strong>{frase_obj['ingles']}</strong></p>
-        <p style='font-size: 18px; color: #333;'><strong>🇪🇸 Español:</strong> {frase_obj['español']}</p>
+        <p style='font-size: 18px; color: #333;'><strong>Español:</strong> {frase_obj['español']}</p>
     </div>
     """, unsafe_allow_html=True)
     
     st.markdown(f"""
     <div style='background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 5px; margin: 15px 0;'>
-        <h4 style='color: #856404; margin: 0 0 10px 0;'>🗣️ CÓMO SE PRONUNCIA:</h4>
+        <h4 style='color: #856404; margin: 0 0 10px 0;'>COMO SE PRONUNCIA:</h4>
         <p style='font-size: 24px; color: #856404; margin: 0; font-family: monospace;'><strong>{frase_obj['fonética']}</strong></p>
     </div>
     """, unsafe_allow_html=True)
     
     st.info(f"""
-    **📝 Contexto de uso:** {frase_obj['contexto']}
+    **Contexto de uso:** {frase_obj['contexto']}
     
-    **💡 Tip de pronunciación:** {frase_obj['tip']}
+    **Tip de pronunciación:** {frase_obj['tip']}
     """)
     
     # Audio
-    st.markdown("### 🔊 Escucha cómo se pronuncia:")
+    st.markdown("### Escucha como se pronuncia:")
     
     col1, col2 = st.columns(2)
     
@@ -1309,13 +1309,13 @@ elif st.session_state.fase == "practica":
             st.audio(base64.b64decode(audio_lento), format="audio/mp3")
     
     st.divider()
-    st.markdown("### 🎤 Ahora repite con tu micrófono:")
-    st.warning("⚠️ **IMPORTANTE:** Debes alcanzar mínimo 85% de precisión para avanzar. ¡Puedes intentar las veces que necesites!")
+    st.markdown("### Ahora repite con tu microfono:")
+    st.warning("IMPORTANTE: Debes alcanzar minimo 85% de precision para avanzar. Puedes intentar las veces que necesites!")
     
     # Micrófono
     audio = mic_recorder(
-        start_prompt="🎙️ GRABAR",
-        stop_prompt="⏹️ DETENER",
+        start_prompt="GRABAR",
+        stop_prompt="DETENER",
         key=f"mic_p_{st.session_state.frase_actual}_{st.session_state.intentos_frase}"
     )
     
@@ -1324,23 +1324,23 @@ elif st.session_state.fase == "practica":
         st.session_state.intentos_frase += 1
         
         # Mostrar audio del usuario
-        st.markdown("### 🎤 Tu Audio:")
+        st.markdown("### Tu Audio:")
         st.audio(audio['bytes'], format="audio/wav")
         
-        with st.spinner("🎧 Analizando tu pronunciación..."):
+        with st.spinner("Analizando tu pronunciacion..."):
             texto_usuario = transcribir_audio(audio['bytes'])
         
         if texto_usuario:
-            st.markdown(f"**📝 Transcripción:** {texto_usuario}")
+            st.markdown(f"**Transcripcion:** {texto_usuario}")
             precision = similitud_texto(texto_usuario, frase_obj['ingles'])
             
             # APROBADO
             if precision >= umbral:
                 st.balloons()
-                st.success(f"🎉 ¡EXCELENTE! Precisión: {precision}%")
+                st.success(f"EXCELENTE! Precision: {precision}%")
                 
                 analisis = analizar_palabras(texto_usuario, frase_obj['ingles'])
-                with st.expander("📊 Ver análisis detallado"):
+                with st.expander("Ver analisis detallado"):
                     for palabra in analisis:
                         st.markdown(palabra)
                 
@@ -1354,23 +1354,23 @@ elif st.session_state.fase == "practica":
                 
                 # ¿Era la última frase?
                 if st.session_state.frase_actual >= total_frases:
-                    st.markdown("### 🔥 ¡COMPLETASTE TODAS LAS FRASES!")
-                    st.info("Haz click en el botón para ir al examen final")
+                    st.markdown("### COMPLETASTE TODAS LAS FRASES!")
+                    st.info("Haz click en el boton para ir al examen final")
                     
-                    if st.button("🎯 IR AL EXAMEN FINAL", use_container_width=True, type="primary", key="btn_examen"):
+                    if st.button("IR AL EXAMEN FINAL", use_container_width=True, type="primary", key="btn_examen"):
                         st.session_state.fase = "examen"
                         st.session_state.pregunta_actual = 0
                         st.session_state.respuestas_correctas = 0
                         guardar_datos()
                         st.rerun()
                 else:
-                    st.info(f"✅ Avanzaste a la frase {st.session_state.frase_actual + 1}/{total_frases}")
+                    st.info(f"Avanzaste a la frase {st.session_state.frase_actual + 1}/{total_frases}")
                     time.sleep(1)
                     st.rerun()
             
             # REPROBADO
             else:
-                st.error(f"❌ Precisión: {precision}% - Necesitas ≥{umbral}%")
+                st.error(f"Precision: {precision}% - Necesitas mayor o igual a {umbral}%")
                 
                 st.markdown(f"""
                 <div class='error-box'>
