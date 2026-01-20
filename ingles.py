@@ -19,12 +19,29 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# CSS Personalizado
+# ==================== CSS (COLORES CORREGIDOS) ====================
+# Aquí forzamos que el texto sea NEGRO (#000000) dentro de las tarjetas blancas
 st.markdown("""
 <style>
+    /* Fondo general */
     .stApp {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
+    
+    /* REGLA MAESTRA: Todo texto dentro de estas clases debe ser NEGRO */
+    .metric-card, .word-card, .success-box, .error-box, .info-box {
+        color: #000000 !important;
+    }
+    
+    /* Forzar color negro en títulos y párrafos específicos dentro de las tarjetas */
+    .metric-card h1, .metric-card h2, .metric-card h3, .metric-card h4, .metric-card p, .metric-card span, .metric-card div, .metric-card li, .metric-card strong {
+        color: #000000 !important;
+    }
+    .word-card h1, .word-card h2, .word-card h3, .word-card h4, .word-card p, .word-card span, .word-card div, .word-card strong {
+        color: #000000 !important;
+    }
+
+    /* Estilos de las Tarjetas */
     .metric-card {
         background: white;
         padding: 20px;
@@ -32,38 +49,50 @@ st.markdown("""
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         margin: 10px 0;
     }
+    
     .success-box {
         background: #d4edda;
         border-left: 4px solid #28a745;
         padding: 15px;
         border-radius: 5px;
         margin: 10px 0;
+        color: #155724 !important; /* Verde oscuro */
     }
+    
     .error-box {
         background: #f8d7da;
         border-left: 4px solid #dc3545;
         padding: 15px;
         border-radius: 5px;
         margin: 10px 0;
+        color: #721c24 !important; /* Rojo oscuro */
     }
+    
     .info-box {
         background: #d1ecf1;
         border-left: 4px solid #0c5460;
         padding: 15px;
         border-radius: 5px;
         margin: 10px 0;
+        color: #0c5460 !important; /* Azul oscuro */
     }
+    
     .word-card {
         background: #f8f9fa;
         padding: 10px;
         border-radius: 5px;
         margin: 5px 0;
         border-left: 3px solid #667eea;
+        color: #333333 !important;
     }
 </style>
 """, unsafe_allow_html=True)
 
-OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+# Manejo de API Key (Evita errores si no hay secrets)
+try:
+    OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+except:
+    OPENAI_API_KEY = ""
 
 # ==================== USUARIOS ====================
 USUARIOS = {"nasly": "1994", "sofia": "2009", "andres": "1988"}
@@ -97,26 +126,14 @@ if not st.session_state.usuario_activo:
                     st.error("❌ Credenciales incorrectas")
             
             st.markdown("</div>", unsafe_allow_html=True)
-            
-            st.info("""
-            **📚 Características del Sistema:**
-            - ✅ Explicaciones detalladas con gramática
-            - ✅ 10 ejercicios variados por nivel
-            - ✅ Pronunciación nativa con audio
-            - ✅ Sistema de repetición hasta dominar (85%+)
-            - ✅ Análisis palabra por palabra
-            - ✅ Exámenes rigurosos
-            - ✅ Seguimiento de racha diaria
-            - ✅ Certificación progresiva
-            """)
     st.stop()
 
-# ==================== CURRÍCULO PROFESIONAL COMPLETO ====================
+# ==================== CURRÍCULO COMPLETO ====================
 
 CURRICULO = {
     "A1.1": {
         "tema": "Saludos y Presentaciones Básicas",
-        "objetivo": "Aprender a saludar y presentarse formalmente e informalmente",
+        "objetivo": "Aprender a saludar y presentarse",
         "duracion": "30-45 minutos",
         "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 1: Saludos</h3><p>Aprende a decir Hello, Hi, Good Morning y presentarte con 'My name is'.</p></div>""",
         "frases": [
@@ -140,7 +157,6 @@ CURRICULO = {
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
-    
     "A1.2": {
         "tema": "Verbo TO BE (am/is/are)",
         "objetivo": "Dominar el verbo más importante del inglés",
@@ -167,7 +183,6 @@ CURRICULO = {
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
-
     "A1.3": {
         "tema": "Artículos (a/an/the) y Pronombres",
         "objetivo": "Usar correctamente artículos y pronombres",
@@ -194,7 +209,6 @@ CURRICULO = {
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
-
     "A1.4": {
         "tema": "Números, Cantidades y Fechas",
         "objetivo": "Contar y decir cantidades",
@@ -221,7 +235,6 @@ CURRICULO = {
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
-
     "A1.5": {
         "tema": "Días, Meses y Horarios",
         "objetivo": "Decir la fecha y la hora",
@@ -248,34 +261,6 @@ CURRICULO = {
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
-
-    "A1.6": {
-        "tema": "Familia y Relaciones",
-        "objetivo": "Hablar de la familia",
-        "duracion": "40 minutos",
-        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 6: Familia</h3><p>Father, Mother, Brother, Sister, Son, Daughter.</p></div>""",
-        "frases": [
-            {"ingles": "This is my father", "español": "Este es mi padre", "fonética": "dis is mái fáder", "contexto": "Presentación", "tip": "Father"},
-            {"ingles": "I have two brothers", "español": "Tengo 2 hermanos", "fonética": "ái jav tu bróders", "contexto": "Cantidad", "tip": "Brothers"},
-            {"ingles": "My sister is a doctor", "español": "Mi hermana es doctora", "fonética": "mái síster is a dóctor", "contexto": "Profesión", "tip": "Sister"},
-            {"ingles": "Her husband is tall", "español": "Su esposo es alto", "fonética": "jer jásband is tol", "contexto": "Esposo", "tip": "Husband"},
-            {"ingles": "My mother cooks well", "español": "Mi madre cocina bien", "fonética": "mái máder cuks uél", "contexto": "Madre", "tip": "Mother"},
-            {"ingles": "I love my family", "español": "Amo a mi familia", "fonética": "ái lav mái fámili", "contexto": "Sentimiento", "tip": "Family"},
-            {"ingles": "My parents live in Colombia", "español": "Mis padres viven en Colombia", "fonética": "mái pérents liv in colómbia", "contexto": "Padres", "tip": "Parents"},
-            {"ingles": "She has one daughter", "español": "Tiene una hija", "fonética": "shi jas uan dóter", "contexto": "Hija", "tip": "Daughter"},
-            {"ingles": "We are a big family", "español": "Somos familia grande", "fonética": "uí ar a big fámili", "contexto": "Descripción", "tip": "Big"},
-            {"ingles": "My grandparents are old", "español": "Mis abuelos son viejos", "fonética": "mái grándpérents ar old", "contexto": "Abuelos", "tip": "Grandparents"}
-        ],
-        "examen": [
-            {"pregunta": "Di 'padre'", "respuesta": "father", "explicacion": "Papá"},
-            {"pregunta": "Di 'Tengo 2 hermanos'", "respuesta": "I have two brothers", "explicacion": "Hermanos"},
-            {"pregunta": "Di 'hermana'", "respuesta": "sister", "explicacion": "Sister"},
-            {"pregunta": "Completa: My ___ (madre)", "respuesta": "mother", "explicacion": "Mamá"},
-            {"pregunta": "Di 'Mi familia'", "respuesta": "My family", "explicacion": "Familia"}
-        ],
-        "umbral_practica": 85, "umbral_examen": 80
-    },
-
     "A2.1": {
         "tema": "Presente Simple - Rutinas",
         "objetivo": "Hablar de hábitos",
@@ -302,7 +287,6 @@ CURRICULO = {
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
-
     "A2.2": {
         "tema": "Pasado Simple Regular",
         "objetivo": "Verbos con ED",
@@ -329,7 +313,6 @@ CURRICULO = {
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
-
     "A2.3": {
         "tema": "Pasado Simple Irregular",
         "objetivo": "Verbos que cambian",
@@ -356,7 +339,6 @@ CURRICULO = {
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
-
     "A2.4": {
         "tema": "Futuro (Will / Going to)",
         "objetivo": "Planes y predicciones",
@@ -383,7 +365,6 @@ CURRICULO = {
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
-
     "B1.1": {
         "tema": "Presente Perfecto",
         "objetivo": "Experiencias (Have/Has + Participio)",
@@ -410,34 +391,6 @@ CURRICULO = {
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
-
-    "B1.2": {
-        "tema": "Modales (Can, Could, Should, Must)",
-        "objetivo": "Poder, deber, consejo",
-        "duracion": "60 minutos",
-        "explicacion": """<div class='metric-card'><h3>📚 LECCIÓN 12: Modales</h3><p>Can (poder), Could (podría), Should (consejo), Must (obligación).</p></div>""",
-        "frases": [
-            {"ingles": "I can speak English", "español": "Puedo hablar inglés", "fonética": "ái can spík ínglish", "contexto": "Habilidad", "tip": "Can"},
-            {"ingles": "She could help you", "español": "Podría ayudarte", "fonética": "shi cud jelp iú", "contexto": "Posibilidad", "tip": "Could"},
-            {"ingles": "You should study more", "español": "Deberías estudiar", "fonética": "iú shud stádi mor", "contexto": "Consejo", "tip": "Should"},
-            {"ingles": "I must go now", "español": "Debo irme", "fonética": "ái mast góu náu", "contexto": "Obligación", "tip": "Must"},
-            {"ingles": "Can you swim", "español": "¿Puedes nadar?", "fonética": "can iú suím", "contexto": "Pregunta", "tip": "Can"},
-            {"ingles": "I cannot drive", "español": "No puedo conducir", "fonética": "ái cánot dráiv", "contexto": "Negativo", "tip": "Cannot"},
-            {"ingles": "We should not lie", "español": "No deberíamos mentir", "fonética": "uí shúdnt lái", "contexto": "Consejo neg", "tip": "Shouldn't"},
-            {"ingles": "Could I ask a question", "español": "¿Podría preguntar?", "fonética": "cud ái ask a cuéschen", "contexto": "Permiso", "tip": "Could"},
-            {"ingles": "You must wear a seatbelt", "español": "Debes usar cinturón", "fonética": "iú mast uér a sítbelt", "contexto": "Ley", "tip": "Must"},
-            {"ingles": "She can play the piano", "español": "Puede tocar piano", "fonética": "shi can pléi de piáno", "contexto": "Habilidad", "tip": "Can"}
-        ],
-        "examen": [
-            {"pregunta": "Completa: I ___ speak (habilidad)", "respuesta": "can", "explicacion": "Can"},
-            {"pregunta": "Consejo: You ___ study", "respuesta": "should", "explicacion": "Should"},
-            {"pregunta": "Obligación: I ___ go", "respuesta": "must", "explicacion": "Must"},
-            {"pregunta": "Posibilidad: I ___ help", "respuesta": "could", "explicacion": "Could"},
-            {"pregunta": "Negativo de can", "respuesta": "cannot", "explicacion": "Cannot"}
-        ],
-        "umbral_practica": 85, "umbral_examen": 80
-    },
-
     "B2.1": {
         "tema": "Condicionales Tipo 1 y 2",
         "objetivo": "Condiciones reales e hipotéticas",
@@ -478,7 +431,6 @@ def similitud_texto(texto1, texto2):
 def analizar_palabras(texto_usuario, texto_objetivo):
     palabras_usuario = texto_usuario.lower().split()
     palabras_objetivo = texto_objetivo.lower().split()
-    
     analisis = []
     max_len = max(len(palabras_usuario), len(palabras_objetivo))
     
@@ -498,7 +450,6 @@ def analizar_palabras(texto_usuario, texto_objetivo):
                 analisis.append(f"⚠️ **{p_usuario}** (extra)")
             else:
                 analisis.append(f"❌ **{p_objetivo}** → dijiste: *{p_usuario}*")
-    
     return analisis
 
 def cargar_datos():
@@ -507,14 +458,10 @@ def cargar_datos():
         with open(archivo, "r", encoding="utf-8") as f:
             return json.load(f)
     return {
-        "nivel_actual": "A1.1",
-        "fase": "explicacion",
-        "frase_actual": 0,
-        "intentos_frase": 0,
-        "pregunta_actual": 0,
-        "respuestas_correctas": 0,
-        "historial": [],
-        "racha_dias": 0,
+        "nivel_actual": "A1.1", "fase": "explicacion",
+        "frase_actual": 0, "intentos_frase": 0,
+        "pregunta_actual": 0, "respuestas_correctas": 0,
+        "historial": [], "racha_dias": 0,
         "ultimo_acceso": datetime.now().isoformat(),
         "fecha_inicio": datetime.now().isoformat()
     }
@@ -542,10 +489,7 @@ def transcribir_audio(audio_bytes):
         audio_file = io.BytesIO(audio_bytes)
         audio_file.name = "audio.wav"
         transcripcion = client.audio.transcriptions.create(
-            model="whisper-1",
-            file=audio_file,
-            language="en",
-            prompt="English pronunciation practice."
+            model="whisper-1", file=audio_file, language="en", prompt="English pronunciation practice."
         )
         return transcripcion.text.strip()
     except Exception as e:
@@ -565,28 +509,25 @@ def generar_audio_ingles(texto, lento=False):
 # ==================== INICIALIZACIÓN ====================
 
 if "datos_cargados" not in st.session_state:
-    datos = cargar_datos()
-    for key, value in datos.items():
-        st.session_state[key] = value
-    st.session_state.last_audio_id = None
-    st.session_state.datos_cargados = True
+    if st.session_state.usuario_activo:
+        datos = cargar_datos()
+        for key, value in datos.items():
+            st.session_state[key] = value
+        st.session_state.last_audio_id = None
+        st.session_state.datos_cargados = True
 
 variables_default = {
-    "nivel_actual": "A1.1",
-    "fase": "explicacion",
-    "frase_actual": 0,
-    "intentos_frase": 0,
-    "pregunta_actual": 0,
-    "respuestas_correctas": 0,
-    "historial": [],
-    "racha_dias": 0
+    "nivel_actual": "A1.1", "fase": "explicacion",
+    "frase_actual": 0, "intentos_frase": 0,
+    "pregunta_actual": 0, "respuestas_correctas": 0,
+    "historial": [], "racha_dias": 0
 }
 
 for var, default in variables_default.items():
     if var not in st.session_state:
         st.session_state[var] = default
 
-# ==================== VARIABLES ====================
+# ==================== MAIN APP ====================
 
 nivel_actual = st.session_state.nivel_actual
 config = CURRICULO.get(nivel_actual, CURRICULO["A1.1"])
@@ -597,403 +538,179 @@ progreso_total = int((indice / len(niveles_list)) * 100)
 # ==================== SIDEBAR ====================
 
 with st.sidebar:
-    st.markdown(f"""
-    <div style='text-align: center; background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;'>
-        <h2 style='color: #667eea;'>👤 {st.session_state.usuario_activo.upper()}</h2>
+    if st.session_state.usuario_activo:
+        st.markdown(f"""
+        <div style='text-align: center; background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; color: black;'>
+            <h2 style='color: #667eea; margin: 0;'>👤 {st.session_state.usuario_activo.upper()}</h2>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric("📊 Progreso", f"{progreso_total}%")
+        with col2:
+            st.metric("🔥 Racha", f"{st.session_state.racha_dias}")
+        
+        st.divider()
+        st.subheader("🗺️ Roadmap")
+        for i, key in enumerate(niveles_list):
+            tema = CURRICULO[key]["tema"]
+            if i < indice:
+                st.success(f"✅ {key}: {tema[:25]}...")
+            elif i == indice:
+                st.info(f"🎯 {key}: {tema[:25]}...")
+            else:
+                st.caption(f"🔒 {key}: {tema[:25]}...")
+        
+        st.divider()
+        if st.button("🚪 Cerrar Sesión", use_container_width=True):
+            st.session_state.usuario_activo = None
+            st.rerun()
+
+# ==================== HEADER & LOGIC ====================
+
+if st.session_state.usuario_activo:
+    st.markdown("""
+    <div class='metric-card'>
+        <h1 style='color: #667eea; margin: 0;'>🎓 Nexus Pro Elite</h1>
+        <p style='color: #333; margin: 5px 0 0 0;'>Sistema Profesional A1 → C1</p>
     </div>
     """, unsafe_allow_html=True)
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        st.metric("📊 Progreso", f"{progreso_total}%")
-        dias = (datetime.now() - datetime.fromisoformat(st.session_state.fecha_inicio)).days
-        st.metric("📅 Días", dias)
-    with col2:
-        st.metric("🔥 Racha", f"{st.session_state.racha_dias}")
-        st.metric("💪 Intentos", st.session_state.intentos_frase)
-    
-    st.divider()
-    
-    st.markdown(f"""
-    <div style='background: #667eea; color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px;'>
-        <h4>🎯 Nivel Actual</h4>
-        <p style='font-size: 18px; margin: 0;'><strong>{nivel_actual}</strong></p>
-        <p style='font-size: 14px; margin: 5px 0 0 0;'>{config['tema']}</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.subheader("🗺️ Roadmap")
-    
-    for i, key in enumerate(niveles_list):
-        tema = CURRICULO[key]["tema"]
-        if i < indice:
-            st.success(f"✅ {key}: {tema[:25]}...")
-        elif i == indice:
-            st.info(f"🎯 {key}: {tema[:25]}...")
-        else:
-            st.caption(f"🔒 {key}: {tema[:25]}...")
-    
-    st.divider()
-    
-    if st.session_state.historial:
-        st.subheader("📈 Estadísticas")
-        total = len(st.session_state.historial)
-        promedio = sum(h['nota'] for h in st.session_state.historial) / total
-        st.metric("Niveles Completados", total)
-        st.metric("Promedio", f"{promedio:.1f}%")
-    
-    st.divider()
-    
-    if st.button("🔄 Repetir Nivel", use_container_width=True):
-        st.session_state.fase = "explicacion"
-        st.session_state.frase_actual = 0
-        st.session_state.intentos_frase = 0
-        guardar_datos()
-        st.rerun()
-    
-    if st.button("🗑️ Reiniciar Todo", use_container_width=True):
-        archivo = f"datos_{st.session_state.usuario_activo}.json"
-        if os.path.exists(archivo):
-            os.remove(archivo)
-        st.session_state.clear()
-        st.rerun()
-    
-    if st.button("🚪 Cerrar Sesión", use_container_width=True):
-        st.session_state.usuario_activo = None
-        st.rerun()
 
-# ==================== HEADER ====================
-
-st.markdown("""
-<div style='background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>
-    <h1 style='color: #667eea; margin: 0;'>🎓 Nexus Pro Elite</h1>
-    <p style='color: #666; margin: 5px 0 0 0;'>Sistema Profesional A1 → C1</p>
-</div>
-""", unsafe_allow_html=True)
-
-# ==================== EXPLICACIÓN ====================
-
-if st.session_state.fase == "explicacion":
-    st.markdown(f"## 📖 {nivel_actual}: {config['tema']}")
-    
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.info(f"**🎯 Objetivo:** {config['objetivo']}")
-    with col2:
-        st.info(f"**⏱️ Duración:** {config['duracion']}")
-    with col3:
-        st.info(f"**📊 Umbral:** {config['umbral_practica']}%")
-    
-    st.divider()
-    
-    st.markdown(config['explicacion'])
-    
-    st.divider()
-    
-    col1, col2, col3 = st.columns([1,2,1])
-    with col2:
-        if st.button("✅ ENTENDÍ - COMENZAR PRÁCTICA", use_container_width=True, type="primary"):
+    # 1. EXPLICACIÓN
+    if st.session_state.fase == "explicacion":
+        st.markdown(f"## 📖 {nivel_actual}: {config['tema']}")
+        st.info(f"Objetivo: {config['objetivo']} | Duración: {config['duracion']}")
+        
+        # AQUÍ ESTABA EL PROBLEMA DEL TEXTO RARO: SE ARREGLA CON unsafe_allow_html=True
+        st.markdown(config['explicacion'], unsafe_allow_html=True)
+        
+        if st.button("✅ COMENZAR PRÁCTICA", use_container_width=True, type="primary"):
             st.session_state.fase = "practica"
             st.session_state.frase_actual = 0
-            st.session_state.intentos_frase = 0
             guardar_datos()
             st.rerun()
 
-# ==================== PRÁCTICA ====================
-
-# ==================== PRÁCTICA ====================
-
-elif st.session_state.fase == "practica":
-    
-    # ------------------ SEGURO ANTI-ERROR ------------------
-    # Esto evita el IndexError si el contador se pasa
-    if st.session_state.frase_actual >= len(config['frases']):
-        st.session_state.fase = "examen"
-        st.session_state.pregunta_actual = 0
-        st.rerun()
-    # -------------------------------------------------------
-
-    frase_obj = config['frases'][st.session_state.frase_actual]
-    total_frases = len(config['frases'])
-    umbral = config['umbral_practica']
-    
-    progreso = st.session_state.frase_actual / total_frases
-    st.progress(progreso)
-    
-    st.markdown(f"""
-    <div class='metric-card'>
-        <h3>💪 Ejercicio {st.session_state.frase_actual + 1}/{total_frases}</h3>
-        <p><strong>Necesitas ≥{umbral}% para avanzar</strong></p>
-        <p>Intentos en esta frase: {st.session_state.intentos_frase}</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown(f"""
-    <div class='word-card'>
-        <h4>🎯 FRASE DEL EJERCICIO</h4>
-        <p style='font-size: 28px; color: #667eea; margin: 10px 0;'><strong>{frase_obj['ingles']}</strong></p>
-        <p style='font-size: 18px;'><strong>🇪🇸 Español:</strong> {frase_obj['español']}</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown(f"""
-    <div style='background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 5px; margin: 15px 0;'>
-        <h4 style='color: #856404; margin: 0 0 10px 0;'>🗣️ CÓMO SE PRONUNCIA:</h4>
-        <p style='font-size: 24px; color: #856404; margin: 0; font-family: monospace;'><strong>{frase_obj['fonética']}</strong></p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.info(f"""
-    **📝 Contexto de uso:** {frase_obj['contexto']}
-    
-    **💡 Tip de pronunciación:** {frase_obj['tip']}
-    """)
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        audio_b64 = generar_audio_ingles(frase_obj['ingles'], lento=False)
-        if audio_b64:
-            st.markdown("**Velocidad Normal:**")
-            st.audio(base64.b64decode(audio_b64), format="audio/mp3")
-    
-    with col2:
-        audio_lento = generar_audio_ingles(frase_obj['ingles'], lento=True)
-        if audio_lento:
-            st.markdown("**Velocidad Lenta (para aprender):**")
-            st.audio(base64.b64decode(audio_lento), format="audio/mp3")
-    
-    st.divider()
-    st.markdown("### 🎤 Ahora repite con tu micrófono:")
-    
-    audio = mic_recorder(
-        start_prompt="🎙️ GRABAR",
-        stop_prompt="⏹️ DETENER",
-        key=f"mic_p_{st.session_state.frase_actual}_{st.session_state.intentos_frase}"
-    )
-    
-    if audio and audio.get("id") != st.session_state.last_audio_id:
-        st.session_state.last_audio_id = audio.get("id")
-        st.session_state.intentos_frase += 1
+    # 2. PRÁCTICA
+    elif st.session_state.fase == "practica":
         
-        st.markdown("### 🎤 Tu Audio:")
-        st.audio(audio['bytes'], format="audio/wav")
+        # --- FRENO DE SEGURIDAD (ARREGLO DEL INDEXERROR) ---
+        # Si ya no quedan frases, forzamos el paso al examen inmediatamente
+        frases_disponibles = config.get('frases', [])
+        if st.session_state.frase_actual >= len(frases_disponibles):
+            st.session_state.fase = "examen"
+            st.session_state.pregunta_actual = 0
+            st.rerun()
+        # ----------------------------------------------------
+
+        frase_obj = frases_disponibles[st.session_state.frase_actual]
+        total = len(frases_disponibles)
         
-        with st.spinner("🎧 Analizando tu pronunciación..."):
+        st.progress(st.session_state.frase_actual / total)
+        st.markdown(f"""
+        <div class='metric-card'>
+            <h3>💪 Ejercicio {st.session_state.frase_actual + 1}/{total}</h3>
+            <p>Intentos: {st.session_state.intentos_frase}</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown(f"""
+        <div class='word-card'>
+            <p style='font-size: 28px; color: #667eea;'><strong>{frase_obj['ingles']}</strong></p>
+            <p style='color: #333; font-size: 18px;'>🇪🇸 {frase_obj['español']}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        col1, col2 = st.columns(2)
+        with col1:
+            audio_b64 = generar_audio_ingles(frase_obj['ingles'], lento=False)
+            if audio_b64: st.audio(base64.b64decode(audio_b64), format="audio/mp3")
+        with col2:
+            audio_lento = generar_audio_ingles(frase_obj['ingles'], lento=True)
+            if audio_lento: st.audio(base64.b64decode(audio_lento), format="audio/mp3")
+            
+        st.divider()
+        st.markdown("### 🎤 Tu turno:")
+        
+        audio = mic_recorder(start_prompt="🎙️ GRABAR", stop_prompt="⏹️ DETENER", key=f"mic_{st.session_state.frase_actual}")
+        
+        if audio and audio.get("id") != st.session_state.last_audio_id:
+            st.session_state.last_audio_id = audio.get("id")
             texto_usuario = transcribir_audio(audio['bytes'])
-        
-        if texto_usuario:
-            st.markdown(f"**📝 Transcripción:** {texto_usuario}")
-            precision = similitud_texto(texto_usuario, frase_obj['ingles'])
             
-            if precision >= umbral:
-                st.balloons()
-                st.success(f"🎉 ¡EXCELENTE! Precisión: {precision}%")
+            if texto_usuario:
+                st.markdown(f"**Dijiste:** {texto_usuario}")
+                prec = similitud_texto(texto_usuario, frase_obj['ingles'])
                 
-                analisis = analizar_palabras(texto_usuario, frase_obj['ingles'])
-                with st.expander("📊 Ver análisis detallado"):
-                    for palabra in analisis:
-                        st.markdown(palabra)
-                
-                st.divider()
-                
-                if st.session_state.frase_actual >= total_frases - 1:
-                    st.markdown("### 🔥 ¡COMPLETASTE TODAS LAS FRASES!")
-                    col1, col2, col3 = st.columns([1,2,1])
-                    with col2:
-                        if st.button("🎯 IR AL EXAMEN FINAL", use_container_width=True, type="primary"):
-                            st.session_state.fase = "examen"
-                            st.session_state.pregunta_actual = 0
-                            st.session_state.respuestas_correctas = 0
-                            guardar_datos()
-                            st.rerun()
+                if prec >= config['umbral_practica']:
+                    st.success(f"🎉 ¡Bien! ({prec}%)")
+                    time.sleep(1)
+                    # Avanzar
+                    st.session_state.frase_actual += 1
+                    st.session_state.intentos_frase = 0
+                    guardar_datos()
+                    st.rerun()
                 else:
-                    col1, col2, col3 = st.columns([1,2,1])
-                    with col2:
-                        if st.button("➡️ SIGUIENTE FRASE", use_container_width=True, type="primary"):
-                            st.session_state.frase_actual += 1
-                            st.session_state.intentos_frase = 0
-                            guardar_datos()
-                            st.rerun()
-            else:
-                st.error(f"❌ Precisión: {precision}% - Necesitas ≥{umbral}%")
-                st.markdown(f"""
-                <div class='error-box'>
-                    <h4>📊 Análisis de tu pronunciación:</h4>
-                    <p><strong>🎯 Objetivo:</strong> {frase_obj['ingles']}</p>
-                    <p><strong>🎤 Dijiste:</strong> {texto_usuario}</p>
-                </div>
-                """, unsafe_allow_html=True)
-                
-                st.markdown("### 📝 Análisis Palabra por Palabra:")
-                analisis = analizar_palabras(texto_usuario, frase_obj['ingles'])
-                for palabra in analisis:
-                    st.markdown(palabra)
-                
-                st.info(f"""
-                💡 **Consejos para mejorar:**
-                1. {frase_obj['tip']}
-                2. Escucha el audio de arriba varias veces
-                3. Repite despacio primero, luego más rápido
-                4. Graba de nuevo cuando estés listo
-                """)
-# ==================== EXAMEN ====================
+                    st.error(f"Intenta de nuevo ({prec}%)")
+                    st.info(f"Tip: {frase_obj['tip']}")
 
-# Busca la línea: elif st.session_state.fase == "practica":
-# Y reemplaza EL BLOQUE COMPLETO de esa sección por esto:
-
-elif st.session_state.fase == "practica":
-    # --- AQUÍ ESTÁ EL ARREGLO (SEGURO ANTI-ERROR) ---
-    # Si el número de frase es mayor al total, forzamos ir al examen para que no se rompa
-    frases_disponibles = config.get('frases', [])
-    if st.session_state.frase_actual >= len(frases_disponibles):
-        st.session_state.fase = "examen"
-        st.session_state.pregunta_actual = 0
-        st.rerun()
-    # ------------------------------------------------
-
-    frase_obj = frases_disponibles[st.session_state.frase_actual]
-    total_frases = len(frases_disponibles)
-    umbral = config['umbral_practica']
-    
-    # Progreso
-    progreso = st.session_state.frase_actual / total_frases
-    st.progress(progreso)
-    
-    st.markdown(f"""
-    <div class='metric-card'>
-        <h3>💪 Ejercicio {st.session_state.frase_actual + 1}/{total_frases}</h3>
-        <p><strong>Necesitas ≥{umbral}% para avanzar</strong></p>
-        <p>Intentos en esta frase: {st.session_state.intentos_frase}</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Frase del día
-    st.markdown(f"""
-    <div class='word-card'>
-        <h4>🎯 FRASE DEL EJERCICIO</h4>
-        <p style='font-size: 28px; color: #667eea; margin: 10px 0;'><strong>{frase_obj['ingles']}</strong></p>
-        <p style='font-size: 18px;'><strong>🇪🇸 Español:</strong> {frase_obj['español']}</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown(f"""
-    <div style='background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 5px; margin: 15px 0;'>
-        <h4 style='color: #856404; margin: 0 0 10px 0;'>🗣️ CÓMO SE PRONUNCIA:</h4>
-        <p style='font-size: 24px; color: #856404; margin: 0; font-family: monospace;'><strong>{frase_obj['fonética']}</strong></p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.info(f"""
-    **📝 Contexto de uso:** {frase_obj['contexto']}
-    
-    **💡 Tip de pronunciación:** {frase_obj['tip']}
-    """)
-    
-    # Audio
-    st.markdown("### 🔊 Escucha cómo se pronuncia:")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        audio_b64 = generar_audio_ingles(frase_obj['ingles'], lento=False)
-        if audio_b64:
-            st.markdown("**Velocidad Normal:**")
-            st.audio(base64.b64decode(audio_b64), format="audio/mp3")
-    
-    with col2:
-        audio_lento = generar_audio_ingles(frase_obj['ingles'], lento=True)
-        if audio_lento:
-            st.markdown("**Velocidad Lenta (para aprender):**")
-            st.audio(base64.b64decode(audio_lento), format="audio/mp3")
-    
-    st.divider()
-    st.markdown("### 🎤 Ahora repite con tu micrófono:")
-    st.warning("⚠️ **IMPORTANTE:** Debes alcanzar mínimo 85% de precisión para avanzar. ¡Puedes intentar las veces que necesites!")
-    
-    # Micrófono
-    audio = mic_recorder(
-        start_prompt="🎙️ GRABAR",
-        stop_prompt="⏹️ DETENER",
-        key=f"mic_p_{st.session_state.frase_actual}_{st.session_state.intentos_frase}"
-    )
-    
-    if audio and audio.get("id") != st.session_state.last_audio_id:
-        st.session_state.last_audio_id = audio.get("id")
-        st.session_state.intentos_frase += 1
+    # 3. EXAMEN
+    elif st.session_state.fase == "examen":
+        # --- FRENO DE SEGURIDAD EXAMEN ---
+        preguntas_disponibles = config.get('examen', [])
         
-        # Mostrar audio del usuario
-        st.markdown("### 🎤 Tu Audio:")
-        st.audio(audio['bytes'], format="audio/wav")
-        
-        with st.spinner("🎧 Analizando tu pronunciación..."):
-            texto_usuario = transcribir_audio(audio['bytes'])
-        
-        if texto_usuario:
-            st.markdown(f"**📝 Transcripción:** {texto_usuario}")
-            precision = similitud_texto(texto_usuario, frase_obj['ingles'])
+        if st.session_state.pregunta_actual >= len(preguntas_disponibles):
+             st.balloons()
+             st.markdown(f"""
+             <div class='success-box'>
+                <h3>¡Nivel Completado!</h3>
+                <p>Nota final: {st.session_state.respuestas_correctas} correctas</p>
+             </div>
+             """, unsafe_allow_html=True)
+             
+             # Guardar historial
+             if st.button("Siguiente Nivel / Inicio"):
+                 # Lógica para avanzar nivel
+                 siguiente_idx = indice + 1
+                 if siguiente_idx < len(niveles_list):
+                     st.session_state.nivel_actual = niveles_list[siguiente_idx]
+                 st.session_state.fase = "explicacion"
+                 st.session_state.frase_actual = 0
+                 st.session_state.pregunta_actual = 0
+                 st.session_state.respuestas_correctas = 0
+                 guardar_datos()
+                 st.rerun()
+        else:
+            preg = preguntas_disponibles[st.session_state.pregunta_actual]
+            total_ex = len(preguntas_disponibles)
             
-            # APROBADO
-            if precision >= umbral:
-                st.balloons()
-                st.success(f"🎉 ¡EXCELENTE! Precisión: {precision}%")
-                
-                analisis = analizar_palabras(texto_usuario, frase_obj['ingles'])
-                with st.expander("📊 Ver análisis detallado"):
-                    for palabra in analisis:
-                        st.markdown(palabra)
-                
-                st.divider()
-                
-                # ¿Última frase?
-                if st.session_state.frase_actual >= total_frases - 1:
-                    st.markdown("### 🔥 ¡COMPLETASTE TODAS LAS FRASES!")
-                    col1, col2, col3 = st.columns([1,2,1])
-                    with col2:
-                        if st.button("🎯 IR AL EXAMEN FINAL", use_container_width=True, type="primary"):
-                            st.session_state.fase = "examen"
-                            st.session_state.pregunta_actual = 0
-                            st.session_state.respuestas_correctas = 0
-                            guardar_datos()
-                            st.rerun()
-                else:
-                    col1, col2, col3 = st.columns([1,2,1])
-                    with col2:
-                        if st.button("➡️ SIGUIENTE FRASE", use_container_width=True, type="primary"):
-                            st.session_state.frase_actual += 1
-                            st.session_state.intentos_frase = 0
-                            guardar_datos()
-                            st.rerun()
+            st.progress(st.session_state.pregunta_actual / total_ex)
             
-            # REPROBADO
-            else:
-                st.error(f"❌ Precisión: {precision}% - Necesitas ≥{umbral}%")
+            st.markdown(f"""
+            <div class='info-box'>
+                <h3>📝 Pregunta {st.session_state.pregunta_actual + 1}/{total_ex}</h3>
+                <p style="font-size: 20px;">{preg['pregunta']}</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            audio = mic_recorder(start_prompt="🎙️ RESPONDER", stop_prompt="⏹️ DETENER", key=f"ex_{st.session_state.pregunta_actual}")
+            
+            if audio and audio.get("id") != st.session_state.last_audio_id:
+                st.session_state.last_audio_id = audio.get("id")
+                texto = transcribir_audio(audio['bytes'])
                 
-                st.markdown(f"""
-                <div class='error-box'>
-                    <h4>📊 Análisis de tu pronunciación:</h4>
-                    <p><strong>🎯 Objetivo:</strong> {frase_obj['ingles']}</p>
-                    <p><strong>🎤 Dijiste:</strong> {texto_usuario}</p>
-                </div>
-                """, unsafe_allow_html=True)
-                
-                st.markdown("### 📝 Análisis Palabra por Palabra:")
-                analisis = analizar_palabras(texto_usuario, frase_obj['ingles'])
-                for palabra in analisis:
-                    st.markdown(palabra)
-                
-                st.info(f"""
-                💡 **Consejos para mejorar:**
-                1. {frase_obj['tip']}
-                2. Escucha el audio de arriba varias veces
-                3. Repite despacio primero, luego más rápido
-                4. Graba de nuevo cuando estés listo
-                
-                **Llevas {st.session_state.intentos_frase} intentos - ¡No te rindas!**
-                """)
-
-# ==================== FOOTER ====================
+                if texto:
+                    prec = similitud_texto(texto, preg['respuesta'])
+                    if prec >= config['umbral_examen']:
+                        st.success("Correcto")
+                        st.session_state.respuestas_correctas += 1
+                    else:
+                        st.error(f"Incorrecto. Era: {preg['respuesta']}")
+                    
+                    time.sleep(2)
+                    st.session_state.pregunta_actual += 1
+                    guardar_datos()
+                    st.rerun()
 
 st.divider()
-st.markdown(config['explicacion'], unsafe_allow_html=True)
-
+st.markdown("<div style='text-align: center; color: white;'>Nexus Pro Elite v4.0</div>", unsafe_allow_html=True)
