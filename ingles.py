@@ -648,8 +648,374 @@ Expresar acciones habituales, rutinas y verdades generales.
         ],
         "umbral_practica": 85,
         "umbral_examen": 80
-    }
-}
+    },
+    
+    "A1.5": {
+        "tema": "Días, Meses y Horarios",
+        "objetivo": "Expresar fechas, días de la semana y decir la hora",
+        "duracion": "40 minutos",
+        "explicacion": """
+## 📚 LECCIÓN 6: Tiempo y Fechas
+
+### 🎯 OBJETIVO
+Decir días, meses, fechas y preguntar/responder la hora.
+
+### 📖 DÍAS DE LA SEMANA
+Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
+
+### 📝 MESES
+January, February, March, April, May, June, July, August, September, October, November, December
+
+### 💡 LA HORA
+- What time is it? = ¿Qué hora es?
+- It's 3 o'clock = Son las 3 en punto
+- It's 2:30 = Son las 2 y media
+""",
+        "frases": [
+            {"ingles": "Today is Monday", "español": "Hoy es lunes", "fonética": "tudéi is mándei", "contexto": "Decir el día actual", "tip": "Los días se escriben con mayúscula"},
+            {"ingles": "My birthday is in May", "español": "Mi cumpleaños es en mayo", "fonética": "mái bérzdei is in méi", "contexto": "Hablar de fechas importantes", "tip": "'Birthday' = cumpleaños"},
+            {"ingles": "What time is it", "español": "¿Qué hora es?", "fonética": "uát táim is it", "contexto": "Preguntar la hora", "tip": "Pregunta muy común"},
+            {"ingles": "It is three o clock", "español": "Son las tres en punto", "fonética": "it is zrí o clok", "contexto": "Decir hora exacta", "tip": "O'clock = en punto"},
+            {"ingles": "I wake up at six", "español": "Me despierto a las seis", "fonética": "ái uéik ap at siks", "contexto": "Rutinas con horario", "tip": "'At' para horas específicas"},
+            {"ingles": "The class starts at nine", "español": "La clase empieza a las nueve", "fonética": "de clas starts at náin", "contexto": "Horarios de actividades", "tip": "'Starts' = empieza"},
+            {"ingles": "We work from Monday to Friday", "español": "Trabajamos de lunes a viernes", "fonética": "uí uórk from mándei tu fráidei", "contexto": "Semana laboral", "tip": "'From...to' = de...a"},
+            {"ingles": "Christmas is in December", "español": "Navidad es en diciembre", "fonética": "crísmas is in disémber", "contexto": "Festividades", "tip": "Meses con 'in'"},
+            {"ingles": "See you on Saturday", "español": "Nos vemos el sábado", "fonética": "si iú on sáterdei", "contexto": "Hacer planes", "tip": "'On' para días específicos"},
+            {"ingles": "The meeting is at two thirty", "español": "La reunión es a las dos y media", "fonética": "de mítin is at tu zérti", "contexto": "Citas y reuniones", "tip": "2:30 = two thirty"}
+        ],
+        "examen": [
+            {"pregunta": "¿Cómo se dice 'lunes' en inglés?", "respuesta": "Monday", "explicacion": "Monday = lunes"},
+            {"pregunta": "Pregunta '¿Qué hora es?' en inglés", "respuesta": "What time is it", "explicacion": "Pregunta estándar para la hora"},
+            {"pregunta": "Di 'Son las tres' en inglés", "respuesta": "It is three o clock", "explicacion": "It's 3 o'clock"},
+            {"pregunta": "¿Cómo se dice 'mayo'?", "respuesta": "May", "explicacion": "May = mayo"},
+            {"pregunta": "Completa: I wake up ___ six (at/in/on)", "respuesta": "at", "explicacion": "AT para horas específicas"}
+        ],
+        "umbral_practica": 85,
+        "umbral_examen": 80
+    },
+    
+    "A1.6": {
+        "tema": "Familia y Relaciones",
+        "objetivo": "Hablar sobre miembros de la familia y relaciones",
+        "duracion": "40 minutos",
+        "explicacion": """
+## 📚 LECCIÓN 7: Familia
+
+### 🎯 OBJETIVO
+Presentar a tu familia y describir relaciones familiares.
+
+### 📖 VOCABULARIO FAMILIAR
+- Father/Dad = Padre/Papá
+- Mother/Mom = Madre/Mamá
+- Brother = Hermano
+- Sister = Hermana
+- Son = Hijo
+- Daughter = Hija
+- Husband = Esposo
+- Wife = Esposa
+
+### 💡 EXPRESIONES
+- This is my... = Este/Esta es mi...
+- I have... = Tengo...
+- How many siblings? = ¿Cuántos hermanos?
+""",
+        "frases": [
+            {"ingles": "This is my father", "español": "Este es mi padre", "fonética": "dis is mái fáder", "contexto": "Presentar a tu papá", "tip": "'Father' formal, 'Dad' informal"},
+            {"ingles": "I have two brothers", "español": "Tengo dos hermanos", "fonética": "ái jav tu bróders", "contexto": "Hablar de hermanos", "tip": "Brothers = hermanos varones"},
+            {"ingles": "My sister is a doctor", "español": "Mi hermana es doctora", "fonética": "mái síster is a dóctor", "contexto": "Profesión de familiar", "tip": "'Sister' = hermana"},
+            {"ingles": "Her husband is tall", "español": "Su esposo es alto", "fonética": "jer jásband is tol", "contexto": "Describir familiares", "tip": "'Husband' = esposo"},
+            {"ingles": "My mother cooks well", "español": "Mi madre cocina bien", "fonética": "mái máder cuks uél", "contexto": "Habilidades familiares", "tip": "'Cooks' con 's' (tercera persona)"},
+            {"ingles": "I love my family", "español": "Amo a mi familia", "fonética": "ái lav mái fámili", "contexto": "Expresar afecto", "tip": "'Love' = amar"},
+            {"ingles": "My parents live in Colombia", "español": "Mis padres viven en Colombia", "fonética": "mái pérents liv in colómbia", "contexto": "Ubicación familiar", "tip": "'Parents' = padres"},
+            {"ingles": "She has one daughter", "español": "Ella tiene una hija", "fonética": "shi jas uan dóter", "contexto": "Hablar de hijos", "tip": "'Daughter' = hija"},
+            {"ingles": "We are a big family", "español": "Somos una familia grande", "fonética": "uí ar a big fámili", "contexto": "Describir tamaño familiar", "tip": "'Big family' = familia grande"},
+            {"ingles": "My grandparents are old", "español": "Mis abuelos son ancianos", "fonética": "mái grándpérents ar old", "contexto": "Hablar de abuelos", "tip": "'Grandparents' = abuelos"}
+        ],
+        "examen": [
+            {"pregunta": "¿Cómo se dice 'padre' en inglés?", "respuesta": "father", "explicacion": "Father/Dad = padre/papá"},
+            {"pregunta": "Di 'Tengo dos hermanos' en inglés", "respuesta": "I have two brothers", "explicacion": "I have + número + familiares"},
+            {"pregunta": "¿Cómo se dice 'hermana'?", "respuesta": "sister", "explicacion": "Sister = hermana"},
+            {"pregunta": "Completa: My ___ is a doctor (madre)", "respuesta": "mother", "explicacion": "Mother = madre"},
+            {"pregunta": "Di 'Mi familia' en inglés", "respuesta": "My family", "explicacion": "My family = mi familia"}
+        ],
+        "umbral_practica": 85,
+        "umbral_examen": 80
+    },
+    
+    "A2.2": {
+        "tema": "Pasado Simple - Verbos Regulares",
+        "objetivo": "Hablar de acciones que ya terminaron",
+        "duracion": "50 minutos",
+        "explicacion": """
+## 📚 LECCIÓN 8: Pasado Simple Regular
+
+### 🎯 OBJETIVO
+Narrar eventos pasados con verbos regulares.
+
+### 📖 FORMACIÓN
+Verbo + ED = Pasado
+- work → worked
+- play → played
+- study → studied
+
+### 📝 ESTRUCTURA
+**Afirmativo:** Sujeto + verbo+ed
+- I worked yesterday
+
+**Negativo:** didn't + verbo
+- I didn't work
+
+**Pregunta:** Did + sujeto + verbo?
+- Did you work?
+
+### 💡 EXPRESIONES DE TIEMPO
+- Yesterday = ayer
+- Last week = la semana pasada
+- Last year = el año pasado
+- Ago = hace (three days ago)
+""",
+        "frases": [
+            {"ingles": "I worked yesterday", "español": "Trabajé ayer", "fonética": "ái uórkt yésterdei", "contexto": "Actividad laboral pasada", "tip": "'-ed' suena como 't' o 'd'"},
+            {"ingles": "She studied English", "español": "Ella estudió inglés", "fonética": "shi stádid ínglish", "contexto": "Educación pasada", "tip": "'Studied' cambia 'y' por 'i'"},
+            {"ingles": "We played soccer", "español": "Jugamos fútbol", "fonética": "uí pléid sóker", "contexto": "Deportes pasados", "tip": "'Played' = jugamos"},
+            {"ingles": "They visited Paris", "español": "Ellos visitaron París", "fonética": "déi vísited páris", "contexto": "Viajes pasados", "tip": "'Visited' añade '-ed'"},
+            {"ingles": "I watched a movie", "español": "Vi una película", "fonética": "ái uócht a múvi", "contexto": "Entretenimiento pasado", "tip": "'Watched' = vi/miré"},
+            {"ingles": "He cooked dinner", "español": "Él cocinó la cena", "fonética": "ji cukt díner", "contexto": "Actividad doméstica", "tip": "'Cooked' con sonido 't'"},
+            {"ingles": "I did not work", "español": "No trabajé", "fonética": "ái did not uórk", "contexto": "Negación en pasado", "tip": "'Didn't' = did not"},
+            {"ingles": "Did you study", "español": "¿Estudiaste?", "fonética": "did iú stádi", "contexto": "Pregunta en pasado", "tip": "Did + verbo base"},
+            {"ingles": "We lived in Spain", "español": "Vivimos en España", "fonética": "uí livd in spéin", "contexto": "Residencia pasada", "tip": "'Lived' = vivimos"},
+            {"ingles": "She called me yesterday", "español": "Ella me llamó ayer", "fonética": "shi cold mi yésterdei", "contexto": "Comunicación pasada", "tip": "'Called' = llamó"}
+        ],
+        "examen": [
+            {"pregunta": "Pasado de 'work'", "respuesta": "worked", "explicacion": "work + ed = worked"},
+            {"pregunta": "Di 'Yo trabajé ayer' en inglés", "respuesta": "I worked yesterday", "explicacion": "I + verbo-ed + yesterday"},
+            {"pregunta": "Forma negativa: I ___ work (didn't/don't)", "respuesta": "didn't", "explicacion": "Didn't + verbo base"},
+            {"pregunta": "Pregunta: ___ you study?", "respuesta": "Did", "explicacion": "Did para preguntas en pasado"},
+            {"pregunta": "Pasado de 'play'", "respuesta": "played", "explicacion": "play + ed = played"}
+        ],
+        "umbral_practica": 85,
+        "umbral_examen": 80
+    },
+    
+    "A2.3": {
+        "tema": "Pasado Simple - Verbos Irregulares",
+        "objetivo": "Dominar los verbos irregulares más comunes",
+        "duracion": "50 minutos",
+        "explicacion": """
+## 📚 LECCIÓN 9: Pasado Irregular
+
+### 🎯 OBJETIVO
+Usar correctamente verbos irregulares en pasado.
+
+### 📖 VERBOS IRREGULARES COMUNES
+- go → went (ir/fue)
+- have → had (tener/tuvo)
+- do → did (hacer/hizo)
+- see → saw (ver/vio)
+- eat → ate (comer/comió)
+- drink → drank (beber/bebió)
+- come → came (venir/vino)
+- say → said (decir/dijo)
+- make → made (hacer/hizo)
+- get → got (conseguir/consiguió)
+
+### 💡 IMPORTANTE
+¡Estos verbos NO llevan -ed! Cada uno tiene su forma única.
+""",
+        "frases": [
+            {"ingles": "I went to the park", "español": "Fui al parque", "fonética": "ái uent tu de park", "contexto": "Movimiento pasado", "tip": "'Went' es irregular de 'go'"},
+            {"ingles": "She had breakfast", "español": "Ella desayunó", "fonética": "shi jad brékfast", "contexto": "Comidas pasadas", "tip": "'Had' viene de 'have'"},
+            {"ingles": "We saw a movie", "español": "Vimos una película", "fonética": "uí so a múvi", "contexto": "Entretenimiento", "tip": "'Saw' de 'see'"},
+            {"ingles": "They ate pizza", "español": "Ellos comieron pizza", "fonética": "déi éit pítsa", "contexto": "Comida pasada", "tip": "'Ate' rima con 'ate' inglés"},
+            {"ingles": "I drank water", "español": "Bebí agua", "fonética": "ái drank uóter", "contexto": "Bebidas", "tip": "'Drank' de 'drink'"},
+            {"ingles": "He came home late", "español": "Él llegó a casa tarde", "fonética": "ji kéim jóum léit", "contexto": "Llegadas", "tip": "'Came' de 'come'"},
+            {"ingles": "She said yes", "español": "Ella dijo que sí", "fonética": "shi sed yes", "contexto": "Respuestas", "tip": "'Said' suena como 'sed'"},
+            {"ingles": "I made a cake", "español": "Hice un pastel", "fonética": "ái méid a kéik", "contexto": "Creación", "tip": "'Made' de 'make'"},
+            {"ingles": "We got a gift", "español": "Recibimos un regalo", "fonética": "uí got a gift", "contexto": "Recibir cosas", "tip": "'Got' de 'get'"},
+            {"ingles": "They did homework", "español": "Ellos hicieron tarea", "fonética": "déi did jómuork", "contexto": "Tareas escolares", "tip": "'Did' de 'do'"}
+        ],
+        "examen": [
+            {"pregunta": "Pasado de 'go'", "respuesta": "went", "explicacion": "go → went (irregular)"},
+            {"pregunta": "Di 'Yo fui al parque' en inglés", "respuesta": "I went to the park", "explicacion": "I went to..."},
+            {"pregunta": "Pasado de 'eat'", "respuesta": "ate", "explicacion": "eat → ate"},
+            {"pregunta": "Pasado de 'see'", "respuesta": "saw", "explicacion": "see → saw"},
+            {"pregunta": "Di 'Ella tuvo suerte' (have luck)", "respuesta": "She had luck", "explicacion": "have → had"}
+        ],
+        "umbral_practica": 85,
+        "umbral_examen": 80
+    },
+    
+    "A2.4": {
+        "tema": "Futuro con Will y Going to",
+        "objetivo": "Expresar planes futuros y predicciones",
+        "duracion": "50 minutos",
+        "explicacion": """
+## 📚 LECCIÓN 10: Futuro
+
+### 🎯 OBJETIVO
+Hablar de planes, intenciones y predicciones.
+
+### 📖 WILL (decisiones espontáneas)
+- I will help you = Te ayudaré
+- It will rain = Lloverá
+
+### 📝 GOING TO (planes decididos)
+- I am going to study = Voy a estudiar
+- She is going to travel = Ella va a viajar
+
+### 💡 CUÁNDO USAR
+- WILL: decisiones del momento, predicciones
+- GOING TO: planes ya decididos, evidencia visible
+""",
+        "frases": [
+            {"ingles": "I will help you", "español": "Te ayudaré", "fonética": "ái uil jelp iú", "contexto": "Ofrecer ayuda", "tip": "'Will' para decisiones inmediatas"},
+            {"ingles": "She is going to travel", "español": "Ella va a viajar", "fonética": "shi is góin tu trável", "contexto": "Planes futuros", "tip": "'Going to' para planes decididos"},
+            {"ingles": "It will rain tomorrow", "español": "Lloverá mañana", "fonética": "it uil réin tumórou", "contexto": "Predicción del clima", "tip": "'Will' para predicciones"},
+            {"ingles": "We are going to study", "español": "Vamos a estudiar", "fonética": "uí ar góin tu stádi", "contexto": "Plan de estudio", "tip": "Be + going to + verbo"},
+            {"ingles": "They will arrive soon", "español": "Ellos llegarán pronto", "fonética": "déi uil aráiv sun", "contexto": "Llegadas futuras", "tip": "'Soon' = pronto"},
+            {"ingles": "I am going to buy a car", "español": "Voy a comprar un carro", "fonética": "ái am góin tu bái a car", "contexto": "Planes de compra", "tip": "Plan ya decidido"},
+            {"ingles": "He will call you", "español": "Él te llamará", "fonética": "ji uil col iú", "contexto": "Promesa futura", "tip": "'Will' para promesas"},
+            {"ingles": "We will not go", "español": "No iremos", "fonética": "uí uil not góu", "contexto": "Negación futura", "tip": "'Will not' = won't"},
+            {"ingles": "Are you going to come", "español": "¿Vas a venir?", "fonética": "ar iú góin tu cam", "contexto": "Pregunta sobre planes", "tip": "Be + sujeto + going to"},
+            {"ingles": "It is going to snow", "español": "Va a nevar", "fonética": "it is góin tu snóu", "contexto": "Clima futuro con evidencia", "tip": "Going to cuando hay señales"}
+        ],
+        "examen": [
+            {"pregunta": "Completa: I ___ help you", "respuesta": "will", "explicacion": "Will para ofrecer ayuda"},
+            {"pregunta": "Di 'Voy a estudiar' con going to", "respuesta": "I am going to study", "explicacion": "Be + going to + verbo"},
+            {"pregunta": "Futuro de 'rain' con will", "respuesta": "will rain", "explicacion": "Will + verbo base"},
+            {"pregunta": "Negativo: We ___ not go", "respuesta": "will", "explicacion": "Will not = won't"},
+            {"pregunta": "Pregunta: ___ you going to come?", "respuesta": "Are", "explicacion": "Are you going to...?"}
+        ],
+        "umbral_practica": 85,
+        "umbral_examen": 80
+    },
+    
+    "B1.1": {
+        "tema": "Presente Perfecto",
+        "objetivo": "Conectar el pasado con el presente",
+        "duracion": "60 minutos",
+        "explicacion": """
+## 📚 LECCIÓN 11: Presente Perfecto
+
+### 🎯 OBJETIVO
+Hablar de experiencias de vida y acciones con efecto presente.
+
+### 📖 FORMACIÓN
+Have/Has + participio pasado
+- I have worked
+- She has eaten
+
+### 📝 USOS
+1. Experiencias: I have been to Paris
+2. Algo que empezó en el pasado y continúa: I have lived here for 5 years
+3. Acción reciente: She has just arrived
+
+### 💡 PALABRAS CLAVE
+- Ever = alguna vez
+- Never = nunca
+- Already = ya
+- Yet = todavía/aún
+- Just = recién/justo
+- For = durante (tiempo)
+- Since = desde (punto en tiempo)
+""",
+        "frases": [
+            {"ingles": "I have been to Paris", "español": "He estado en París", "fonética": "ái jav bin tu páris", "contexto": "Experiencias de viaje", "tip": "'Have been' = he estado"},
+            {"ingles": "She has just arrived", "español": "Ella recién llegó", "fonética": "shi jas yast aráivd", "contexto": "Acción muy reciente", "tip": "'Just' = recién"},
+            {"ingles": "Have you ever tried sushi", "español": "¿Alguna vez has probado sushi?", "fonética": "jav iú éver tráid súshi", "contexto": "Preguntar por experiencias", "tip": "'Ever' en preguntas"},
+            {"ingles": "I have never seen snow", "español": "Nunca he visto nieve", "fonética": "ái jav néver sin snóu", "contexto": "Falta de experiencia", "tip": "'Never' = nunca"},
+            {"ingles": "We have lived here for five years", "español": "Hemos vivido aquí por 5 años", "fonética": "uí jav livd jir for fáiv yírs", "contexto": "Duración hasta ahora", "tip": "'For' + periodo de tiempo"},
+            {"ingles": "He has worked since Monday", "español": "Él ha trabajado desde el lunes", "fonética": "ji jas uórkt sins mándei", "contexto": "Punto de inicio", "tip": "'Since' + punto en tiempo"},
+            {"ingles": "They have already eaten", "español": "Ellos ya comieron", "fonética": "déi jav olrédi íten", "contexto": "Acción ya completada", "tip": "'Already' = ya"},
+            {"ingles": "I have not finished yet", "español": "No he terminado todavía", "fonética": "ái jav not fínisht yet", "contexto": "Acción incompleta", "tip": "'Yet' al final (negativo)"},
+            {"ingles": "She has lost her keys", "español": "Ella ha perdido sus llaves", "fonética": "shi jas lost jer kíis", "contexto": "Problema presente por acción pasada", "tip": "Efecto presente"},
+            {"ingles": "Have they arrived yet", "español": "¿Ya llegaron ellos?", "fonética": "jav déi aráivd yet", "contexto": "Pregunta sobre completitud", "tip": "'Yet' en preguntas"}
+        ],
+        "examen": [
+            {"pregunta": "Completa: I ___ been to Paris", "respuesta": "have", "explicacion": "I/We/You/They + have"},
+            {"pregunta": "Completa: She ___ just arrived", "respuesta": "has", "explicacion": "He/She/It + has"},
+            {"pregunta": "Di 'He estado en París' en inglés", "respuesta": "I have been to Paris", "explicacion": "Have/Has + participio"},
+            {"pregunta": "Completa: I have lived here ___ 5 years", "respuesta": "for", "explicacion": "FOR + periodo de tiempo"},
+            {"pregunta": "Pregunta: ___ you ever tried sushi?", "respuesta": "Have", "explicacion": "Have/Has al inicio"}
+        ],
+        "umbral_practica": 85,
+        "umbral_examen": 80
+    },
+    
+    "B1.2": {
+        "tema": "Modales: Can, Could, Should, Must",
+        "objetivo": "Expresar habilidad, posibilidad, consejo y obligación",
+        "duracion": "60 minutos",
+        "explicacion": """
+## 📚 LECCIÓN 12: Verbos Modales
+
+### 🎯 OBJETIVO
+Usar modales para expresar diferentes significados.
+
+### 📖 MODALES PRINCIPALES
+
+**CAN = poder (habilidad/permiso)**
+- I can swim = Puedo nadar
+
+**COULD = podría (posibilidad/pasado de can)**
+- I could help = Podría ayudar
+- I could swim = Podía nadar
+
+**SHOULD = debería (consejo)**
+- You should study = Deberías estudiar
+
+**MUST = deber (obligación fuerte)**
+- I must go = Debo ir
+
+### 💡 REGLAS
+- Modal + verbo base (SIN 'to')
+- No cambian en tercera persona (NO 'she cans')
+- Negativo: cannot/can't, couldn't, shouldn't, mustn't
+""",
+        "frases": [
+            {"ingles": "I can speak English", "español": "Puedo hablar inglés", "fonética": "ái can spík ínglish", "contexto": "Habilidad presente", "tip": "'Can' para habilidades"},
+            {"ingles": "She could help you", "español": "Ella podría ayudarte", "fonética": "shi cud jelp iú", "contexto": "Posibilidad", "tip": "'Could' menos seguro que 'can'"},
+            {"ingles": "You should study more", "español": "Deberías estudiar más", "fonética": "iú shud stádi mor", "contexto": "Dar consejo", "tip": "'Should' para aconsejar"},
+            {"ingles": "I must go now", "español": "Debo irme ahora", "fonética": "ái mast góu náu", "contexto": "Obligación fuerte", "tip": "'Must' = tengo que"},
+            {"ingles": "Can you swim", "español": "¿Puedes nadar?", "fonética": "can iú suím", "contexto": "Preguntar habilidad", "tip": "Modal + sujeto + verbo"},
+            {"ingles": "I cannot drive", "español": "No puedo conducir", "fonética": "ái cánot dráiv", "contexto": "Falta de habilidad", "tip": "'Cannot' una palabra"},
+            {"ingles": "We should not lie", "español": "No deberíamos mentir", "fonética": "uí shúdnt lái", "contexto": "Consejo negativo", "tip": "'Shouldn't' = no deberías"},
+            {"ingles": "Could I ask a question", "español": "¿Podría hacer una pregunta?", "fonética": "cud ái ask a cuéschen", "contexto": "Pedir permiso educadamente", "tip": "'Could' más formal que 'can'"},
+            {"ingles": "You must wear a seatbelt", "español": "Debes usar cinturón de seguridad", "fonética": "iú mast uér a sítbelt", "contexto": "Obligación legal", "tip": "'Must' obligación"},
+            {"ingles": "She can play the piano", "español": "Ella puede tocar el piano", "fonética": "shi can pléi de piáno", "contexto": "Habilidad musical", "tip": "Modal + verbo base"}
+        ],
+        "examen": [
+            {"pregunta": "Completa: I ___ speak English (habilidad)", "respuesta": "can", "explicacion": "CAN para habilidades"},
+            {"pregunta": "Consejo: You ___ study more", "respuesta": "should", "explicacion": "SHOULD para consejos"},
+            {"pregunta": "Obligación: I ___ go now", "respuesta": "must", "explicacion": "MUST para obligación"},
+            {"pregunta": "Posibilidad: I ___ help you", "respuesta": "could", "explicacion": "COULD para posibilidad"},
+            {"pregunta": "Negativo de 'can'", "respuesta": "cannot", "explicacion": "Cannot/can't"}
+        ],
+        "umbral_practica": 85,
+        "umbral_examen": 80
+    },
+    
+    "B2.1": {
+        "tema": "Condicionales Tipo 1 y 2",
+        "objetivo": "Expresar condiciones reales e hipotéticas",
+        "duracion": "60 minutos",
+        "explicacion": """
+## 📚 LECCIÓN 13: Condicionales
+
+### 🎯 OBJETIVO
+Hablar de condiciones y sus resultados.
+
+### 📖 CONDICIONAL TIPO 1 (Real/Posible)
+**If + presente, will + verbo**
+- If it rains, I will stay home
+- Si llueve, me quedaré en casa
+
+### 📝 CONDICIONAL TIPO 2 (Hipotético/Irreal)
+**If + pasado, would + verbo**
+- If I had money, I would buy a car
+- Si tuviera dinero, compraría un carro
+
+### 💡 
 
 # ==================== FUNCIONES ====================
 
@@ -1095,94 +1461,4 @@ elif st.session_state.fase == "examen":
             
             # INCORRECTA
             else:
-                st.error(f"❌ RESPUESTA INCORRECTA ({precision}%)")
-                
-                st.warning(f"""
-                **Esperaba:** {pregunta_obj['respuesta']}  
-                **Dijiste:** {texto_usuario}
-                
-                **Explicación:** {pregunta_obj['explicacion']}
-                """)
-            
-            st.divider()
-            
-            # ¿Última pregunta?
-            if st.session_state.pregunta_actual >= total_preguntas - 1:
-                # RESULTADO FINAL
-                nota = (st.session_state.respuestas_correctas / total_preguntas) * 100
-                
-                st.markdown("## 📊 RESULTADO FINAL")
-                st.markdown(f"### Nota: {nota:.0f}%")
-                st.markdown(f"**Correctas:** {st.session_state.respuestas_correctas}/{total_preguntas}")
-                
-                # APROBADO
-                if st.session_state.respuestas_correctas == total_preguntas:
-                    st.balloons()
-                    st.success("🎊 ¡EXAMEN APROBADO!")
-                    
-                    siguiente_idx = indice + 1
-                    if siguiente_idx < len(niveles_list):
-                        siguiente = niveles_list[siguiente_idx]
-                        
-                        st.session_state.historial.append({
-                            "nivel": nivel_actual,
-                            "nota": nota,
-                            "fecha": datetime.now().isoformat()
-                        })
-                        
-                        st.markdown(f"""
-                        <div class='success-box'>
-                            <h3>✅ Nivel {nivel_actual} COMPLETADO</h3>
-                            <h3>🚀 Avanzando a {siguiente}: {CURRICULO[siguiente]['tema']}</h3>
-                        </div>
-                        """, unsafe_allow_html=True)
-                        
-                        col1, col2, col3 = st.columns([1,2,1])
-                        with col2:
-                            if st.button("➡️ COMENZAR SIGUIENTE NIVEL", use_container_width=True, type="primary"):
-                                st.session_state.nivel_actual = siguiente
-                                st.session_state.fase = "explicacion"
-                                st.session_state.frase_actual = 0
-                                st.session_state.intentos_frase = 0
-                                st.session_state.pregunta_actual = 0
-                                st.session_state.respuestas_correctas = 0
-                                guardar_datos()
-                                st.rerun()
-                    else:
-                        st.success("🏆 ¡COMPLETASTE TODO EL CURSO!")
-                
-                # REPROBADO
-                else:
-                    st.error("😔 Examen Reprobado")
-                    st.info(f"Necesitabas {total_preguntas}/{total_preguntas} correctas. Obtuviste {st.session_state.respuestas_correctas}/{total_preguntas}")
-                    
-                    col1, col2, col3 = st.columns([1,2,1])
-                    with col2:
-                        if st.button("🔄 REPETIR NIVEL", use_container_width=True, type="primary"):
-                            st.session_state.fase = "explicacion"
-                            st.session_state.frase_actual = 0
-                            st.session_state.intentos_frase = 0
-                            st.session_state.pregunta_actual = 0
-                            st.session_state.respuestas_correctas = 0
-                            guardar_datos()
-                            st.rerun()
-            
-            # Siguiente pregunta
-            else:
-                col1, col2, col3 = st.columns([1,2,1])
-                with col2:
-                    if st.button("➡️ SIGUIENTE PREGUNTA", use_container_width=True, type="primary", key=f"btn_sig_preg_{st.session_state.pregunta_actual}"):
-                        st.session_state.pregunta_actual += 1
-                        st.session_state.last_audio_id = None  # Resetear para nueva pregunta
-                        guardar_datos()
-                        st.rerun()
-
-# ==================== FOOTER ====================
-
-st.divider()
-st.markdown("""
-<div style='text-align: center; color: white; padding: 20px;'>
-    <p>🎓 Nexus Pro Elite v4.0 | Sistema Profesional de Inglés A1→C1</p>
-    <p>Desarrollado con ❤️ para tu éxito</p>
-</div>
-""", unsafe_allow_html=True)
+                st.error(f"❌ RESPUESTA INCORRECTA ({precisio
