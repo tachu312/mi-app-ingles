@@ -76,8 +76,8 @@ if "usuario_activo" not in st.session_state:
 if not st.session_state.usuario_activo:
     st.markdown("""
     <div style='text-align: center; padding: 50px;'>
-        <h1 style='color: white; font-size: 48px;'>🎓 Nexus Pro Elite</h1>
-        <p style='color: white; font-size: 20px;'>Sistema Profesional de Inglés A1 → C1</p>
+        <h1 style='color: white; font-size: 48px;'>Nexus Pro Elite</h1>
+        <p style='color: white; font-size: 20px;'>Sistema Profesional de Ingles A1 a C1</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -85,31 +85,31 @@ if not st.session_state.usuario_activo:
     with col2:
         with st.container():
             st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
-            st.markdown("### 🔐 Acceso al Sistema")
-            u = st.text_input("👤 Usuario", key="login_user")
-            p = st.text_input("🔒 Contraseña", type="password", key="login_pass")
+            st.markdown("### Acceso al Sistema")
+            u = st.text_input("Usuario", key="login_user")
+            p = st.text_input("Contrasena", type="password", key="login_pass")
             
-            if st.button("🚀 ENTRAR AL BOOTCAMP", use_container_width=True, type="primary"):
+            if st.button("ENTRAR AL BOOTCAMP", use_container_width=True, type="primary"):
                 if u in USUARIOS and USUARIOS[u] == p:
                     st.session_state.usuario_activo = u
-                    st.success("✅ Acceso concedido")
+                    st.success("Acceso concedido")
                     time.sleep(1)
                     st.rerun()
                 else:
-                    st.error("❌ Credenciales incorrectas")
+                    st.error("Credenciales incorrectas")
             
             st.markdown("</div>", unsafe_allow_html=True)
             
             st.info("""
-            **📚 Características del Sistema:**
-            - ✅ Explicaciones detalladas con gramática
-            - ✅ 10 ejercicios variados por nivel
-            - ✅ Pronunciación nativa con audio
-            - ✅ Sistema de repetición hasta dominar (85%+)
-            - ✅ Análisis palabra por palabra
-            - ✅ Exámenes rigurosos
-            - ✅ Seguimiento de racha diaria
-            - ✅ Certificación progresiva
+            **Caracteristicas del Sistema:**
+            - Explicaciones detalladas con gramatica
+            - 10 ejercicios variados por nivel
+            - Pronunciacion nativa con audio
+            - Sistema de repeticion hasta dominar (85%+)
+            - Analisis palabra por palabra
+            - Examenes rigurosos
+            - Seguimiento de racha diaria
+            - Certificacion progresiva
             """)
     st.stop()
 
@@ -1173,21 +1173,21 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
     
-    st.subheader("🗺️ Roadmap")
+    st.subheader("Roadmap")
     
     for i, key in enumerate(niveles_list):
         tema = CURRICULO[key]["tema"]
         if i < indice:
-            st.success(f"✅ {key}: {tema[:25]}...")
+            st.success(f"COMPLETADO: {key}: {tema[:25]}...")
         elif i == indice:
-            st.info(f"🎯 {key}: {tema[:25]}...")
+            st.info(f"ACTUAL: {key}: {tema[:25]}...")
         else:
-            st.caption(f"🔒 {key}: {tema[:25]}...")
+            st.caption(f"BLOQUEADO: {key}: {tema[:25]}...")
     
     st.divider()
     
     if st.session_state.historial:
-        st.subheader("📈 Estadísticas")
+        st.subheader("Estadisticas")
         total = len(st.session_state.historial)
         promedio = sum(h['nota'] for h in st.session_state.historial) / total
         st.metric("Niveles Completados", total)
@@ -1195,21 +1195,21 @@ with st.sidebar:
     
     st.divider()
     
-    if st.button("🔄 Repetir Nivel", use_container_width=True):
+    if st.button("Repetir Nivel", use_container_width=True):
         st.session_state.fase = "explicacion"
         st.session_state.frase_actual = 0
         st.session_state.intentos_frase = 0
         guardar_datos()
         st.rerun()
     
-    if st.button("🗑️ Reiniciar Todo", use_container_width=True):
+    if st.button("Reiniciar Todo", use_container_width=True):
         archivo = f"datos_{st.session_state.usuario_activo}.json"
         if os.path.exists(archivo):
             os.remove(archivo)
         st.session_state.clear()
         st.rerun()
     
-    if st.button("🚪 Cerrar Sesión", use_container_width=True):
+    if st.button("Cerrar Sesion", use_container_width=True):
         st.session_state.usuario_activo = None
         st.rerun()
 
@@ -1225,15 +1225,15 @@ st.markdown("""
 # ==================== EXPLICACIÓN ====================
 
 if st.session_state.fase == "explicacion":
-    st.markdown(f"## 📖 {nivel_actual}: {config['tema']}")
+    st.markdown(f"## {nivel_actual}: {config['tema']}")
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.info(f"**🎯 Objetivo:** {config['objetivo']}")
+        st.info(f"**Objetivo:** {config['objetivo']}")
     with col2:
-        st.info(f"**⏱️ Duración:** {config['duracion']}")
+        st.info(f"**Duracion:** {config['duracion']}")
     with col3:
-        st.info(f"**📊 Umbral:** {config['umbral_practica']}%")
+        st.info(f"**Umbral:** {config['umbral_practica']}%")
     
     st.divider()
     
@@ -1243,7 +1243,7 @@ if st.session_state.fase == "explicacion":
     
     col1, col2, col3 = st.columns([1,2,1])
     with col2:
-        if st.button("✅ ENTENDÍ - COMENZAR PRÁCTICA", use_container_width=True, type="primary"):
+        if st.button("ENTENDI - COMENZAR PRACTICA", use_container_width=True, type="primary"):
             st.session_state.fase = "practica"
             st.session_state.frase_actual = 0
             st.session_state.intentos_frase = 0
@@ -1374,25 +1374,25 @@ elif st.session_state.fase == "practica":
                 
                 st.markdown(f"""
                 <div class='error-box'>
-                    <h4>📊 Análisis de tu pronunciación:</h4>
-                    <p><strong>🎯 Objetivo:</strong> {frase_obj['ingles']}</p>
-                    <p><strong>🎤 Dijiste:</strong> {texto_usuario}</p>
+                    <h4>Analisis de tu pronunciacion:</h4>
+                    <p><strong>Objetivo:</strong> {frase_obj['ingles']}</p>
+                    <p><strong>Dijiste:</strong> {texto_usuario}</p>
                 </div>
                 """, unsafe_allow_html=True)
                 
-                st.markdown("### 📝 Análisis Palabra por Palabra:")
+                st.markdown("### Analisis Palabra por Palabra:")
                 analisis = analizar_palabras(texto_usuario, frase_obj['ingles'])
                 for palabra in analisis:
                     st.markdown(palabra)
                 
                 st.info(f"""
-                💡 **Consejos para mejorar:**
+                Consejos para mejorar:
                 1. {frase_obj['tip']}
                 2. Escucha el audio de arriba varias veces
-                3. Repite despacio primero, luego más rápido
-                4. Graba de nuevo cuando estés listo
+                3. Repite despacio primero, luego mas rapido
+                4. Graba de nuevo cuando estes listo
                 
-                **Llevas {st.session_state.intentos_frase} intentos - ¡No te rindas!**
+                Llevas {st.session_state.intentos_frase} intentos - No te rindas!
                 """)
 
 # ==================== EXAMEN ====================
@@ -1408,7 +1408,7 @@ elif st.session_state.fase == "examen":
     
     st.markdown(f"""
     <div style='background: #ff6b6b; color: white; padding: 20px; border-radius: 15px; margin-bottom: 20px;'>
-        <h2>🔥 EXAMEN FINAL - Pregunta {st.session_state.pregunta_actual + 1}/{total_preguntas}</h2>
+        <h2>EXAMEN FINAL - Pregunta {st.session_state.pregunta_actual + 1}/{total_preguntas}</h2>
         <p>Necesitas {total_preguntas}/{total_preguntas} correctas para aprobar</p>
         <p><strong>Correctas hasta ahora: {st.session_state.respuestas_correctas}/{st.session_state.pregunta_actual}</strong></p>
     </div>
@@ -1416,9 +1416,9 @@ elif st.session_state.fase == "examen":
     
     st.markdown(f"""
     <div class='info-box'>
-        <h3>📝 {pregunta_obj['pregunta']}</h3>
-        <p><strong>Responde en inglés con tu micrófono</strong></p>
-        <p><em>Umbral: ≥{umbral}% de precisión</em></p>
+        <h3>{pregunta_obj['pregunta']}</h3>
+        <p><strong>Responde en ingles con tu microfono</strong></p>
+        <p><em>Umbral: mayor o igual a {umbral}% de precision</em></p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -1426,8 +1426,8 @@ elif st.session_state.fase == "examen":
     
     # Micrófono
     audio = mic_recorder(
-        start_prompt="🎙️ RESPONDER",
-        stop_prompt="⏹️ DETENER",
+        start_prompt="RESPONDER",
+        stop_prompt="DETENER",
         key=f"mic_e_{st.session_state.pregunta_actual}"
     )
     
@@ -1435,21 +1435,21 @@ elif st.session_state.fase == "examen":
         st.session_state.last_audio_id = audio.get("id")
         
         # Mostrar audio del usuario
-        st.markdown("### 🎤 Tu Respuesta:")
+        st.markdown("### Tu Respuesta:")
         st.audio(audio['bytes'], format="audio/wav")
         
-        with st.spinner("🎧 Evaluando respuesta..."):
+        with st.spinner("Evaluando respuesta..."):
             texto_usuario = transcribir_audio(audio['bytes'])
         
         if texto_usuario:
-            st.markdown(f"**📝 Escuché:** {texto_usuario}")
+            st.markdown(f"**Escuche:** {texto_usuario}")
         
         if texto_usuario:
             precision = similitud_texto(texto_usuario, pregunta_obj['respuesta'])
             
             # CORRECTA
             if precision >= umbral:
-                st.success(f"✅ RESPUESTA CORRECTA ({precision}%)")
+                st.success(f"RESPUESTA CORRECTA ({precision}%)")
                 st.session_state.respuestas_correctas += 1
                 
                 st.info(f"""
@@ -1461,7 +1461,7 @@ elif st.session_state.fase == "examen":
             
             # INCORRECTA
             else:
-                st.error(f"❌ RESPUESTA INCORRECTA ({precision}%)")
+                st.error(f"RESPUESTA INCORRECTA ({precision}%)")
                 
                 st.warning(f"""
                 **Esperaba:** {pregunta_obj['respuesta']}  
@@ -1484,7 +1484,7 @@ elif st.session_state.fase == "examen":
                 # APROBADO
                 if st.session_state.respuestas_correctas == total_preguntas:
                     st.balloons()
-                    st.success("🎊 ¡EXAMEN APROBADO!")
+                    st.success("EXAMEN APROBADO!")
                     
                     siguiente_idx = indice + 1
                     if siguiente_idx < len(niveles_list):
@@ -1498,14 +1498,14 @@ elif st.session_state.fase == "examen":
                         
                         st.markdown(f"""
                         <div class='success-box'>
-                            <h3>✅ Nivel {nivel_actual} COMPLETADO</h3>
-                            <h3>🚀 Avanzando a {siguiente}: {CURRICULO[siguiente]['tema']}</h3>
+                            <h3>Nivel {nivel_actual} COMPLETADO</h3>
+                            <h3>Avanzando a {siguiente}: {CURRICULO[siguiente]['tema']}</h3>
                         </div>
                         """, unsafe_allow_html=True)
                         
                         col1, col2, col3 = st.columns([1,2,1])
                         with col2:
-                            if st.button("➡️ COMENZAR SIGUIENTE NIVEL", use_container_width=True, type="primary"):
+                            if st.button("COMENZAR SIGUIENTE NIVEL", use_container_width=True, type="primary"):
                                 st.session_state.nivel_actual = siguiente
                                 st.session_state.fase = "explicacion"
                                 st.session_state.frase_actual = 0
@@ -1515,16 +1515,16 @@ elif st.session_state.fase == "examen":
                                 guardar_datos()
                                 st.rerun()
                     else:
-                        st.success("🏆 ¡COMPLETASTE TODO EL CURSO!")
+                        st.success("COMPLETASTE TODO EL CURSO!")
                 
                 # REPROBADO
                 else:
-                    st.error("😔 Examen Reprobado")
+                    st.error("Examen Reprobado")
                     st.info(f"Necesitabas {total_preguntas}/{total_preguntas} correctas. Obtuviste {st.session_state.respuestas_correctas}/{total_preguntas}")
                     
                     col1, col2, col3 = st.columns([1,2,1])
                     with col2:
-                        if st.button("🔄 REPETIR NIVEL", use_container_width=True, type="primary"):
+                        if st.button("REPETIR NIVEL", use_container_width=True, type="primary"):
                             st.session_state.fase = "explicacion"
                             st.session_state.frase_actual = 0
                             st.session_state.intentos_frase = 0
@@ -1537,7 +1537,7 @@ elif st.session_state.fase == "examen":
             else:
                 col1, col2, col3 = st.columns([1,2,1])
                 with col2:
-                    if st.button("➡️ SIGUIENTE PREGUNTA", use_container_width=True, type="primary", key=f"btn_sig_preg_{st.session_state.pregunta_actual}"):
+                    if st.button("SIGUIENTE PREGUNTA", use_container_width=True, type="primary", key=f"btn_sig_preg_{st.session_state.pregunta_actual}"):
                         st.session_state.pregunta_actual += 1
                         st.session_state.last_audio_id = None  # Resetear para nueva pregunta
                         guardar_datos()
@@ -1548,7 +1548,7 @@ elif st.session_state.fase == "examen":
 st.divider()
 st.markdown("""
 <div style='text-align: center; color: white; padding: 20px;'>
-    <p>🎓 Nexus Pro Elite v4.0 | Sistema Profesional de Inglés A1→C1</p>
-    <p>Desarrollado con ❤️ para tu éxito</p>
+    <p>Nexus Pro Elite v4.0 | Sistema Profesional de Ingles A1 a C1</p>
+    <p>Desarrollado para tu exito</p>
 </div>
 """, unsafe_allow_html=True)
