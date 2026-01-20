@@ -167,6 +167,24 @@ if "datos_cargados" not in st.session_state:
     st.session_state.last_audio_id = None
     st.session_state.datos_cargados = True
 
+# Asegurar que todas las variables existan
+if "nivel_actual" not in st.session_state:
+    st.session_state.nivel_actual = "A1.1"
+if "frases_correctas" not in st.session_state:
+    st.session_state.frases_correctas = 0
+if "en_examen" not in st.session_state:
+    st.session_state.en_examen = False
+if "preguntas_examen" not in st.session_state:
+    st.session_state.preguntas_examen = []
+if "respuestas_correctas" not in st.session_state:
+    st.session_state.respuestas_correctas = 0
+if "chat" not in st.session_state:
+    st.session_state.chat = []
+if "historial_niveles" not in st.session_state:
+    st.session_state.historial_niveles = []
+if "fecha_inicio" not in st.session_state:
+    st.session_state.fecha_inicio = datetime.now().isoformat()
+
 nivel_actual = st.session_state.nivel_actual
 config_nivel = CURRICULO[nivel_actual]
 indice_nivel = list(CURRICULO.keys()).index(nivel_actual)
