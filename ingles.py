@@ -12,7 +12,7 @@ from difflib import SequenceMatcher
 
 # ==================== CONFIGURACIÓN ====================
 st.set_page_config(
-    page_title="Nexus Pro v4.2: Bootcamp A1→C1",
+    page_title="Nexus Pro v4.3: Bootcamp A1→C1",
     page_icon="🦅",
     layout="wide"
 )
@@ -26,7 +26,7 @@ if "usuario_activo" not in st.session_state:
     st.session_state.usuario_activo = None
 
 if not st.session_state.usuario_activo:
-    st.title("🦅 Nexus Pro v4.2")
+    st.title("🦅 Nexus Pro v4.3")
     col1, col2, col3 = st.columns([1,2,1])
     with col2:
         u = st.text_input("👤 Usuario")
@@ -38,52 +38,64 @@ if not st.session_state.usuario_activo:
             else: st.error("❌ Credenciales incorrectas")
     st.stop()
 
-# ==================== ITINERARIO Y CONTENIDO PROFESIONAL ====================
+# ==================== CURRÍCULO AMPLIADO (PROGRESIVO) ====================
 CURRICULO = {
     "A1.1": {
         "tema": "Saludos y Presentaciones",
-        "explicacion": "👨‍🏫 **CLASE MAGISTRAL:** Aprende a conectar sonidos. En 'My name is', no pauses; intenta decir 'mainéimis'.",
+        "explicacion": """**👨‍🏫 CLASE MAGISTRAL 1.1: El Arte de Presentarse**
+        
+1. **Conexión de Sonidos:** En inglés, las palabras se unen. No digas "My... name... is". Di "Mynameis" como si fuera una sola palabra.
+2. **La 'H' aspirada:** En 'Hello', la H no suena como J fuerte, sino como un suspiro de aire frío.
+3. **Entonación:** Las preguntas como 'How are you?' suben de tono al final.""",
         "frases": [
             {"ingles": "Hello", "español": "Hola", "fonetica": "jelóu"},
             {"ingles": "My name is Anna", "español": "Mi nombre es Anna", "fonetica": "mai néim is ána"},
             {"ingles": "I am from Colombia", "español": "Soy de Colombia", "fonetica": "ái am from colómbia"},
             {"ingles": "Nice to meet you", "español": "Mucho gusto", "fonetica": "náis tu míit iu"},
-            {"ingles": "How are you", "español": "¿Cómo estás?", "fonetica": "jáu ar iu"},
+            {"ingles": "How are you today", "español": "¿Cómo estás hoy?", "fonetica": "jáu ar iu tudéi"},
             {"ingles": "I am fine thank you", "español": "Estoy bien gracias", "fonetica": "ái am fáin zank iu"},
-            {"ingles": "Good morning", "español": "Buenos días", "fonetica": "gud mórnin"},
             {"ingles": "What is your name", "español": "¿Cuál es tu nombre?", "fonetica": "uát is ior néim"},
-            {"ingles": "Where are you from", "español": "¿De dónde eres?", "fonetica": "uér ar iu from"},
-            {"ingles": "Goodbye see you later", "español": "Adiós nos vemos luego", "fonetica": "gudbái si iu léiter"}
+            {"ingles": "I live in a big city", "español": "Vivo en una ciudad grande", "fonetica": "ái liv in a big síti"},
+            {"ingles": "Where do you live exactly", "español": "¿Dónde vives exactamente?", "fonetica": "uér du iu liv egsáctli"},
+            {"ingles": "It is a pleasure to meet you", "español": "Es un placer conocerte", "fonetica": "it is a pléshur tu míit iu"}
         ],
         "examen": [
-            {"pregunta": "¿Cómo dices 'Hola' en inglés?", "respuesta": "Hello"},
-            {"pregunta": "Di 'Mucho gusto' en inglés", "respuesta": "Nice to meet you"}
+            {"pregunta": "¿Cómo saludas formalmente?", "respuesta": "Hello"},
+            {"pregunta": "Preséntate diciendo que tu nombre es Anna", "respuesta": "My name is Anna"},
+            {"pregunta": "Di 'Mucho gusto' en inglés", "respuesta": "Nice to meet you"},
+            {"pregunta": "¿Cómo preguntas el nombre a alguien?", "respuesta": "What is your name"},
+            {"pregunta": "Di 'Es un placer conocerte'", "respuesta": "It is a pleasure to meet you"}
         ]
     },
     "A1.2": {
-        "tema": "Verbo To Be (SER/ESTAR)",
-        "explicacion": "👨‍🏫 **CLASE MAGISTRAL:** El verbo 'To Be' cambia según la persona: I am, You are, She is.",
+        "tema": "Verbo To Be y Estados",
+        "explicacion": """**👨‍🏫 CLASE MAGISTRAL 1.2: Ser y Estar**
+        
+El verbo **To Be** es el motor del inglés. 
+- **I am** (Yo soy/estoy)
+- **You are** (Tú eres/estás)
+- **He/She is** (Él/Ella es/está)""",
         "frases": [
             {"ingles": "I am a student", "español": "Soy un estudiante", "fonetica": "ái am a stiúdent"},
-            {"ingles": "She is happy", "español": "Ella está feliz", "fonetica": "shi is jápi"}
+            {"ingles": "She is very happy", "español": "Ella está muy feliz", "fonetica": "shi is véri jápi"},
+            {"ingles": "We are in the class", "español": "Estamos en la clase", "fonetica": "uí ar in de clas"}
         ],
-        "examen": [{"pregunta": "Di 'Soy un estudiante'", "respuesta": "I am a student"}]
-    },
-    "A1.3": {"tema": "Artículos y Pronombres", "frases": [], "examen": []},
-    "A1.4": {"tema": "Números y Cantidades", "frases": [], "examen": []},
-    "A1.5": {"tema": "Colores y Objetos", "frases": [], "examen": []},
-    "A1.6": {"tema": "Familia y Relaciones", "frases": [], "examen": []}
+        "examen": [
+            {"pregunta": "Di 'Soy un estudiante'", "respuesta": "I am a student"},
+            {"pregunta": "Di 'Ella está muy feliz'", "respuesta": "She is very happy"}
+        ]
+    }
 }
 
-# ==================== FUNCIONES DE APOYO PEDAGÓGICO ====================
+# ==================== FUNCIONES DE MENTORÍA IA ====================
 
 def obtener_feedback_profesor(objetivo, dicho):
     client = openai.OpenAI(api_key=OPENAI_API_KEY)
-    prompt = f"Profesor de inglés: El alumno dijo '{dicho}' para la frase '{objetivo}'. Explica en español y en una frase corta qué sonido falló para no llegar al 100%."
+    prompt = f"Profesor de inglés: El alumno dijo '{dicho}' para la frase '{objetivo}'. Explica en español y en una frase corta qué sonido falló específicamente (pronunciación, omisión de letras o entonación) para no llegar al 100%."
     try:
         resp = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": prompt}])
         return resp.choices[0].message.content
-    except: return "¡Casi perfecto! Cuida un poco más la entonación final."
+    except: return "¡Casi perfecto! Presta atención a la última palabra."
 
 def similitud_texto(texto1, texto2):
     t1 = re.sub(r'[^\w\s]', '', texto1.lower().strip())
@@ -108,7 +120,7 @@ def generar_audio_ingles(texto):
         return base64.b64encode(fp.read()).decode()
     except: return None
 
-# ==================== INICIALIZACIÓN DE ESTADO ====================
+# ==================== ESTADO DE SESIÓN ====================
 if "usuario_activo" in st.session_state and "datos_cargados" not in st.session_state:
     st.session_state.nivel_actual = "A1.1"
     st.session_state.fase = "explicacion"
@@ -123,12 +135,12 @@ config = CURRICULO[st.session_state.nivel_actual]
 niveles_list = list(CURRICULO.keys())
 indice_actual = niveles_list.index(st.session_state.nivel_actual)
 
-# ==================== BARRA LATERAL (ITINERARIO COMPLETO) ====================
+# ==================== BARRA LATERAL (ITINERARIO PROFESIONAL) ====================
 with st.sidebar:
     st.title(f"👤 {st.session_state.usuario_activo.upper()}")
     st.metric("📊 Progreso General", f"{int((indice_actual/len(CURRICULO))*100)}%")
     st.divider()
-    st.subheader("🗺️ Itinerario de Temas")
+    st.subheader("🗺️ Itinerario")
     for k in niveles_list:
         if k == st.session_state.nivel_actual: st.info(f"🎯 {k}: {CURRICULO[k]['tema']}")
         elif niveles_list.index(k) < indice_actual: st.success(f"✅ {k}: {CURRICULO[k]['tema']}")
@@ -141,13 +153,13 @@ with st.sidebar:
         st.rerun()
 
 # ==================== INTERFAZ PRINCIPAL ====================
-st.title(f"🦅 Nexus Pro v4.2")
+st.title(f"🦅 Nexus Pro v4.3")
 st.markdown(f"## {st.session_state.nivel_actual}: {config['tema']}")
 
 # --- FASE 1: EXPLICACIÓN ---
 if st.session_state.fase == "explicacion":
     st.markdown(config['explicacion'])
-    if st.button("✅ Entendido, comenzar práctica", type="primary"):
+    if st.button("✅ Entendido, comenzar práctica de 10 frases", type="primary"):
         st.session_state.fase = "practica"
         st.rerun()
 
@@ -189,43 +201,44 @@ elif st.session_state.fase == "practica":
                 del st.session_state.res_practica
                 st.rerun()
         else:
-            st.error(f"❌ Precisión: {res['prec']}% (Mínimo 85%)")
+            st.error(f"❌ Precisión insuficiente ({res['prec']}%)")
 
-# --- FASE 3: EXAMEN (CORRECCIÓN DE AVANCE DE NIVEL) ---
+# --- FASE 3: EXAMEN ---
 elif st.session_state.fase == "examen":
     total_ex = len(config['examen'])
     pregunta = config['examen'][st.session_state.pregunta_actual]
-    st.subheader(f"📝 Examen Final: {st.session_state.pregunta_actual + 1}/{total_ex}")
-    st.info(f"**{pregunta['pregunta']}**")
+    st.subheader(f"📝 Examen de Certificación: {st.session_state.pregunta_actual + 1}/{total_ex}")
+    st.info(f"**Pregunta:** {pregunta['pregunta']}")
     
-    audio_ex = mic_recorder(start_prompt="🎙️ Responder", key=f"ex_{st.session_state.pregunta_actual}")
+    audio_ex = mic_recorder(start_prompt="🎙️ Responder en Inglés", key=f"ex_{st.session_state.pregunta_actual}")
     
     if audio_ex and audio_ex.get("id") != st.session_state.last_audio_id:
         st.session_state.last_audio_id = audio_ex.get("id")
         texto = transcribir_audio(audio_ex['bytes'])
         if texto:
             prec = similitud_texto(texto, pregunta['respuesta'])
-            st.session_state.res_examen = {"prec": prec}
+            st.session_state.res_examen = {"prec": prec, "texto": texto}
             if prec >= 75: st.session_state.respuestas_correctas += 1
 
     if "res_examen" in st.session_state:
+        res = st.session_state.res_examen
+        if res["prec"] >= 75: st.success(f"✅ Correcto ({res['prec']}%)")
+        else: st.error(f"❌ Error. Dijiste: '{res['texto']}'")
+
         if st.button("➡️ CONTINUAR"):
             if st.session_state.pregunta_actual < total_ex - 1:
                 st.session_state.pregunta_actual += 1
             else:
-                # AQUÍ ESTÁ LA CORRECCIÓN CLAVE: AVANZAR AL SIGUIENTE NIVEL
-                if st.session_state.respuestas_correctas == total_ex:
+                if st.session_state.respuestas_correctas >= 4: # Mínimo 4 de 5 para pasar
                     st.balloons()
-                    st.success("¡NIVEL COMPLETADO!")
-                    # Cambiar al siguiente nivel del diccionario CURRICULO
+                    st.success("🎊 ¡NIVEL COMPLETADO!")
                     if indice_actual < len(niveles_list) - 1:
                         st.session_state.nivel_actual = niveles_list[indice_actual + 1]
                         st.session_state.fase = "explicacion"
                 else:
-                    st.error("Examen no superado. Repasemos la lección.")
+                    st.error("Examen no aprobado. Repasemos el contenido.")
                     st.session_state.fase = "explicacion"
                 
-                # Reset de contadores para el nuevo nivel o repetición
                 st.session_state.frase_actual = 0
                 st.session_state.pregunta_actual = 0
                 st.session_state.respuestas_correctas = 0
