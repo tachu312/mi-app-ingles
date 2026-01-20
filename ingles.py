@@ -589,9 +589,9 @@ def transcribir_audio(audio_bytes):
         st.error(f"Error: {e}")
         return ""
 
-def generar_audio_ingles(texto):
+def generar_audio_ingles(texto, lento=False):
     try:
-        tts = gTTS(text=texto, lang='en', slow=False)
+        tts = gTTS(text=texto, lang='en', slow=lento)
         fp = io.BytesIO()
         tts.write_to_fp(fp)
         fp.seek(0)
@@ -759,19 +759,40 @@ elif st.session_state.fase == "practica":
     st.markdown(f"""
     <div class='word-card'>
         <h4>🎯 FRASE DEL EJERCICIO</h4>
-        <p style='font-size: 24px; color: #667eea; margin: 10px 0;'><strong>{frase_obj['ingles']}</strong></p>
-        <p><strong>🇪🇸 Español:</strong> {frase_obj['español']}</p>
-        <p><strong>🔊 Pronunciación:</strong> {frase_obj['fonética']}</p>
-        <p><strong>📝 Contexto:</strong> {frase_obj['contexto']}</p>
-        <p><strong>💡 Tip:</strong> {frase_obj['tip']}</p>
+        <p style='font-size: 28px; color: #667eea; margin: 10px 0;'><strong>{frase_obj['ingles']}</strong></p>
+        <p style='font-size: 18px;'><strong>🇪🇸 Español:</strong> {frase_obj['español']}</p>
     </div>
     """, unsafe_allow_html=True)
     
+    st.markdown(f"""
+    <div style='background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 5px; margin: 15px 0;'>
+        <h4 style='color: #856404; margin: 0 0 10px 0;'>🗣️ CÓMO SE PRONUNCIA:</h4>
+        <p style='font-size: 24px; color: #856404; margin: 0; font-family: monospace;'><strong>{frase_obj['fonética']}</strong></p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.info(f"""
+    **📝 Contexto de uso:** {frase_obj['contexto']}
+    
+    **💡 Tip de pronunciación:** {frase_obj['tip']}
+    """)
+    
     # Audio
-    audio_b64 = generar_audio_ingles(frase_obj['ingles'])
-    if audio_b64:
-        st.markdown("### 🔊 Escucha la pronunciación nativa:")
-        st.audio(base64.b64decode(audio_b64), format="audio/mp3")
+    st.markdown("### 🔊 Escucha cómo se pronuncia:")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        audio_b64 = generar_audio_ingles(frase_obj['ingles'], lento=False)
+        if audio_b64:
+            st.markdown("**Velocidad Normal:**")
+            st.audio(base64.b64decode(audio_b64), format="audio/mp3")
+    
+    with col2:
+        audio_lento = generar_audio_ingles(frase_obj['ingles'], lento=True)
+        if audio_lento:
+            st.markdown("**Velocidad Lenta (para aprender):**")
+            st.audio(base64.b64decode(audio_lento), format="audio/mp3")
     
     st.divider()
     st.markdown("### 🎤 Ahora repite con tu micrófono:")
@@ -788,10 +809,15 @@ elif st.session_state.fase == "practica":
         st.session_state.last_audio_id = audio.get("id")
         st.session_state.intentos_frase += 1
         
+        # Mostrar audio del usuario
+        st.markdown("### 🎤 Tu Audio:")
+        st.audio(audio['bytes'], format="audio/wav")
+        
         with st.spinner("🎧 Analizando tu pronunciación..."):
             texto_usuario = transcribir_audio(audio['bytes'])
         
         if texto_usuario:
+            st.markdown(f"**📝 Transcripción:** {texto_usuario}")
             precision = similitud_texto(texto_usuario, frase_obj['ingles'])
             
             # APROBADO
@@ -892,8 +918,15 @@ elif st.session_state.fase == "examen":
     if audio and audio.get("id") != st.session_state.last_audio_id:
         st.session_state.last_audio_id = audio.get("id")
         
+        # Mostrar audio del usuario
+        st.markdown("### 🎤 Tu Respuesta:")
+        st.audio(audio['bytes'], format="audio/wav")
+        
         with st.spinner("🎧 Evaluando respuesta..."):
             texto_usuario = transcribir_audio(audio['bytes'])
+        
+        if texto_usuario:
+            st.markdown(f"**📝 Escuché:** {texto_usuario}")
         
         if texto_usuario:
             precision = similitud_texto(texto_usuario, pregunta_obj['respuesta'])
