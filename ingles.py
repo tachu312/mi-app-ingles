@@ -12,7 +12,7 @@ from difflib import SequenceMatcher
 
 # ==================== CONFIGURACIÓN ====================
 st.set_page_config(
-    page_title="Nexus Pro v3.0: Bootcamp A1→C1",
+    page_title="Nexus Pro v4.0: A1→C1 Bootcamp",
     page_icon="🦅",
     layout="wide"
 )
@@ -20,169 +20,214 @@ st.set_page_config(
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
 # ==================== USUARIOS ====================
-USUARIOS = {
-    "nasly": "1994",
-    "sofia": "2009",
-    "andres": "1988"
-}
+USUARIOS = {"nasly": "1994", "sofia": "2009", "andres": "1988"}
 
-# ==================== LOGIN ====================
 if "usuario_activo" not in st.session_state:
     st.session_state.usuario_activo = None
 
 if not st.session_state.usuario_activo:
-    st.title("🦅 Nexus Pro v3.0: Acceso Elite")
-    st.markdown("### Sistema profesional de aprendizaje de inglés A1 → C1")
-    
+    st.title("🦅 Nexus Pro v4.0")
     col1, col2, col3 = st.columns([1,2,1])
     with col2:
         u = st.text_input("👤 Usuario")
         p = st.text_input("🔒 Contraseña", type="password")
-        
-        if st.button("🚀 Entrar al Bootcamp", use_container_width=True):
+        if st.button("🚀 Entrar", use_container_width=True):
             if u in USUARIOS and USUARIOS[u] == p:
                 st.session_state.usuario_activo = u
-                st.success("✅ Acceso concedido")
                 st.rerun()
             else:
-                st.error("❌ Usuario o contraseña incorrectos")
+                st.error("❌ Credenciales incorrectas")
     st.stop()
 
-# ==================== CURRÍCULO COMPLETO ====================
+# ==================== CONTENIDO PEDAGÓGICO ESTRUCTURADO ====================
 CURRICULO = {
-    # NIVEL A1 - Básico (30 días)
-    "A1.1": {"tema": "Saludos y Presentaciones", "frases": 5},
-    "A1.2": {"tema": "Verbo To Be (am/is/are)", "frases": 5},
-    "A1.3": {"tema": "Artículos y Pronombres", "frases": 5},
-    "A1.4": {"tema": "Números y Cantidades", "frases": 5},
-    "A1.5": {"tema": "Colores y Objetos Comunes", "frases": 5},
-    "A1.6": {"tema": "Familia y Relaciones", "frases": 5},
+    "A1.1": {
+        "tema": "Saludos y Presentaciones",
+        "explicacion": """**📚 LECCIÓN: Saludos y Presentaciones**
+
+En esta lección aprenderás las formas básicas de saludar y presentarte en inglés.
+
+**GRAMÁTICA CLAVE:**
+- Saludos formales: Good morning, Good afternoon, Good evening
+- Saludos informales: Hi, Hello, Hey
+- Estructura: "My name is + [nombre]" o "I am + [nombre]"
+- Pregunta común: "What is your name?" (¿Cómo te llamas?)
+
+**VOCABULARIO:**
+- Hello = Hola
+- My = Mi
+- Name = Nombre
+- I am = Yo soy
+- Nice to meet you = Mucho gusto""",
+        "frases": [
+            {"ingles": "Hello", "español": "Hola", "fonética": "jelóu"},
+            {"ingles": "My name is Anna", "español": "Mi nombre es Anna", "fonética": "mai néim is ána"},
+            {"ingles": "I am from Colombia", "español": "Soy de Colombia", "fonética": "ái am from colómbia"},
+            {"ingles": "Nice to meet you", "español": "Mucho gusto", "fonética": "náis tu míit iu"},
+            {"ingles": "How are you", "español": "¿Cómo estás?", "fonética": "jáu ar iu"},
+            {"ingles": "I am fine thank you", "español": "Estoy bien gracias", "fonética": "ái am fáin zank iu"},
+            {"ingles": "Good morning", "español": "Buenos días", "fonética": "gud mórnin"},
+            {"ingles": "What is your name", "español": "¿Cuál es tu nombre?", "fonética": "uát is ior néim"},
+            {"ingles": "Where are you from", "español": "¿De dónde eres?", "fonética": "uér ar iu from"},
+            {"ingles": "Goodbye see you later", "español": "Adiós nos vemos luego", "fonética": "gudbái si iu léiter"}
+        ],
+        "examen": [
+            {"pregunta": "¿Cómo dices 'Hola' en inglés?", "respuesta": "Hello"},
+            {"pregunta": "¿Cómo te presentas diciendo tu nombre?", "respuesta": "My name is"},
+            {"pregunta": "Di 'Mucho gusto' en inglés", "respuesta": "Nice to meet you"},
+            {"pregunta": "Pregunta '¿Cómo estás?' en inglés", "respuesta": "How are you"},
+            {"pregunta": "Responde 'Estoy bien gracias' en inglés", "respuesta": "I am fine thank you"}
+        ]
+    },
     
-    # NIVEL A2 - Elemental (30 días)
-    "A2.1": {"tema": "Presente Simple", "frases": 6},
-    "A2.2": {"tema": "Pasado Simple Regular", "frases": 6},
-    "A2.3": {"tema": "Pasado Simple Irregular", "frases": 6},
-    "A2.4": {"tema": "Futuro (will/going to)", "frases": 6},
-    "A2.5": {"tema": "Preposiciones de Lugar", "frases": 6},
-    "A2.6": {"tema": "Comparativos y Superlativos", "frases": 6},
+    "A1.2": {
+        "tema": "Verbo To Be (am/is/are)",
+        "explicacion": """**📚 LECCIÓN: Verbo TO BE**
+
+El verbo "to be" es el más importante en inglés. Significa SER o ESTAR.
+
+**GRAMÁTICA:**
+- I am = Yo soy/estoy
+- You are = Tú eres/estás
+- He is = Él es/está
+- She is = Ella es/está
+- It is = Eso es/está
+- We are = Nosotros somos/estamos
+- They are = Ellos son/están
+
+**FORMAS CONTRAÍDAS:**
+- I am = I'm
+- You are = You're
+- He is = He's
+- She is = She's
+
+**USOS:**
+1. Identidad: I am a student (Soy estudiante)
+2. Ubicación: She is in Colombia (Ella está en Colombia)
+3. Estado: They are happy (Ellos están felices)""",
+        "frases": [
+            {"ingles": "I am a student", "español": "Soy un estudiante", "fonética": "ái am a stiúdent"},
+            {"ingles": "You are my friend", "español": "Eres mi amigo", "fonética": "iú ar mai frend"},
+            {"ingles": "She is a teacher", "español": "Ella es una profesora", "fonética": "shi is a tícher"},
+            {"ingles": "He is tall", "español": "Él es alto", "fonética": "ji is tol"},
+            {"ingles": "It is a book", "español": "Es un libro", "fonética": "it is a buk"},
+            {"ingles": "We are happy", "español": "Estamos felices", "fonética": "ui ar jápi"},
+            {"ingles": "They are from Spain", "español": "Ellos son de España", "fonética": "déi ar from spéin"},
+            {"ingles": "I am not tired", "español": "No estoy cansado", "fonética": "ái am not táired"},
+            {"ingles": "Are you ready", "español": "¿Estás listo?", "fonética": "ar iú rédi"},
+            {"ingles": "This is my house", "español": "Esta es mi casa", "fonética": "dis is mai jáus"}
+        ],
+        "examen": [
+            {"pregunta": "Completa: I ___ a student", "respuesta": "am"},
+            {"pregunta": "Completa: She ___ happy", "respuesta": "is"},
+            {"pregunta": "Completa: They ___ friends", "respuesta": "are"},
+            {"pregunta": "Di 'Él es alto' en inglés", "respuesta": "He is tall"},
+            {"pregunta": "Pregunta '¿Estás listo?' en inglés", "respuesta": "Are you ready"}
+        ]
+    },
     
-    # NIVEL B1 - Intermedio (60 días)
-    "B1.1": {"tema": "Presente Perfecto", "frases": 7},
-    "B1.2": {"tema": "Presente Continuo", "frases": 7},
-    "B1.3": {"tema": "Modales: Can/Could/Should", "frases": 7},
-    "B1.4": {"tema": "Pasado Continuo", "frases": 7},
-    "B1.5": {"tema": "Condicional Tipo 1", "frases": 7},
-    "B1.6": {"tema": "Phrasal Verbs Básicos", "frases": 7},
-    "B1.7": {"tema": "Conectores y Transiciones", "frases": 7},
-    "B1.8": {"tema": "Voz Pasiva Simple", "frases": 7},
-    
-    # NIVEL B2 - Intermedio Alto (30 días)
-    "B2.1": {"tema": "Presente Perfecto Continuo", "frases": 8},
-    "B2.2": {"tema": "Condicionales 2 y 3", "frases": 8},
-    "B2.3": {"tema": "Reported Speech", "frases": 8},
-    "B2.4": {"tema": "Modales Avanzados", "frases": 8},
-    "B2.5": {"tema": "Phrasal Verbs Avanzados", "frases": 8},
-    
-    # NIVEL C1 - Avanzado (30 días)
-    "C1.1": {"tema": "Estructuras Formales", "frases": 10},
-    "C1.2": {"tema": "Inglés de Negocios", "frases": 10},
-    "C1.3": {"tema": "Expresiones Idiomáticas", "frases": 10},
-    "C1.4": {"tema": "Debate y Argumentación", "frases": 10},
-    "C1.5": {"tema": "Certificación Final C1", "frases": 10}
+    "A1.3": {
+        "tema": "Artículos y Pronombres",
+        "explicacion": """**📚 LECCIÓN: Artículos y Pronombres**
+
+**ARTÍCULOS:**
+- A / An = Un, Una (indefinido)
+  - Usa "A" antes de consonante: a cat, a dog
+  - Usa "An" antes de vocal: an apple, an egg
+- The = El, La, Los, Las (definido)
+
+**PRONOMBRES PERSONALES:**
+- I (ái) = Yo
+- You (iú) = Tú/Usted
+- He (ji) = Él
+- She (shi) = Ella
+- It (it) = Eso (cosas/animales)
+- We (uí) = Nosotros
+- They (déi) = Ellos/Ellas
+
+**PRONOMBRES POSESIVOS:**
+- My = Mi
+- Your = Tu
+- His = Su (de él)
+- Her = Su (de ella)""",
+        "frases": [
+            {"ingles": "This is a pen", "español": "Este es un bolígrafo", "fonética": "dis is a pen"},
+            {"ingles": "That is an orange", "español": "Eso es una naranja", "fonética": "dat is an óranch"},
+            {"ingles": "The book is red", "español": "El libro es rojo", "fonética": "de buk is red"},
+            {"ingles": "My car is new", "español": "Mi carro es nuevo", "fonética": "mai car is niú"},
+            {"ingles": "Your phone is here", "español": "Tu teléfono está aquí", "fonética": "ior fón is jír"},
+            {"ingles": "His name is John", "español": "Su nombre es John", "fonética": "jis néim is yon"},
+            {"ingles": "Her house is big", "español": "Su casa es grande", "fonética": "jer jáus is big"},
+            {"ingles": "It is a dog", "español": "Es un perro", "fonética": "it is a dog"},
+            {"ingles": "We have a cat", "español": "Tenemos un gato", "fonética": "uí jav a cat"},
+            {"ingles": "They are our friends", "español": "Ellos son nuestros amigos", "fonética": "déi ar áuar frends"}
+        ],
+        "examen": [
+            {"pregunta": "¿Qué artículo va antes de 'apple'? (a o an)", "respuesta": "an"},
+            {"pregunta": "Di 'El libro es rojo' en inglés", "respuesta": "The book is red"},
+            {"pregunta": "¿Cómo se dice 'Mi carro'?", "respuesta": "My car"},
+            {"pregunta": "Completa: ___ is a dog (It/The)", "respuesta": "It"},
+            {"pregunta": "Di 'Su casa' (de ella) en inglés", "respuesta": "Her house"}
+        ]
+    }
 }
 
 # ==================== FUNCIONES AUXILIARES ====================
 
 def similitud_texto(texto1, texto2):
-    """Calcula similitud entre dos textos (0-100%) - IGNORA PUNTUACIÓN"""
-    # Remover TODO: puntuación, convertir a minúsculas, quitar espacios extra
+    """Calcula similitud IGNORANDO puntuación y mayúsculas"""
     t1 = re.sub(r'[^\w\s]', '', texto1.lower().strip())
-    t1 = ' '.join(t1.split())  # Normalizar espacios
-    
+    t1 = ' '.join(t1.split())
     t2 = re.sub(r'[^\w\s]', '', texto2.lower().strip())
-    t2 = ' '.join(t2.split())  # Normalizar espacios
-    
+    t2 = ' '.join(t2.split())
     return int(SequenceMatcher(None, t1, t2).ratio() * 100)
 
-def comparar_palabras(texto_usuario, texto_objetivo):
-    """Compara palabra por palabra y retorna análisis visual"""
-    palabras_usuario = texto_usuario.lower().split()
-    palabras_objetivo = texto_objetivo.lower().split()
-    
-    resultado = []
-    max_len = max(len(palabras_usuario), len(palabras_objetivo))
-    
-    for i in range(max_len):
-        p_usuario = palabras_usuario[i] if i < len(palabras_usuario) else "---"
-        p_objetivo = palabras_objetivo[i] if i < len(palabras_objetivo) else "---"
-        
-        # Limpiar puntuación
-        p_usuario_limpio = re.sub(r'[^\w]', '', p_usuario)
-        p_objetivo_limpio = re.sub(r'[^\w]', '', p_objetivo)
-        
-        if p_usuario_limpio == p_objetivo_limpio:
-            resultado.append(f"✅ {p_objetivo}")
-        else:
-            resultado.append(f"❌ {p_objetivo} (dijiste: {p_usuario})")
-    
-    return "\n".join(resultado)
-
 def cargar_datos():
-    """Carga datos del usuario desde JSON"""
     archivo = f"datos_{st.session_state.usuario_activo}.json"
     if os.path.exists(archivo):
         with open(archivo, "r", encoding="utf-8") as f:
             return json.load(f)
-    
     return {
         "nivel_actual": "A1.1",
-        "frases_correctas": 0,
-        "en_examen": False,
-        "examen_actual": [],
-        "respuestas_examen": [],
-        "chat": [],
+        "fase": "explicacion",  # explicacion, practica, examen
+        "frase_actual": 0,
+        "pregunta_actual": 0,
+        "respuestas_correctas": 0,
         "historial": [],
         "fecha_inicio": datetime.now().isoformat()
     }
 
 def guardar_datos():
-    """Guarda datos del usuario en JSON"""
     archivo = f"datos_{st.session_state.usuario_activo}.json"
     datos = {
         "nivel_actual": st.session_state.nivel_actual,
-        "frases_correctas": st.session_state.frases_correctas,
-        "en_examen": st.session_state.en_examen,
-        "examen_actual": st.session_state.examen_actual,
-        "respuestas_examen": st.session_state.respuestas_examen,
-        "chat": st.session_state.chat,
+        "fase": st.session_state.fase,
+        "frase_actual": st.session_state.frase_actual,
+        "pregunta_actual": st.session_state.pregunta_actual,
+        "respuestas_correctas": st.session_state.respuestas_correctas,
         "historial": st.session_state.historial,
         "fecha_inicio": st.session_state.fecha_inicio
     }
     with open(archivo, "w", encoding="utf-8") as f:
         json.dump(datos, f, ensure_ascii=False, indent=2)
 
-# ==================== FUNCIONES DE IA ====================
-
 def transcribir_audio(audio_bytes):
-    """Transcribe audio a texto en inglés"""
     try:
         client = openai.OpenAI(api_key=OPENAI_API_KEY)
         audio_file = io.BytesIO(audio_bytes)
         audio_file.name = "audio.wav"
-        
         transcripcion = client.audio.transcriptions.create(
             model="whisper-1",
             file=audio_file,
             language="en",
-            prompt="English pronunciation practice. Transcribe in English only."
+            prompt="English pronunciation practice."
         )
         return transcripcion.text.strip()
     except Exception as e:
-        st.error(f"Error al transcribir: {e}")
+        st.error(f"Error: {e}")
         return ""
 
 def generar_audio_ingles(texto):
-    """Genera audio en inglés con Google TTS"""
     try:
         tts = gTTS(text=texto, lang='en', slow=False)
         fp = io.BytesIO()
@@ -191,87 +236,6 @@ def generar_audio_ingles(texto):
         return base64.b64encode(fp.read()).decode()
     except:
         return None
-
-def generar_frase(nivel, tema, numero):
-    """Genera una frase de práctica con IA"""
-    client = openai.OpenAI(api_key=OPENAI_API_KEY)
-    
-    prompt = f"""Genera UNA frase de práctica para nivel {nivel}: {tema}
-
-Formato EXACTO:
-Inglés: [frase clara y natural]
-Traducción: [significado en español]
-Pronunciación: [guía fonética para hispanos]
-
-Frase #{numero} - Dificultad progresiva del tema."""
-    
-    try:
-        resp = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.7
-        )
-        return resp.choices[0].message.content
-    except:
-        return f"Inglés: Hello, I am a student.\nTraducción: Hola, soy un estudiante.\nPronunciación: jelóu, ái am a stiúdent."
-
-def generar_examen(nivel, tema):
-    """Genera 5 preguntas de examen"""
-    client = openai.OpenAI(api_key=OPENAI_API_KEY)
-    
-    prompt = f"""Crea 5 preguntas de examen para {nivel}: {tema}
-
-FORMATO EXACTO para cada pregunta:
-P1: [pregunta en español]
-RESPUESTA: [respuesta en inglés]
-
-P2: [pregunta en español]
-RESPUESTA: [respuesta en inglés]
-
-(etc. hasta P5)
-
-Valida dominio completo del tema."""
-    
-    try:
-        resp = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.7
-        )
-        
-        contenido = resp.choices[0].message.content
-        
-        # Parsear preguntas
-        preguntas = []
-        bloques = contenido.split('\n\n')
-        
-        for bloque in bloques:
-            if 'P' in bloque and 'RESPUESTA:' in bloque:
-                lineas = bloque.strip().split('\n')
-                pregunta = ""
-                respuesta = ""
-                
-                for linea in lineas:
-                    if linea.startswith('P'):
-                        pregunta = linea.split(':', 1)[1].strip()
-                    elif 'RESPUESTA:' in linea:
-                        respuesta = linea.split('RESPUESTA:', 1)[1].strip()
-                
-                if pregunta and respuesta:
-                    preguntas.append({
-                        "pregunta": pregunta,
-                        "respuesta": respuesta
-                    })
-        
-        return preguntas[:5]
-    except:
-        return [
-            {"pregunta": "Di 'Hola' en inglés", "respuesta": "Hello"},
-            {"pregunta": "Di 'Adiós' en inglés", "respuesta": "Goodbye"},
-            {"pregunta": "Di 'Gracias' en inglés", "respuesta": "Thank you"},
-            {"pregunta": "Di 'Por favor' en inglés", "respuesta": "Please"},
-            {"pregunta": "Di 'Lo siento' en inglés", "respuesta": "I'm sorry"}
-        ]
 
 # ==================== INICIALIZACIÓN ====================
 
@@ -282,67 +246,58 @@ if "datos_cargados" not in st.session_state:
     st.session_state.last_audio_id = None
     st.session_state.datos_cargados = True
 
-# Asegurar variables críticas
-if "nivel_actual" not in st.session_state:
-    st.session_state.nivel_actual = "A1.1"
-if "frases_correctas" not in st.session_state:
-    st.session_state.frases_correctas = 0
-if "en_examen" not in st.session_state:
-    st.session_state.en_examen = False
-if "examen_actual" not in st.session_state:
-    st.session_state.examen_actual = []
-if "respuestas_examen" not in st.session_state:
-    st.session_state.respuestas_examen = []
-if "chat" not in st.session_state:
-    st.session_state.chat = []
-if "historial" not in st.session_state:
-    st.session_state.historial = []
+# Asegurar variables
+for var in ["nivel_actual", "fase", "frase_actual", "pregunta_actual", "respuestas_correctas", "historial"]:
+    if var not in st.session_state:
+        if var == "nivel_actual":
+            st.session_state[var] = "A1.1"
+        elif var == "fase":
+            st.session_state[var] = "explicacion"
+        elif var == "historial":
+            st.session_state[var] = []
+        else:
+            st.session_state[var] = 0
 
-# ==================== VARIABLES DEL NIVEL ACTUAL ====================
+# ==================== VARIABLES ====================
 
 nivel_actual = st.session_state.nivel_actual
-config_nivel = CURRICULO[nivel_actual]
+config = CURRICULO.get(nivel_actual, CURRICULO["A1.1"])
 niveles_list = list(CURRICULO.keys())
-indice_nivel = niveles_list.index(nivel_actual)
-progreso_total = int((indice_nivel / len(CURRICULO)) * 100)
+indice = niveles_list.index(nivel_actual)
+progreso_total = int((indice / len(niveles_list)) * 100)
 
 # ==================== BARRA LATERAL ====================
 
 with st.sidebar:
     st.title(f"👤 {st.session_state.usuario_activo.upper()}")
     
-    # Métricas
     dias = (datetime.now() - datetime.fromisoformat(st.session_state.fecha_inicio)).days
-    st.metric("📊 Progreso Total", f"{progreso_total}%")
-    st.metric("📅 Días de Práctica", dias)
-    st.metric("🎯 Nivel Actual", nivel_actual)
+    st.metric("📊 Progreso", f"{progreso_total}%")
+    st.metric("📅 Días", dias)
+    st.metric("🎯 Nivel", nivel_actual)
     
     st.divider()
-    
-    # Roadmap
-    st.subheader("🗺️ Tu Camino al C1")
+    st.subheader("🗺️ Roadmap")
     
     for i, key in enumerate(niveles_list):
         tema = CURRICULO[key]["tema"]
-        
-        if i < indice_nivel:
+        if i < indice:
             st.success(f"✅ {key}: {tema}")
-        elif i == indice_nivel:
+        elif i == indice:
             st.info(f"🎯 {key}: {tema}")
         else:
             st.caption(f"🔒 {key}: {tema}")
     
     st.divider()
     
-    # Historial
     if st.session_state.historial:
-        st.subheader("📜 Últimos Logros")
+        st.subheader("📜 Logros")
         for logro in st.session_state.historial[-3:]:
             st.caption(f"✅ {logro['nivel']}: {logro['nota']:.0f}%")
     
     st.divider()
     
-    if st.button("🗑️ Reiniciar Progreso", use_container_width=True):
+    if st.button("🗑️ Reiniciar", use_container_width=True):
         archivo = f"datos_{st.session_state.usuario_activo}.json"
         if os.path.exists(archivo):
             os.remove(archivo)
@@ -351,346 +306,152 @@ with st.sidebar:
 
 # ==================== INTERFAZ PRINCIPAL ====================
 
-st.title("🦅 Nexus Pro v3.0: Bootcamp Intensivo")
-st.markdown(f"### 🎯 {nivel_actual}: {config_nivel['tema']}")
+st.title("🦅 Nexus Pro v4.0")
+st.markdown(f"### {nivel_actual}: {config['tema']}")
 
-# Métricas del nivel
-col1, col2, col3 = st.columns(3)
+# ==================== FASE: EXPLICACIÓN ====================
 
-with col1:
-    st.metric("Frases Completadas", f"{st.session_state.frases_correctas}/{config_nivel['frases']}")
-
-with col2:
-    progreso_nivel = int((st.session_state.frases_correctas / config_nivel['frases']) * 100)
-    st.metric("Progreso Nivel", f"{progreso_nivel}%")
-
-with col3:
-    if st.session_state.en_examen:
-        st.metric("Estado", "🔥 EXAMEN")
-    else:
-        st.metric("Estado", "📚 Práctica")
-
-st.progress(progreso_nivel / 100)
-
-# ==================== INICIAR CONVERSACIÓN ====================
-
-if not st.session_state.chat:
-    # Generar primera frase
-    frase_contenido = generar_frase(nivel_actual, config_nivel['tema'], 1)
+if st.session_state.fase == "explicacion":
+    st.markdown(config['explicacion'])
     
-    # Extraer frase en inglés
-    match = re.search(r'Inglés:\s*(.+?)(?:\n|$)', frase_contenido, re.IGNORECASE)
-    audio_b64 = None
+    st.divider()
     
-    if match:
-        texto_ingles = match.group(1).strip()
-        audio_b64 = generar_audio_ingles(texto_ingles)
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+        if st.button("✅ Entendí, vamos a practicar", use_container_width=True, type="primary"):
+            st.session_state.fase = "practica"
+            st.session_state.frase_actual = 0
+            guardar_datos()
+            st.rerun()
+
+# ==================== FASE: PRÁCTICA ====================
+
+elif st.session_state.fase == "practica":
+    frase_obj = config['frases'][st.session_state.frase_actual]
+    total_frases = len(config['frases'])
     
-    mensaje_inicial = f"""🦁 **¡Bienvenido a {nivel_actual}!**
-
-**Tema:** {config_nivel['tema']}
-
-Debes completar **{config_nivel['frases']} frases** con pronunciación correcta (≥80%).
-
-Luego harás un **examen de 5 preguntas** (necesitas 100% para avanzar).
-
----
-
-**📢 Frase 1/{config_nivel['frases']}:**
-
-{frase_contenido}
-
-🔊 **Escucha el audio de abajo**
-🎤 **Luego repite con tu micrófono**"""
+    st.progress(st.session_state.frase_actual / total_frases)
+    st.markdown(f"**Frase {st.session_state.frase_actual + 1}/{total_frases}**")
     
-    msg = {"role": "assistant", "content": mensaje_inicial}
+    st.info(f"""**📝 Inglés:** {frase_obj['ingles']}  
+**🇪🇸 Español:** {frase_obj['español']}  
+**🔊 Pronunciación:** {frase_obj['fonética']}""")
+    
+    audio_b64 = generar_audio_ingles(frase_obj['ingles'])
     if audio_b64:
-        msg["audio"] = audio_b64
+        st.markdown("🔊 **Escucha la pronunciación:**")
+        st.audio(base64.b64decode(audio_b64), format="audio/mp3")
     
-    st.session_state.chat.append(msg)
-    guardar_datos()
-
-# ==================== MOSTRAR CHAT ====================
-
-for msg in st.session_state.chat:
-    with st.chat_message(msg["role"], avatar="🦁" if msg["role"] == "assistant" else "👤"):
-        st.markdown(msg["content"])
+    st.divider()
+    st.markdown("🎤 **Ahora repite la frase con tu micrófono:**")
+    
+    audio = mic_recorder(start_prompt="🎙️ Grabar", stop_prompt="⏹️ Detener", key=f"mic_{st.session_state.frase_actual}")
+    
+    if audio and audio.get("id") != st.session_state.last_audio_id:
+        st.session_state.last_audio_id = audio.get("id")
         
-        # Audio del usuario
-        if "audio_usuario" in msg:
-            st.audio(base64.b64decode(msg["audio_usuario"]), format="audio/wav")
+        with st.spinner("🎧 Analizando..."):
+            texto_usuario = transcribir_audio(audio['bytes'])
         
-        # Audio del profesor
-        if "audio" in msg:
-            st.markdown("🔊 **Audio de pronunciación:**")
-            st.audio(base64.b64decode(msg["audio"]), format="audio/mp3")
-
-# ==================== CONTROLES ====================
-
-st.divider()
-
-col_mic, col_text = st.columns([1, 5])
-
-with col_mic:
-    audio = mic_recorder(
-        start_prompt="🎙️",
-        stop_prompt="⏹️",
-        key=f"mic_{len(st.session_state.chat)}"
-    )
-
-with col_text:
-    texto = st.chat_input("💬 O escribe aquí...")
-
-# ==================== PROCESAMIENTO DE AUDIO ====================
-
-if audio and audio.get("id") != st.session_state.last_audio_id:
-    st.session_state.last_audio_id = audio.get("id")
-    
-    with st.spinner("🎧 Analizando tu pronunciación..."):
-        texto_usuario = transcribir_audio(audio['bytes'])
-    
-    if not texto_usuario:
-        st.error("❌ No pude escuchar bien. Intenta de nuevo.")
-        st.stop()
-    
-    # Guardar mensaje del usuario
-    msg_usuario = {
-        "role": "user",
-        "content": f"🎤 **Dije:** {texto_usuario}",
-        "audio_usuario": base64.b64encode(audio['bytes']).decode()
-    }
-    st.session_state.chat.append(msg_usuario)
-    
-    # ===== MODO PRÁCTICA =====
-    if not st.session_state.en_examen:
-        # Buscar frase objetivo en el último mensaje del asistente
-        ultimo_asistente = None
-        for msg in reversed(st.session_state.chat):
-            if msg["role"] == "assistant":
-                ultimo_asistente = msg["content"]
-                break
-        
-        if ultimo_asistente:
-            match = re.search(r'Inglés:\s*(.+?)(?:\n|$)', ultimo_asistente, re.IGNORECASE)
+        if texto_usuario:
+            precision = similitud_texto(texto_usuario, frase_obj['ingles'])
             
-            # DEBUG TEMPORAL
-            if not match:
-                # Si no encuentra "Inglés:", buscar "Objetivo:"
-                match = re.search(r'Objetivo:\s*(.+?)(?:\n|$)', ultimo_asistente, re.IGNORECASE)
-            
-            if match:
-                frase_objetivo = match.group(1).strip()
-                precision = similitud_texto(texto_usuario, frase_objetivo)
-                
-                # ===== PRONUNCIACIÓN CORRECTA =====
-                if precision >= 80:  # Bajado de 85 a 80 para ser más justo
-                    st.session_state.frases_correctas += 1
-                    
-                    # ¿Completó todas las frases?
-                    if st.session_state.frases_correctas >= config_nivel['frases']:
-                        # INICIAR EXAMEN
-                        respuesta = f"""🎉 **¡EXCELENTE! Precisión: {precision}%**
-
-✅ Has dominado las {config_nivel['frases']} frases
-
-🔥 **EXAMEN FINAL**
-
-Te haré 5 preguntas. Necesitas **5/5 correctas** para avanzar.
-
-Prepara tu micrófono..."""
-                        
-                        st.session_state.chat.append({"role": "assistant", "content": respuesta})
-                        
-                        # Generar examen
-                        with st.spinner("📝 Generando examen..."):
-                            st.session_state.examen_actual = generar_examen(nivel_actual, config_nivel['tema'])
-                            st.session_state.en_examen = True
-                            st.session_state.respuestas_examen = []
-                        
-                        # Mostrar primera pregunta
-                        if st.session_state.examen_actual:
-                            p1 = st.session_state.examen_actual[0]
-                            msg_pregunta = f"""📝 **Pregunta 1/5:**
-
-{p1['pregunta']}
-
-🎤 **Responde en inglés con tu micrófono**"""
-                            
-                            st.session_state.chat.append({"role": "assistant", "content": msg_pregunta})
-                    
-                    else:
-                        # Siguiente frase
-                        siguiente = st.session_state.frases_correctas + 1
-                        frase_nueva = generar_frase(nivel_actual, config_nivel['tema'], siguiente)
-                        
-                        # Audio de la nueva frase
-                        match_nueva = re.search(r'Inglés:\s*(.+?)(?:\n|$)', frase_nueva, re.IGNORECASE)
-                        audio_nueva = None
-                        if match_nueva:
-                            audio_nueva = generar_audio_ingles(match_nueva.group(1).strip())
-                        
-                        respuesta = f"""✅ **¡CORRECTO! Precisión: {precision}%**
-
-**Frase {siguiente}/{config_nivel['frases']}:**
-
-{frase_nueva}
-
-🔊 **Escucha y repite**"""
-                        
-                        msg_resp = {"role": "assistant", "content": respuesta}
-                        if audio_nueva:
-                            msg_resp["audio"] = audio_nueva
-                        
-                        st.session_state.chat.append(msg_resp)
-                
-                # ===== PRONUNCIACIÓN INCORRECTA =====
-                else:
-                    audio_correcto = generar_audio_ingles(frase_objetivo)
-                    analisis = comparar_palabras(texto_usuario, frase_objetivo)
-                    
-                    respuesta = f"""❌ **Casi! Precisión: {precision}%** (Necesitas ≥80%)
-
-**📊 Análisis palabra por palabra:**
-{analisis}
-
-💡 **Tip:** Enfócate en las palabras marcadas con ❌
-
-🔊 **Escucha el audio de abajo** y compara con tu pronunciación.
-
-🔄 **Graba de nuevo** cuando estés listo. ¡Intentos ilimitados!"""
-                    
-                    msg_error = {"role": "assistant", "content": respuesta}
-                    if audio_correcto:
-                        msg_error["audio"] = audio_correcto
-                    
-                    st.session_state.chat.append(msg_error)
-            
-            else:
-                # No encontró la frase - error de parsing
-                st.session_state.chat.append({
-                    "role": "assistant",
-                    "content": f"⚠️ Error interno. Dijiste: {texto_usuario}\n\n🔄 Intenta de nuevo o reinicia el nivel."
-                })
-    
-    # ===== MODO EXAMEN =====
-    else:
-        num_pregunta = len(st.session_state.respuestas_examen)
-        
-        if num_pregunta < 5:
-            pregunta_actual = st.session_state.examen_actual[num_pregunta]
-            respuesta_correcta = pregunta_actual['respuesta']
-            
-            precision = similitud_texto(texto_usuario, respuesta_correcta)
-            
-            # Evaluar respuesta
             if precision >= 75:
-                st.session_state.respuestas_examen.append(True)
-                feedback = f"✅ **Respuesta {num_pregunta + 1}/5 - CORRECTA** ({precision}%)"
-            else:
-                st.session_state.respuestas_examen.append(False)
-                feedback = f"❌ **Respuesta {num_pregunta + 1}/5 - INCORRECTA** ({precision}%)\n\n**Esperaba:** {respuesta_correcta}\n**Dijiste:** {texto_usuario}"
-            
-            st.session_state.chat.append({"role": "assistant", "content": feedback})
-            
-            # ¿Terminó el examen?
-            if len(st.session_state.respuestas_examen) == 5:
-                correctas = sum(st.session_state.respuestas_examen)
-                nota = (correctas / 5) * 100
+                st.success(f"✅ ¡CORRECTO! Precisión: {precision}%")
+                st.balloons()
                 
-                # APROBADO
-                if correctas == 5:
-                    siguiente_idx = indice_nivel + 1
+                if st.session_state.frase_actual < total_frases - 1:
+                    if st.button("➡️ Siguiente frase", type="primary"):
+                        st.session_state.frase_actual += 1
+                        guardar_datos()
+                        st.rerun()
+                else:
+                    if st.button("🔥 Ir al Examen Final", type="primary"):
+                        st.session_state.fase = "examen"
+                        st.session_state.pregunta_actual = 0
+                        st.session_state.respuestas_correctas = 0
+                        guardar_datos()
+                        st.rerun()
+            else:
+                st.error(f"❌ Precisión: {precision}% (Necesitas ≥75%)")
+                st.warning(f"**Objetivo:** {frase_obj['ingles']}\n**Dijiste:** {texto_usuario}")
+                st.info("💡 Escucha el audio de nuevo y repite más claro")
+
+# ==================== FASE: EXAMEN ====================
+
+elif st.session_state.fase == "examen":
+    pregunta_obj = config['examen'][st.session_state.pregunta_actual]
+    total_preguntas = len(config['examen'])
+    
+    st.progress(st.session_state.pregunta_actual / total_preguntas)
+    st.markdown(f"### 📝 Examen - Pregunta {st.session_state.pregunta_actual + 1}/{total_preguntas}")
+    
+    st.info(f"**{pregunta_obj['pregunta']}**")
+    st.markdown("🎤 **Responde en inglés con tu micrófono:**")
+    
+    audio = mic_recorder(start_prompt="🎙️", stop_prompt="⏹️", key=f"exam_{st.session_state.pregunta_actual}")
+    
+    if audio and audio.get("id") != st.session_state.last_audio_id:
+        st.session_state.last_audio_id = audio.get("id")
+        
+        with st.spinner("🎧 Evaluando..."):
+            texto_usuario = transcribir_audio(audio['bytes'])
+        
+        if texto_usuario:
+            precision = similitud_texto(texto_usuario, pregunta_obj['respuesta'])
+            
+            if precision >= 70:
+                st.success(f"✅ CORRECTO ({precision}%)")
+                st.session_state.respuestas_correctas += 1
+            else:
+                st.error(f"❌ INCORRECTA ({precision}%)")
+                st.warning(f"**Esperaba:** {pregunta_obj['respuesta']}\n**Dijiste:** {texto_usuario}")
+            
+            if st.session_state.pregunta_actual < total_preguntas - 1:
+                if st.button("➡️ Siguiente pregunta", type="primary"):
+                    st.session_state.pregunta_actual += 1
+                    guardar_datos()
+                    st.rerun()
+            else:
+                # RESULTADO FINAL
+                nota = (st.session_state.respuestas_correctas / total_preguntas) * 100
+                
+                st.divider()
+                st.markdown(f"## 📊 Resultado: {nota:.0f}%")
+                st.markdown(f"**Correctas:** {st.session_state.respuestas_correctas}/{total_preguntas}")
+                
+                if st.session_state.respuestas_correctas == total_preguntas:
+                    st.success("🎊 ¡EXAMEN APROBADO!")
                     
+                    siguiente_idx = indice + 1
                     if siguiente_idx < len(niveles_list):
-                        siguiente_nivel = niveles_list[siguiente_idx]
+                        siguiente = niveles_list[siguiente_idx]
+                        st.markdown(f"🚀 **Avanzando a {siguiente}**")
                         
-                        resultado = f"""🎊 **¡EXAMEN APROBADO!**
-
-📊 **Nota: {nota:.0f}%** ({correctas}/5 correctas)
-
-✅ Nivel {nivel_actual} COMPLETADO
-🚀 Avanzando a **{siguiente_nivel}**
-
-¡Sigue así! 💪"""
-                        
-                        # Registrar logro
                         st.session_state.historial.append({
                             "nivel": nivel_actual,
                             "nota": nota,
                             "fecha": datetime.now().isoformat()
                         })
                         
-                        # Avanzar nivel
-                        st.session_state.nivel_actual = siguiente_nivel
-                        st.session_state.frases_correctas = 0
-                        st.session_state.en_examen = False
-                        st.session_state.examen_actual = []
-                        st.session_state.respuestas_examen = []
-                        st.session_state.chat = []
-                        
-                        st.balloons()
-                    
+                        if st.button("➡️ Comenzar siguiente nivel", type="primary"):
+                            st.session_state.nivel_actual = siguiente
+                            st.session_state.fase = "explicacion"
+                            st.session_state.frase_actual = 0
+                            st.session_state.pregunta_actual = 0
+                            st.session_state.respuestas_correctas = 0
+                            guardar_datos()
+                            st.rerun()
                     else:
-                        resultado = f"""🏆 **¡CERTIFICACIÓN C1 OBTENIDA!**
-
-Has completado TODO el bootcamp.
-
-🎓 **Eres bilingüe C1**
-
-¡Felicitaciones! 🎉"""
-                    
-                    st.session_state.chat.append({"role": "assistant", "content": resultado})
-                
-                # REPROBADO
+                        st.success("🏆 ¡Completaste todo el curso!")
                 else:
-                    resultado = f"""😔 **Examen Reprobado**
-
-📊 Nota: {nota:.0f}% ({correctas}/5)
-
-Necesitabas 5/5 para avanzar.
-
-🔄 Repetirás {nivel_actual}
-
-💪 ¡No te rindas!"""
+                    st.error("😔 Examen reprobado")
+                    st.info(f"Necesitabas {total_preguntas}/{total_preguntas} para avanzar")
                     
-                    st.session_state.chat.append({"role": "assistant", "content": resultado})
-                    
-                    # Reiniciar nivel
-                    st.session_state.frases_correctas = 0
-                    st.session_state.en_examen = False
-                    st.session_state.examen_actual = []
-                    st.session_state.respuestas_examen = []
-                    st.session_state.chat = []
-            
-            # Mostrar siguiente pregunta
-            elif len(st.session_state.respuestas_examen) < 5:
-                siguiente_p = st.session_state.examen_actual[len(st.session_state.respuestas_examen)]
-                
-                msg_sig = f"""📝 **Pregunta {len(st.session_state.respuestas_examen) + 1}/5:**
-
-{siguiente_p['pregunta']}
-
-🎤 **Responde en inglés**"""
-                
-                st.session_state.chat.append({"role": "assistant", "content": msg_sig})
-    
-    guardar_datos()
-    st.rerun()
-
-# ===== PROCESAMIENTO DE TEXTO =====
-elif texto:
-    st.session_state.chat.append({"role": "user", "content": texto})
-    
-    if st.session_state.en_examen:
-        st.session_state.chat.append({
-            "role": "assistant",
-            "content": "🎤 El examen requiere audio. Usa el micrófono."
-        })
-    else:
-        st.session_state.chat.append({
-            "role": "assistant",
-            "content": "🎤 Por favor usa el micrófono para practicar pronunciación."
-        })
-    
-    guardar_datos()
-    st.rerun()
+                    if st.button("🔄 Repetir nivel", type="primary"):
+                        st.session_state.fase = "explicacion"
+                        st.session_state.frase_actual = 0
+                        st.session_state.pregunta_actual = 0
+                        st.session_state.respuestas_correctas = 0
+                        guardar_datos()
+                        st.rerun()
