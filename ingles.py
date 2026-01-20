@@ -117,12 +117,21 @@ def guardar_datos():
         json.dump(datos, f, ensure_ascii=False, indent=2)
 
 def transcribir(audio_bytes):
+    """Transcribe audio SOLO en inglés para evitar detección de otros idiomas"""
     try:
         client = openai.OpenAI(api_key=OPENAI_API_KEY)
         audio_file = io.BytesIO(audio_bytes)
         audio_file.name = "audio.wav"
-        return client.audio.transcriptions.create(model="whisper-1", file=audio_file).text
-    except:
+        # CRÍTICO: Forzar idioma inglés para evitar detección incorrecta
+        transcripcion = client.audio.transcriptions.create(
+            model="whisper-1",
+            file=audio_file,
+            language="en",  # Forzar inglés
+            prompt="This is a person practicing English pronunciation. Transcribe only in English."
+        )
+        return transcripcion.text
+    except Exception as e:
+        st.error(f"Error en transcripción: {e}")
         return ""
 
 def generar_frase_ia(nivel, tema, numero_frase):
