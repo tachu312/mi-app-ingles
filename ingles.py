@@ -11,7 +11,7 @@ import base64
 # --- 1. CONFIGURACIÓN ---
 st.set_page_config(page_title="Nexus Pro: C1 Bootcamp", page_icon="🦅", layout="wide")
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
 # --- 2. USUARIOS ---
 USUARIOS = {"nasly": "1994", "sofia": "2009"}
@@ -147,3 +147,4 @@ elif txt:
     st.session_state.chat.append({"role": "assistant", "content": hablar_coach(f"El alumno dice: {txt}. Responde con traducción.")})
 
     st.rerun()
+
