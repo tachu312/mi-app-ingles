@@ -1041,14 +1041,14 @@ def analizar_palabras(texto_usuario, texto_objetivo):
         p_objetivo_limpio = re.sub(r'[^\w]', '', p_objetivo)
         
         if p_usuario_limpio == p_objetivo_limpio:
-            analisis.append(f"✅ **{p_objetivo}**")
+            analisis.append(f"OK: **{p_objetivo}**")
         else:
             if p_usuario == "---":
-                analisis.append(f"❌ **{p_objetivo}** (faltó)")
+                analisis.append(f"FALTA: **{p_objetivo}**")
             elif p_objetivo == "---":
-                analisis.append(f"⚠️ **{p_usuario}** (extra)")
+                analisis.append(f"EXTRA: **{p_usuario}**")
             else:
-                analisis.append(f"❌ **{p_objetivo}** → dijiste: *{p_usuario}*")
+                analisis.append(f"ERROR: **{p_objetivo}** (dijiste: *{p_usuario}*)")
     
     return analisis
 
@@ -1548,7 +1548,7 @@ elif st.session_state.fase == "examen":
 st.divider()
 st.markdown("""
 <div style='text-align: center; color: white; padding: 20px;'>
-    <p>Nexus Pro Elite v4.0 | Sistema Profesional de Ingles A1 a C1</p>
+    <p>Nexus Pro Elite v4.0 - Sistema Profesional de Ingles A1 a C1</p>
     <p>Desarrollado para tu exito</p>
 </div>
 """, unsafe_allow_html=True)
