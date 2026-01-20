@@ -31,6 +31,7 @@ st.markdown("""
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         margin: 10px 0;
+        color: #333;
     }
     .success-box {
         background: #d4edda;
@@ -59,6 +60,7 @@ st.markdown("""
         border-radius: 5px;
         margin: 5px 0;
         border-left: 3px solid #667eea;
+        color: #333;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -704,7 +706,7 @@ with st.sidebar:
 st.markdown("""
 <div style='background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);'>
     <h1 style='color: #667eea; margin: 0;'>🎓 Nexus Pro Elite</h1>
-    <p style='color: #666; margin: 5px 0 0 0;'>Sistema Profesional A1 → C1</p>
+    <p style='color: #333; margin: 5px 0 0 0;'>Sistema Profesional A1 → C1</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -749,18 +751,18 @@ elif st.session_state.fase == "practica":
     
     st.markdown(f"""
     <div class='metric-card'>
-        <h3>💪 Ejercicio {st.session_state.frase_actual + 1}/{total_frases}</h3>
-        <p><strong>Necesitas ≥{umbral}% para avanzar</strong></p>
-        <p>Intentos en esta frase: {st.session_state.intentos_frase}</p>
+        <h3 style='color: #333;'>💪 Ejercicio {st.session_state.frase_actual + 1}/{total_frases}</h3>
+        <p style='color: #333;'><strong>Necesitas ≥{umbral}% para avanzar</strong></p>
+        <p style='color: #666;'>Intentos en esta frase: {st.session_state.intentos_frase}</p>
     </div>
     """, unsafe_allow_html=True)
     
     # Frase del día
     st.markdown(f"""
     <div class='word-card'>
-        <h4>🎯 FRASE DEL EJERCICIO</h4>
+        <h4 style='color: #333;'>🎯 FRASE DEL EJERCICIO</h4>
         <p style='font-size: 28px; color: #667eea; margin: 10px 0;'><strong>{frase_obj['ingles']}</strong></p>
-        <p style='font-size: 18px;'><strong>🇪🇸 Español:</strong> {frase_obj['español']}</p>
+        <p style='font-size: 18px; color: #333;'><strong>🇪🇸 Español:</strong> {frase_obj['español']}</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -832,12 +834,15 @@ elif st.session_state.fase == "practica":
                 
                 st.divider()
                 
+                # Actualizar progreso ANTES de mostrar botón
+                guardar_datos()
+                
                 # ¿Última frase?
                 if st.session_state.frase_actual >= total_frases - 1:
                     st.markdown("### 🔥 ¡COMPLETASTE TODAS LAS FRASES!")
                     col1, col2, col3 = st.columns([1,2,1])
                     with col2:
-                        if st.button("🎯 IR AL EXAMEN FINAL", use_container_width=True, type="primary"):
+                        if st.button("🎯 IR AL EXAMEN FINAL", use_container_width=True, type="primary", key="btn_examen"):
                             st.session_state.fase = "examen"
                             st.session_state.pregunta_actual = 0
                             st.session_state.respuestas_correctas = 0
@@ -846,9 +851,10 @@ elif st.session_state.fase == "practica":
                 else:
                     col1, col2, col3 = st.columns([1,2,1])
                     with col2:
-                        if st.button("➡️ SIGUIENTE FRASE", use_container_width=True, type="primary"):
+                        if st.button("➡️ SIGUIENTE FRASE", use_container_width=True, type="primary", key="btn_siguiente"):
                             st.session_state.frase_actual += 1
                             st.session_state.intentos_frase = 0
+                            st.session_state.last_audio_id = None  # Resetear para nueva frase
                             guardar_datos()
                             st.rerun()
             
@@ -1021,8 +1027,9 @@ elif st.session_state.fase == "examen":
             else:
                 col1, col2, col3 = st.columns([1,2,1])
                 with col2:
-                    if st.button("➡️ SIGUIENTE PREGUNTA", use_container_width=True, type="primary"):
+                    if st.button("➡️ SIGUIENTE PREGUNTA", use_container_width=True, type="primary", key=f"btn_sig_preg_{st.session_state.pregunta_actual}"):
                         st.session_state.pregunta_actual += 1
+                        st.session_state.last_audio_id = None  # Resetear para nueva pregunta
                         guardar_datos()
                         st.rerun()
 
