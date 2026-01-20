@@ -1,4 +1,4 @@
-Import streamlit as st
+import streamlit as st
 import openai
 from gtts import gTTS
 from streamlit_mic_recorder import mic_recorder
@@ -1043,3 +1043,4 @@ st.markdown("""
     <p>Desarrollado con ❤️ para tu éxito</p>
 </div>
 """, unsafe_allow_html=True)
+
