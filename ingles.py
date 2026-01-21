@@ -1,4 +1,144 @@
-# ==================== CURRÍCULO PROFESIONAL MEJORADO ====================
+import streamlit as st
+import openai
+from gtts import gTTS
+from streamlit_mic_recorder import mic_recorder
+import io
+import re
+import json
+import os
+import base64
+from datetime import datetime, timedelta
+from difflib import SequenceMatcher
+import time
+
+# ==================== CONFIGURACIÓN ====================
+st.set_page_config(
+    page_title="Nexus Pro Elite - Bootcamp A1→C1",
+    page_icon="🎓",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# ==================== ESTILOS (CSS) ====================
+st.markdown("""
+<style>
+    .stApp {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    /* FORZAR TEXTO NEGRO PARA QUE SE LEA BIEN */
+    .metric-card, .word-card, .success-box, .error-box, .info-box, .explanation-box {
+        color: #000000 !important;
+    }
+    .metric-card h1, .metric-card h2, .metric-card h3, .metric-card h4, .metric-card p, 
+    .metric-card span, .metric-card div, .metric-card li, .metric-card td, .metric-card th, .metric-card strong {
+        color: #000000 !important;
+    }
+
+    /* TARJETAS PRINCIPALES */
+    .metric-card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin: 10px 0;
+    }
+    
+    /* CAJA DE EXPLICACIÓN (TABLAS Y TEORÍA) */
+    .explanation-box {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        border-left: 6px solid #667eea;
+        margin-bottom: 20px;
+    }
+    .explanation-box table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .explanation-box th {
+        background-color: #f2f2f2;
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+    .explanation-box td {
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+
+    /* CAJA DE PRONUNCIACIÓN (AMARILLA) */
+    .pronunciation-box {
+        background: #fff3cd;
+        border-left: 6px solid #ffc107;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+        color: #000000 !important;
+    }
+    .pronunciation-box p, .pronunciation-box h4 {
+        color: #000000 !important;
+        margin: 0;
+    }
+
+    /* CAJA DE PALABRA (GRIS) */
+    .word-card {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 10px 0;
+        border-left: 4px solid #667eea;
+    }
+    
+    /* CAJAS DE ESTADO */
+    .success-box { background: #d4edda; border-left: 4px solid #28a745; padding: 15px; margin: 10px 0; }
+    .error-box { background: #f8d7da; border-left: 4px solid #dc3545; padding: 15px; margin: 10px 0; }
+    .info-box { background: #d1ecf1; border-left: 4px solid #0c5460; padding: 15px; margin: 10px 0; }
+</style>
+""", unsafe_allow_html=True)
+
+# Manejo de API Key
+try:
+    OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+except:
+    OPENAI_API_KEY = ""
+
+# ==================== USUARIOS ====================
+USUARIOS = {"nasly": "1994", "sofia": "2009", "andres": "1988"}
+
+if "usuario_activo" not in st.session_state:
+    st.session_state.usuario_activo = None
+
+if not st.session_state.usuario_activo:
+    st.markdown("""
+    <div style='text-align: center; padding: 50px;'>
+        <h1 style='color: white; font-size: 48px;'>🎓 Nexus Pro Elite</h1>
+        <p style='color: white; font-size: 20px;'>Sistema Profesional de Inglés A1 → C1</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+        with st.container():
+            st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
+            st.markdown("### 🔐 Acceso al Sistema")
+            u = st.text_input("👤 Usuario", key="login_user")
+            p = st.text_input("🔒 Contraseña", type="password", key="login_pass")
+            
+            if st.button("🚀 ENTRAR AL BOOTCAMP", use_container_width=True, type="primary"):
+                if u in USUARIOS and USUARIOS[u] == p:
+                    st.session_state.usuario_activo = u
+                    st.success("✅ Acceso concedido")
+                    time.sleep(1)
+                    st.rerun()
+                else:
+                    st.error("❌ Credenciales incorrectas")
+            st.markdown("</div>", unsafe_allow_html=True)
+    st.stop()
+
+# ==================== CURRÍCULO (CONTENIDO MEJORADO) ====================
 
 CURRICULO = {
     "A1.1": {
@@ -8,37 +148,28 @@ CURRICULO = {
         "explicacion": """
 <div class='explanation-box'>
     <h2>👋 LECCIÓN 1: Saludos y Presentaciones</h2>
-    <p>Bienvenido. Antes de hablar, necesitas saber cómo iniciar una conversación en cualquier situación.</p>
-    
+    <p>Bienvenido. Antes de hablar, necesitas saber cómo iniciar una conversación.</p>
     <hr>
-    
     <h3>1. SALUDOS (Greetings)</h3>
-    <table style="width:100%; border-collapse: collapse;">
-      <tr style="background-color: #e0e0e0;"><th>Inglés</th><th>Español</th><th>Uso</th></tr>
+    <table>
+      <tr><th>Inglés</th><th>Español</th><th>Uso</th></tr>
       <tr><td><strong>Hello</strong></td><td>Hola</td><td>Formal / Universal</td></tr>
       <tr><td><strong>Hi</strong></td><td>Hola</td><td>Informal (Amigos)</td></tr>
       <tr><td><strong>Good morning</strong></td><td>Buenos días</td><td>Hasta las 12:00 PM</td></tr>
       <tr><td><strong>Good afternoon</strong></td><td>Buenas tardes</td><td>12:00 PM - 6:00 PM</td></tr>
       <tr><td><strong>Good evening</strong></td><td>Buenas noches</td><td>Al llegar a un lugar</td></tr>
     </table>
-    
     <br>
-    
-    <h3>2. ¿CÓMO PRESENTARSE?</h3>
+    <h3>2. CÓMO PRESENTARSE</h3>
     <ul>
-        <li><strong>Formal:</strong> "My name is Andres" (Mi nombre es Andres).</li>
-        <li><strong>Informal:</strong> "I'm Andres" (Soy Andres).</li>
-        <li><strong>Respuesta educada:</strong> "Nice to meet you" (Mucho gusto).</li>
+        <li>Formal: <strong>"My name is..."</strong> (Mi nombre es...)</li>
+        <li>Informal: <strong>"I'm..."</strong> (Soy...)</li>
     </ul>
-    
-    <br>
-    
     <h3>3. PREGUNTAS CLAVE</h3>
-    <p>Memoriza estas estructuras:</p>
     <ul>
-        <li>🗣️ <strong>What is your name?</strong> (¿Cómo te llamas?)</li>
-        <li>🗣️ <strong>How are you?</strong> (¿Cómo estás?) → Rta: <em>I am fine, thank you.</em></li>
-        <li>🗣️ <strong>Where are you from?</strong> (¿De dónde eres?) → Rta: <em>I am from Colombia.</em></li>
+        <li><strong>What is your name?</strong> (¿Cómo te llamas?)</li>
+        <li><strong>How are you?</strong> (¿Cómo estás?)</li>
+        <li><strong>Where are you from?</strong> (¿De dónde eres?)</li>
     </ul>
 </div>
 """,
@@ -71,38 +202,22 @@ CURRICULO = {
         "explicacion": """
 <div class='explanation-box'>
     <h2>🔥 LECCIÓN 2: El Poder del Verbo TO BE</h2>
-    <p>Este verbo es la base de todo. Significa <strong>SER</strong> (yo soy médico) o <strong>ESTAR</strong> (yo estoy feliz).</p>
-    
+    <p>Significa <strong>SER</strong> (yo soy médico) o <strong>ESTAR</strong> (yo estoy feliz).</p>
     <hr>
-    
-    <h3>1. ESTRUCTURA AFIRMATIVA (+)</h3>
-    <p>Apréndete las contracciones, así es como habla la gente real:</p>
-    <table style="width:100%; border-collapse: collapse;">
-      <tr style="background-color: #e0e0e0;"><th>Pronombre</th><th>Verbo</th><th>Contracción (Real)</th><th>Ejemplo</th></tr>
-      <tr><td>I (Yo)</td><td>am</td><td><strong>I'm</strong></td><td>I'm happy (Estoy feliz)</td></tr>
-      <tr><td>You (Tú)</td><td>are</td><td><strong>You're</strong></td><td>You're tall (Eres alto)</td></tr>
-      <tr><td>He (Él)</td><td>is</td><td><strong>He's</strong></td><td>He's my friend (Es mi amigo)</td></tr>
-      <tr><td>She (Ella)</td><td>is</td><td><strong>She's</strong></td><td>She's a doctor (Es doctora)</td></tr>
-      <tr><td>It (Eso)</td><td>is</td><td><strong>It's</strong></td><td>It's a dog (Es un perro)</td></tr>
-      <tr><td>We (Nosotros)</td><td>are</td><td><strong>We're</strong></td><td>We're family (Somos familia)</td></tr>
-      <tr><td>They (Ellos)</td><td>are</td><td><strong>They're</strong></td><td>They're here (Están aquí)</td></tr>
+    <h3>1. ESTRUCTURA (Afirmativa)</h3>
+    <table>
+      <tr><th>Pronombre</th><th>Verbo</th><th>Contracción</th><th>Ejemplo</th></tr>
+      <tr><td>I (Yo)</td><td>am</td><td><strong>I'm</strong></td><td>I'm happy</td></tr>
+      <tr><td>You (Tú)</td><td>are</td><td><strong>You're</strong></td><td>You're tall</td></tr>
+      <tr><td>He/She (Él/Ella)</td><td>is</td><td><strong>He's / She's</strong></td><td>She's a doctor</td></tr>
+      <tr><td>We (Nosotros)</td><td>are</td><td><strong>We're</strong></td><td>We're family</td></tr>
+      <tr><td>They (Ellos)</td><td>are</td><td><strong>They're</strong></td><td>They're here</td></tr>
     </table>
-    
     <br>
-    
     <h3>2. NEGATIVO (-)</h3>
-    <p>Es muy fácil: Solo agrega <strong>NOT</strong> después del verbo.</p>
-    <ul>
-        <li>I <strong>am not</strong> tired. (No estoy cansado)</li>
-        <li>She <strong>is not</strong> (isn't) here. (Ella no está aquí)</li>
-        <li>They <strong>are not</strong> (aren't) doctors. (No son doctores)</li>
-    </ul>
-
-    <br>
-    
-    <h3>3. PREGUNTAS (?)</h3>
-    <p>¡El secreto es cambiar el orden! El verbo va primero.</p>
-    <p>👉 <em>You are happy</em> (Afirmación) <br> 👉 <strong>Are you</strong> happy? (¿Estás feliz?)</p>
+    <p>Agrega <strong>NOT</strong> después del verbo: <em>I am <strong>not</strong> tired.</em></p>
+    <h3>3. PREGUNTA (?)</h3>
+    <p>Cambia el orden (Verbo primero): <em><strong>Are you</strong> happy?</em></p>
 </div>
 """,
         "frases": [
@@ -133,51 +248,35 @@ CURRICULO = {
         "duracion": "40 minutos",
         "explicacion": """
 <div class='explanation-box'>
-    <h2>📚 LECCIÓN 3: Los Artículos y Dueños</h2>
-    
-    <h3>1. Artículos (Un/Una)</h3>
-    <p>En inglés es fácil, solo mira la siguiente palabra:</p>
+    <h2>📚 LECCIÓN 3: Artículos</h2>
     <ul>
-        <li><strong>A</strong>: Se usa si la palabra empieza con <strong>consonante</strong>.<br><em>Ejemplo: <strong>A</strong> cat, <strong>A</strong> book.</em></li>
-        <li><strong>AN</strong>: Se usa si la palabra empieza con <strong>vocal</strong> (a,e,i,o,u).<br><em>Ejemplo: <strong>An</strong> apple, <strong>An</strong> orange.</em></li>
+        <li><strong>A</strong>: Un/Una (antes de consonante). Ej: A cat.</li>
+        <li><strong>AN</strong>: Un/Una (antes de vocal). Ej: An apple.</li>
+        <li><strong>THE</strong>: El/La/Los/Las (Específico). Ej: The book.</li>
     </ul>
-    
     <hr>
-    
-    <h3>2. Artículos Definidos</h3>
-    <ul>
-        <li><strong>THE</strong>: Significa El, La, Los, Las (Todo en uno).<br><em>Ejemplo: <strong>The</strong> car (El carro), <strong>The</strong> cars (Los carros).</em></li>
-    </ul>
-
-    <hr>
-
-    <h3>3. Posesivos (Mío, Tuyo, Suyo)</h3>
-    <ul>
-        <li><strong>My</strong> → Mi (My house)</li>
-        <li><strong>Your</strong> → Tu (Your friend)</li>
-        <li><strong>His</strong> → Su de él (His car)</li>
-        <li><strong>Her</strong> → Su de ella (Her bag)</li>
-    </ul>
+    <h3>Posesivos</h3>
+    <p>My (Mi), Your (Tu), His (Su de él), Her (Su de ella).</p>
 </div>
 """,
         "frases": [
-            {"ingles": "This is a pen", "español": "Este es un bolígrafo", "fonética": "dis is a pen", "contexto": "Objeto común", "tip": "Usa 'A' porque pen empieza con P"},
-            {"ingles": "That is an orange", "español": "Eso es una naranja", "fonética": "dat is an óranch", "contexto": "Vocal", "tip": "Usa 'AN' porque orange empieza con O"},
-            {"ingles": "The book is red", "español": "El libro es rojo", "fonética": "de buk is red", "contexto": "Específico", "tip": "The suena como 'De' suave"},
-            {"ingles": "My car is new", "español": "Mi carro es nuevo", "fonética": "mái car is niú", "contexto": "Posesivo (Mío)", "tip": "New suena como 'niú'"},
-            {"ingles": "Your phone is here", "español": "Tu teléfono está aquí", "fonética": "ior fón is jír", "contexto": "Ubicación", "tip": "Here tiene H aspirada"},
-            {"ingles": "His name is John", "español": "Su nombre es John", "fonética": "jis néim is yon", "contexto": "De él", "tip": "His se usa para hombres"},
-            {"ingles": "Her house is big", "español": "Su casa es grande", "fonética": "jer jáus is big", "contexto": "De ella", "tip": "Her se usa para mujeres"},
-            {"ingles": "It is a dog", "español": "Es un perro", "fonética": "it is a dog", "contexto": "Animal", "tip": "It para animales"},
-            {"ingles": "We have a cat", "español": "Tenemos un gato", "fonética": "uí jav a cat", "contexto": "Posesión plural", "tip": "Have se pronuncia 'jav'"},
-            {"ingles": "They are our friends", "español": "Son nuestros amigos", "fonética": "déi ar áuar frends", "contexto": "Plural (Nuestros)", "tip": "Our suena como 'áuar'"}
+            {"ingles": "This is a pen", "español": "Este es un bolígrafo", "fonética": "dis is a pen", "contexto": "Objeto común", "tip": "A pen"},
+            {"ingles": "That is an orange", "español": "Eso es una naranja", "fonética": "dat is an óranch", "contexto": "Vocal", "tip": "An orange"},
+            {"ingles": "The book is red", "español": "El libro es rojo", "fonética": "de buk is red", "contexto": "Específico", "tip": "The=De"},
+            {"ingles": "My car is new", "español": "Mi carro es nuevo", "fonética": "mái car is niú", "contexto": "Posesivo", "tip": "My"},
+            {"ingles": "Your phone is here", "español": "Tu teléfono está aquí", "fonética": "ior fón is jír", "contexto": "Ubicación", "tip": "Here=Jír"},
+            {"ingles": "His name is John", "español": "Su nombre es John", "fonética": "jis néim is yon", "contexto": "De él", "tip": "His"},
+            {"ingles": "Her house is big", "español": "Su casa es grande", "fonética": "jer jáus is big", "contexto": "De ella", "tip": "Her"},
+            {"ingles": "It is a dog", "español": "Es un perro", "fonética": "it is a dog", "contexto": "Animal", "tip": "It"},
+            {"ingles": "We have a cat", "español": "Tenemos un gato", "fonética": "uí jav a cat", "contexto": "Posesión pl", "tip": "Have"},
+            {"ingles": "They are our friends", "español": "Son nuestros amigos", "fonética": "déi ar áuar frends", "contexto": "Plural", "tip": "Our"}
         ],
         "examen": [
-            {"pregunta": "Artículo para 'apple'", "respuesta": "an", "explicacion": "Empieza con vocal -> AN"},
-            {"pregunta": "Di 'El libro es rojo'", "respuesta": "The book is red", "explicacion": "THE es el artículo definido."},
-            {"pregunta": "Di 'Mi carro'", "respuesta": "My car", "explicacion": "MY es el posesivo."},
-            {"pregunta": "Completa: ___ is a dog", "respuesta": "It", "explicacion": "IT se usa para animales."},
-            {"pregunta": "Di 'Su casa' (de ella)", "respuesta": "Her house", "explicacion": "HER es para mujeres."}
+            {"pregunta": "Artículo para 'apple'", "respuesta": "an", "explicacion": "Vocal"},
+            {"pregunta": "Di 'El libro es rojo'", "respuesta": "The book is red", "explicacion": "The"},
+            {"pregunta": "Di 'Mi carro'", "respuesta": "My car", "explicacion": "My"},
+            {"pregunta": "Completa: ___ is a dog", "respuesta": "It", "explicacion": "It"},
+            {"pregunta": "Di 'Su casa' (ella)", "respuesta": "Her house", "explicacion": "Her"}
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
@@ -453,7 +552,7 @@ CURRICULO = {
     }
 }
 
-# ==================== FUNCIONES (LÓGICA DEL APP) ====================
+# ==================== FUNCIONES (LOGICA) ====================
 
 def similitud_texto(texto1, texto2):
     t1 = re.sub(r'[^\w\s]', '', texto1.lower().strip())
@@ -467,11 +566,14 @@ def analizar_palabras(texto_usuario, texto_objetivo):
     palabras_objetivo = texto_objetivo.lower().split()
     analisis = []
     max_len = max(len(palabras_usuario), len(palabras_objetivo))
+    
     for i in range(max_len):
         p_usuario = palabras_usuario[i] if i < len(palabras_usuario) else "---"
         p_objetivo = palabras_objetivo[i] if i < len(palabras_objetivo) else "---"
+        
         p_usuario_limpio = re.sub(r'[^\w]', '', p_usuario)
         p_objetivo_limpio = re.sub(r'[^\w]', '', p_objetivo)
+        
         if p_usuario_limpio == p_objetivo_limpio:
             analisis.append(f"✅ **{p_objetivo}**")
         else:
@@ -537,7 +639,7 @@ def generar_audio_ingles(texto, lento=False):
     except:
         return None
 
-# ==================== INICIALIZACIÓN ====================
+# ==================== ESTADO Y VARIABLES ====================
 
 if "datos_cargados" not in st.session_state:
     if st.session_state.usuario_activo:
@@ -558,7 +660,7 @@ for var, default in variables_default.items():
     if var not in st.session_state:
         st.session_state[var] = default
 
-# ==================== MAIN APP ====================
+# ==================== INTERFAZ PRINCIPAL ====================
 
 nivel_actual = st.session_state.nivel_actual
 config = CURRICULO.get(nivel_actual, CURRICULO["A1.1"])
@@ -566,12 +668,11 @@ niveles_list = list(CURRICULO.keys())
 indice = niveles_list.index(nivel_actual)
 progreso_total = int((indice / len(niveles_list)) * 100)
 
-# ==================== SIDEBAR ====================
-
+# -------------------- SIDEBAR --------------------
 with st.sidebar:
     if st.session_state.usuario_activo:
         st.markdown(f"""
-        <div style='text-align: center; background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; color: black;'>
+        <div style='text-align: center; background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;'>
             <h2 style='color: #667eea; margin: 0;'>👤 {st.session_state.usuario_activo.upper()}</h2>
         </div>
         """, unsafe_allow_html=True)
@@ -583,19 +684,25 @@ with st.sidebar:
             st.metric("🔥 Racha", f"{st.session_state.racha_dias}")
         
         st.divider()
+        st.markdown(f"""
+        <div class='metric-card' style='padding: 10px;'>
+            <h4 style='margin:0;'>📍 Nivel Actual</h4>
+            <p style='margin:0;'>{nivel_actual}</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
         st.subheader("🗺️ Roadmap")
         for i, key in enumerate(niveles_list):
             tema = CURRICULO[key]["tema"]
             if i < indice:
-                st.success(f"✅ {key}: {tema[:20]}...")
+                st.success(f"✅ {key}")
             elif i == indice:
-                st.info(f"🎯 {key}: {tema[:20]}...")
+                st.info(f"📍 {key}")
             else:
-                st.caption(f"🔒 {key}: {tema[:20]}...")
+                st.caption(f"🔒 {key}")
         
         st.divider()
         
-        # --- BOTONES DE REINICIO ---
         if st.button("🔄 Repetir Nivel", use_container_width=True):
             st.session_state.fase = "explicacion"
             st.session_state.frase_actual = 0
@@ -610,13 +717,12 @@ with st.sidebar:
                 os.remove(archivo)
             st.session_state.clear()
             st.rerun()
-        # ---------------------------
-        
+            
         if st.button("🚪 Cerrar Sesión", use_container_width=True):
             st.session_state.usuario_activo = None
             st.rerun()
 
-# ==================== HEADER & LOGIC ====================
+# -------------------- CONTENIDO --------------------
 
 if st.session_state.usuario_activo:
     st.markdown("""
@@ -634,7 +740,7 @@ if st.session_state.usuario_activo:
         with col1: st.info(f"**Objetivo:** {config['objetivo']}")
         with col2: st.info(f"**Duración:** {config['duracion']}")
         
-        # Corrección: Agregado unsafe_allow_html=True para que se vea bien la tarjeta
+        # AQUÍ ESTÁ LA MAGIA: unsafe_allow_html=True permite ver las tablas bonitas
         st.markdown(config['explicacion'], unsafe_allow_html=True)
         
         if st.button("✅ ENTENDIDO - COMENZAR PRÁCTICA", use_container_width=True, type="primary"):
@@ -646,18 +752,18 @@ if st.session_state.usuario_activo:
     # 2. PRÁCTICA
     elif st.session_state.fase == "practica":
         
-        # --- FRENO DE SEGURIDAD (ARREGLO DEL INDEXERROR) ---
+        # FRENO DE SEGURIDAD
         frases_disponibles = config.get('frases', [])
         if st.session_state.frase_actual >= len(frases_disponibles):
             st.session_state.fase = "examen"
             st.session_state.pregunta_actual = 0
             st.rerun()
-        # ----------------------------------------------------
 
         frase_obj = frases_disponibles[st.session_state.frase_actual]
         total = len(frases_disponibles)
         
         st.progress(st.session_state.frase_actual / total)
+        
         st.markdown(f"""
         <div class='metric-card'>
             <h3>💪 Ejercicio {st.session_state.frase_actual + 1}/{total}</h3>
@@ -672,21 +778,25 @@ if st.session_state.usuario_activo:
         </div>
         """, unsafe_allow_html=True)
 
-        # Caja Amarilla de Pronunciación (RECUPERADA)
+        # CAJA AMARILLA DE PRONUNCIACIÓN
         st.markdown(f"""
-        <div style='background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 5px; margin: 15px 0;'>
-            <h4 style='color: #856404; margin: 0 0 10px 0;'>🗣️ CÓMO SE PRONUNCIA:</h4>
-            <p style='font-size: 24px; color: #856404; margin: 0; font-family: monospace;'><strong>{frase_obj['fonética']}</strong></p>
+        <div class='pronunciation-box'>
+            <h4>🗣️ CÓMO SE PRONUNCIA:</h4>
+            <p style='font-size: 24px; font-family: monospace;'><strong>{frase_obj['fonética']}</strong></p>
         </div>
         """, unsafe_allow_html=True)
 
         col1, col2 = st.columns(2)
         with col1:
             audio_b64 = generar_audio_ingles(frase_obj['ingles'], lento=False)
-            if audio_b64: st.audio(base64.b64decode(audio_b64), format="audio/mp3")
+            if audio_b64:
+                st.markdown("**Velocidad Normal:**")
+                st.audio(base64.b64decode(audio_b64), format="audio/mp3")
         with col2:
             audio_lento = generar_audio_ingles(frase_obj['ingles'], lento=True)
-            if audio_lento: st.audio(base64.b64decode(audio_lento), format="audio/mp3")
+            if audio_lento:
+                st.markdown("**Velocidad Lenta:**")
+                st.audio(base64.b64decode(audio_lento), format="audio/mp3")
             
         st.divider()
         st.markdown("### 🎤 Tu turno:")
@@ -704,12 +814,18 @@ if st.session_state.usuario_activo:
                 if prec >= config['umbral_practica']:
                     st.balloons()
                     st.success(f"🎉 ¡Bien! ({prec}%)")
+                    
+                    analisis = analizar_palabras(texto_usuario, frase_obj['ingles'])
+                    with st.expander("Ver análisis detallado"):
+                        for palabra in analisis:
+                            st.markdown(palabra)
+                            
                     time.sleep(1)
-                    # Avanzar
-                    st.session_state.frase_actual += 1
-                    st.session_state.intentos_frase = 0
-                    guardar_datos()
-                    st.rerun()
+                    if st.button("➡️ Siguiente"):
+                        st.session_state.frase_actual += 1
+                        st.session_state.intentos_frase = 0
+                        guardar_datos()
+                        st.rerun()
                 else:
                     st.error(f"Intenta de nuevo ({prec}%)")
                     st.info(f"Tip: {frase_obj['tip']}")
@@ -727,7 +843,7 @@ if st.session_state.usuario_activo:
              </div>
              """, unsafe_allow_html=True)
              
-             if st.button("Siguiente Nivel / Inicio"):
+             if st.button("➡️ Siguiente Nivel / Inicio", type="primary"):
                  siguiente_idx = indice + 1
                  if siguiente_idx < len(niveles_list):
                      st.session_state.nivel_actual = niveles_list[siguiente_idx]
