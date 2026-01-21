@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 from difflib import SequenceMatcher
 import time
 
-# ==================== CONFIGURACIÓN ====================
+# ==================== 1. CONFIGURACIÓN DE PÁGINA ====================
 st.set_page_config(
     page_title="Nexus Pro Elite - Bootcamp A1→C1",
     page_icon="🎓",
@@ -19,23 +19,26 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ==================== ESTILOS (CSS) ====================
+# ==================== 2. ESTILOS CSS (CORRECCIÓN DE COLORES) ====================
 st.markdown("""
 <style>
+    /* Fondo general */
     .stApp {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
     
-    /* FORZAR TEXTO NEGRO PARA QUE SE LEA BIEN */
+    /* REGLA DE ORO: Texto NEGRO en todas las cajas de contenido */
     .metric-card, .word-card, .success-box, .error-box, .info-box, .explanation-box {
         color: #000000 !important;
     }
+    
+    /* Forzar negro en elementos específicos */
     .metric-card h1, .metric-card h2, .metric-card h3, .metric-card h4, .metric-card p, 
     .metric-card span, .metric-card div, .metric-card li, .metric-card td, .metric-card th, .metric-card strong {
         color: #000000 !important;
     }
 
-    /* TARJETAS PRINCIPALES */
+    /* Estilos de las cajas */
     .metric-card {
         background: white;
         padding: 20px;
@@ -44,7 +47,7 @@ st.markdown("""
         margin: 10px 0;
     }
     
-    /* CAJA DE EXPLICACIÓN (TABLAS Y TEORÍA) */
+    /* Caja de Explicación (Teoría) */
     .explanation-box {
         background: white;
         padding: 25px;
@@ -55,35 +58,38 @@ st.markdown("""
     .explanation-box table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        color: #000000 !important;
     }
     .explanation-box th {
-        background-color: #f2f2f2;
-        padding: 10px;
+        background-color: #f0f2f6;
+        padding: 12px;
         border: 1px solid #ddd;
         text-align: left;
+        font-weight: bold;
+        color: #000000 !important;
     }
     .explanation-box td {
-        padding: 8px;
+        padding: 10px;
         border: 1px solid #ddd;
+        color: #000000 !important;
     }
-
-    /* CAJA DE PRONUNCIACIÓN (AMARILLA) */
+    
+    /* Caja de Pronunciación (Amarilla) */
     .pronunciation-box {
         background: #fff3cd;
         border-left: 6px solid #ffc107;
         padding: 15px;
         border-radius: 5px;
         margin: 15px 0;
-        color: #000000 !important;
     }
     .pronunciation-box p, .pronunciation-box h4 {
-        color: #000000 !important;
+        color: #856404 !important; /* Texto marrón oscuro para contraste */
         margin: 0;
     }
 
-    /* CAJA DE PALABRA (GRIS) */
+    /* Caja de Palabra (Gris) */
     .word-card {
         background: #f8f9fa;
         padding: 15px;
@@ -92,20 +98,20 @@ st.markdown("""
         border-left: 4px solid #667eea;
     }
     
-    /* CAJAS DE ESTADO */
-    .success-box { background: #d4edda; border-left: 4px solid #28a745; padding: 15px; margin: 10px 0; }
-    .error-box { background: #f8d7da; border-left: 4px solid #dc3545; padding: 15px; margin: 10px 0; }
-    .info-box { background: #d1ecf1; border-left: 4px solid #0c5460; padding: 15px; margin: 10px 0; }
+    /* Cajas de Estado */
+    .success-box { background: #d4edda; border-left: 4px solid #28a745; padding: 15px; margin: 10px 0; color: #155724 !important;}
+    .error-box { background: #f8d7da; border-left: 4px solid #dc3545; padding: 15px; margin: 10px 0; color: #721c24 !important;}
+    .info-box { background: #d1ecf1; border-left: 4px solid #0c5460; padding: 15px; margin: 10px 0; color: #0c5460 !important;}
 </style>
 """, unsafe_allow_html=True)
 
-# Manejo de API Key
+# Manejo seguro de API Key
 try:
     OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 except:
     OPENAI_API_KEY = ""
 
-# ==================== USUARIOS ====================
+# ==================== 3. DATOS DE USUARIO ====================
 USUARIOS = {"nasly": "1994", "sofia": "2009", "andres": "1988"}
 
 if "usuario_activo" not in st.session_state:
@@ -138,12 +144,12 @@ if not st.session_state.usuario_activo:
             st.markdown("</div>", unsafe_allow_html=True)
     st.stop()
 
-# ==================== CURRÍCULO (CONTENIDO MEJORADO) ====================
+# ==================== 4. CURRÍCULO COMPLETO Y DETALLADO ====================
 
 CURRICULO = {
     "A1.1": {
         "tema": "Saludos y Presentaciones Básicas",
-        "objetivo": "Aprender a saludar y presentarse formalmente e informalmente",
+        "objetivo": "Aprender a saludar y presentarse",
         "duracion": "30-45 minutos",
         "explicacion": """
 <div class='explanation-box'>
@@ -174,15 +180,15 @@ CURRICULO = {
 </div>
 """,
         "frases": [
-            {"ingles": "Hello", "español": "Hola", "fonética": "jelóu", "contexto": "Saludo universal", "tip": "H aspirada (como un suspiro)"},
-            {"ingles": "My name is Anna", "español": "Mi nombre es Anna", "fonética": "mái néim is ána", "contexto": "Presentación formal", "tip": "Enfatiza 'name'"},
-            {"ingles": "What is your name", "español": "¿Cuál es tu nombre?", "fonética": "uát is ior néim", "contexto": "Pregunta formal", "tip": "La entonación sube al final"},
-            {"ingles": "I am from Colombia", "español": "Soy de Colombia", "fonética": "ái am from colómbia", "contexto": "Origen", "tip": "Di 'I am' junto: áiam"},
-            {"ingles": "Nice to meet you", "español": "Mucho gusto", "fonética": "náis tu míit iú", "contexto": "Saludo cortés", "tip": "La 'ee' suena como 'i' larga"},
-            {"ingles": "How are you", "español": "¿Cómo estás?", "fonética": "jáu ar iú", "contexto": "Saludo común", "tip": "La 'h' suena como 'j' suave"},
-            {"ingles": "I am fine thank you", "español": "Estoy bien, gracias", "fonética": "ái am fáin zánk iú", "contexto": "Respuesta estándar", "tip": "'Th' lengua entre dientes"},
-            {"ingles": "Good morning", "español": "Buenos días", "fonética": "gud mórnin", "contexto": "Mañana", "tip": "La 'g' es suave"},
-            {"ingles": "Where are you from", "español": "¿De dónde eres?", "fonética": "uér ar iú from", "contexto": "Preguntar origen", "tip": "Enfatiza 'where'"},
+            {"ingles": "Hello", "español": "Hola", "fonética": "jelóu", "contexto": "Saludo universal", "tip": "H aspirada"},
+            {"ingles": "My name is Anna", "español": "Mi nombre es Anna", "fonética": "mái néim is ána", "contexto": "Presentación formal", "tip": "Enfatiza name"},
+            {"ingles": "What is your name", "español": "¿Cuál es tu nombre?", "fonética": "uát is ior néim", "contexto": "Pregunta formal", "tip": "Entonación sube"},
+            {"ingles": "I am from Colombia", "español": "Soy de Colombia", "fonética": "ái am from colómbia", "contexto": "Origen", "tip": "I am junto"},
+            {"ingles": "Nice to meet you", "español": "Mucho gusto", "fonética": "náis tu míit iú", "contexto": "Saludo cortés", "tip": "Frase fija"},
+            {"ingles": "How are you", "español": "¿Cómo estás?", "fonética": "jáu ar iú", "contexto": "Saludo común", "tip": "R suave"},
+            {"ingles": "I am fine thank you", "español": "Estoy bien, gracias", "fonética": "ái am fáin zánk iú", "contexto": "Respuesta estándar", "tip": "TH lengua dientes"},
+            {"ingles": "Good morning", "español": "Buenos días", "fonética": "gud mórnin", "contexto": "Mañana", "tip": "G suave"},
+            {"ingles": "Where are you from", "español": "¿De dónde eres?", "fonética": "uér ar iú from", "contexto": "Preguntar origen", "tip": "Enfatiza where"},
             {"ingles": "Goodbye see you later", "español": "Adiós, nos vemos luego", "fonética": "gudbái si iú léiter", "contexto": "Despedida", "tip": "Later rima con waiter"}
         ],
         "examen": [
@@ -201,8 +207,8 @@ CURRICULO = {
         "duracion": "45-60 minutos",
         "explicacion": """
 <div class='explanation-box'>
-    <h2>🔥 LECCIÓN 2: El Poder del Verbo TO BE</h2>
-    <p>Significa <strong>SER</strong> (yo soy médico) o <strong>ESTAR</strong> (yo estoy feliz).</p>
+    <h2>🔥 LECCIÓN 2: Verbo TO BE (Ser o Estar)</h2>
+    <p>Este verbo es fundamental. Significa <strong>SER</strong> (yo soy médico) o <strong>ESTAR</strong> (yo estoy feliz).</p>
     <hr>
     <h3>1. ESTRUCTURA (Afirmativa)</h3>
     <table>
@@ -248,35 +254,46 @@ CURRICULO = {
         "duracion": "40 minutos",
         "explicacion": """
 <div class='explanation-box'>
-    <h2>📚 LECCIÓN 3: Artículos</h2>
-    <ul>
-        <li><strong>A</strong>: Un/Una (antes de consonante). Ej: A cat.</li>
-        <li><strong>AN</strong>: Un/Una (antes de vocal). Ej: An apple.</li>
-        <li><strong>THE</strong>: El/La/Los/Las (Específico). Ej: The book.</li>
-    </ul>
+    <h2>📚 LECCIÓN 3: Artículos y Posesivos</h2>
+    
+    <h3>1. Artículos (Un/Una/El)</h3>
+    <table>
+      <tr><th>Artículo</th><th>Regla</th><th>Ejemplo</th></tr>
+      <tr><td><strong>A</strong></td><td>Antes de consonante</td><td>A cat (Un gato)</td></tr>
+      <tr><td><strong>AN</strong></td><td>Antes de vocal (a,e,i,o,u)</td><td>An apple (Una manzana)</td></tr>
+      <tr><td><strong>THE</strong></td><td>Específico (El/La/Los/Las)</td><td>The car (El carro)</td></tr>
+    </table>
+    
     <hr>
-    <h3>Posesivos</h3>
-    <p>My (Mi), Your (Tu), His (Su de él), Her (Su de ella).</p>
+    
+    <h3>2. Posesivos (Mío, Tuyo...)</h3>
+    <ul>
+        <li><strong>My</strong> → Mi (My house)</li>
+        <li><strong>Your</strong> → Tu (Your friend)</li>
+        <li><strong>His</strong> → Su de él (His car)</li>
+        <li><strong>Her</strong> → Su de ella (Her bag)</li>
+        <li><strong>Our</strong> → Nuestro (Our family)</li>
+    </ul>
 </div>
 """,
         "frases": [
-            {"ingles": "This is a pen", "español": "Este es un bolígrafo", "fonética": "dis is a pen", "contexto": "Objeto común", "tip": "A pen"},
-            {"ingles": "That is an orange", "español": "Eso es una naranja", "fonética": "dat is an óranch", "contexto": "Vocal", "tip": "An orange"},
-            {"ingles": "The book is red", "español": "El libro es rojo", "fonética": "de buk is red", "contexto": "Específico", "tip": "The=De"},
-            {"ingles": "My car is new", "español": "Mi carro es nuevo", "fonética": "mái car is niú", "contexto": "Posesivo", "tip": "My"},
-            {"ingles": "Your phone is here", "español": "Tu teléfono está aquí", "fonética": "ior fón is jír", "contexto": "Ubicación", "tip": "Here=Jír"},
-            {"ingles": "His name is John", "español": "Su nombre es John", "fonética": "jis néim is yon", "contexto": "De él", "tip": "His"},
-            {"ingles": "Her house is big", "español": "Su casa es grande", "fonética": "jer jáus is big", "contexto": "De ella", "tip": "Her"},
-            {"ingles": "It is a dog", "español": "Es un perro", "fonética": "it is a dog", "contexto": "Animal", "tip": "It"},
-            {"ingles": "We have a cat", "español": "Tenemos un gato", "fonética": "uí jav a cat", "contexto": "Posesión pl", "tip": "Have"},
-            {"ingles": "They are our friends", "español": "Son nuestros amigos", "fonética": "déi ar áuar frends", "contexto": "Plural", "tip": "Our"}
+            {"ingles": "This is a pen", "español": "Este es un bolígrafo", "fonética": "dis is a pen", "contexto": "Objeto común", "tip": "Usa 'A' porque pen empieza con P"},
+            {"ingles": "That is an orange", "español": "Eso es una naranja", "fonética": "dat is an óranch", "contexto": "Vocal", "tip": "Usa 'AN' porque orange empieza con O"},
+            {"ingles": "The book is red", "español": "El libro es rojo", "fonética": "de buk is red", "contexto": "Específico", "tip": "The suena como 'De' suave"},
+            {"ingles": "My car is new", "español": "Mi carro es nuevo", "fonética": "mái car is niú", "contexto": "Posesivo (Mío)", "tip": "New suena como 'niú'"},
+            {"ingles": "Your phone is here", "español": "Tu teléfono está aquí", "fonética": "ior fón is jír", "contexto": "Ubicación", "tip": "Here tiene H aspirada"},
+            {"ingles": "His name is John", "español": "Su nombre es John", "fonética": "jis néim is yon", "contexto": "De él", "tip": "His se usa para hombres"},
+            {"ingles": "Her house is big", "español": "Su casa es grande", "fonética": "jer jáus is big", "contexto": "De ella", "tip": "Her se usa para mujeres"},
+            {"ingles": "It is a dog", "español": "Es un perro", "fonética": "it is a dog", "contexto": "Animal", "tip": "It para animales"},
+            {"ingles": "We have a cat", "español": "Tenemos un gato", "fonética": "uí jav a cat", "contexto": "Posesión plural", "tip": "Have se pronuncia 'jav'"},
+            {"ingles": "They are our friends", "español": "Son nuestros amigos", "fonética": "déi ar áuar frends", "contexto": "Plural (Nuestros)", "tip": "Our suena como 'áuar'"}
         ],
         "examen": [
-            {"pregunta": "Artículo para 'apple'", "respuesta": "an", "explicacion": "Vocal"},
-            {"pregunta": "Di 'El libro es rojo'", "respuesta": "The book is red", "explicacion": "The"},
-            {"pregunta": "Di 'Mi carro'", "respuesta": "My car", "explicacion": "My"},
-            {"pregunta": "Completa: ___ is a dog", "respuesta": "It", "explicacion": "It"},
-            {"pregunta": "Di 'Su casa' (ella)", "respuesta": "Her house", "explicacion": "Her"}
+            {"pregunta": "Artículo para 'apple'", "respuesta": "an", "explicacion": "Empieza con vocal -> AN"},
+            {"pregunta": "Di 'El libro es rojo'", "respuesta": "The book is red", "explicacion": "THE es el artículo definido."},
+            {"pregunta": "Di 'Mi carro'", "respuesta": "My car", "explicacion": "MY es el posesivo."},
+            {"pregunta": "Completa: ___ is a dog", "respuesta": "It", "explicacion": "IT se usa para animales."},
+            {"pregunta": "Di 'Su casa' (de ella)", "respuesta": "Her house", "explicacion": "HER es para mujeres."}
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
@@ -285,7 +302,25 @@ CURRICULO = {
         "tema": "Números, Cantidades y Fechas",
         "objetivo": "Contar y decir cantidades",
         "duracion": "40 minutos",
-        "explicacion": """<div class='explanation-box'><h3>📚 LECCIÓN 4: Números</h3><p>One, two, three... How much? How many?</p></div>""",
+        "explicacion": """
+<div class='explanation-box'>
+    <h2>📚 LECCIÓN 4: Números y Cantidades</h2>
+    
+    <h3>1. Números Clave</h3>
+    <ul>
+        <li>1-10: One, Two, Three, Four, Five...</li>
+        <li>11-20: Eleven, Twelve, Thirteen... Twenty.</li>
+        <li>Decenas: 20 (Twenty), 30 (Thirty), 40 (Forty), 50 (Fifty).</li>
+        <li>100: One hundred.</li>
+    </ul>
+    
+    <hr>
+    
+    <h3>2. Expresiones Útiles</h3>
+    <p><strong>How much?</strong> (¿Cuánto cuesta?) <br> <em>It is twenty dollars.</em></p>
+    <p><strong>How old are you?</strong> (¿Cuántos años tienes?) <br> <em>I am twenty years old.</em></p>
+</div>
+""",
         "frases": [
             {"ingles": "I am twenty five years old", "español": "Tengo 25 años", "fonética": "ái am tuénti fáiv yírs old", "contexto": "Edad", "tip": "Years old"},
             {"ingles": "There are ten people", "español": "Hay diez personas", "fonética": "der ar ten pípol", "contexto": "Cantidad", "tip": "There are"},
@@ -312,7 +347,32 @@ CURRICULO = {
         "tema": "Días, Meses y Horarios",
         "objetivo": "Decir la fecha y la hora",
         "duracion": "40 minutos",
-        "explicacion": """<div class='explanation-box'><h3>📚 LECCIÓN 5: Tiempo</h3><p>Monday, Tuesday... January, February... What time is it?</p></div>""",
+        "explicacion": """
+<div class='explanation-box'>
+    <h2>📚 LECCIÓN 5: Tiempo y Fecha</h2>
+    
+    <h3>1. Días de la semana</h3>
+    <p>Monday (Lun), Tuesday (Mar), Wednesday (Mié), Thursday (Jue), Friday (Vie), Saturday (Sáb), Sunday (Dom).</p>
+    
+    <hr>
+    
+    <h3>2. La Hora</h3>
+    <p><strong>What time is it?</strong> (¿Qué hora es?)</p>
+    <ul>
+        <li>It is three o'clock (3:00)</li>
+        <li>It is two thirty (2:30)</li>
+    </ul>
+    
+    <hr>
+    
+    <h3>3. Preposiciones</h3>
+    <ul>
+        <li><strong>ON</strong> Monday (Para días)</li>
+        <li><strong>IN</strong> May (Para meses)</li>
+        <li><strong>AT</strong> six o'clock (Para horas exactas)</li>
+    </ul>
+</div>
+""",
         "frases": [
             {"ingles": "Today is Monday", "español": "Hoy es lunes", "fonética": "tudéi is mándei", "contexto": "Día", "tip": "Monday"},
             {"ingles": "My birthday is in May", "español": "Mi cumple es en mayo", "fonética": "mái bérzdei is in méi", "contexto": "Mes", "tip": "In May"},
@@ -339,7 +399,23 @@ CURRICULO = {
         "tema": "Familia y Relaciones",
         "objetivo": "Hablar de la familia",
         "duracion": "40 minutos",
-        "explicacion": """<div class='explanation-box'><h3>📚 LECCIÓN 6: Familia</h3><p>Father, Mother, Brother, Sister, Son, Daughter.</p></div>""",
+        "explicacion": """
+<div class='explanation-box'>
+    <h2>📚 LECCIÓN 6: La Familia</h2>
+    <p>Vocabulario esencial para hablar de tu familia.</p>
+    
+    <table>
+        <tr><th>Masculino</th><th>Femenino</th></tr>
+        <tr><td>Father / Dad (Papá)</td><td>Mother / Mom (Mamá)</td></tr>
+        <tr><td>Brother (Hermano)</td><td>Sister (Hermana)</td></tr>
+        <tr><td>Son (Hijo)</td><td>Daughter (Hija)</td></tr>
+        <tr><td>Husband (Esposo)</td><td>Wife (Esposa)</td></tr>
+        <tr><td>Grandfather (Abuelo)</td><td>Grandmother (Abuela)</td></tr>
+    </table>
+    <br>
+    <p><strong>Ejemplo:</strong> <em>"This is my mother"</em> (Esta es mi madre).</p>
+</div>
+""",
         "frases": [
             {"ingles": "This is my father", "español": "Este es mi padre", "fonética": "dis is mái fáder", "contexto": "Presentación", "tip": "Father"},
             {"ingles": "I have two brothers", "español": "Tengo 2 hermanos", "fonética": "ái jav tu bróders", "contexto": "Cantidad", "tip": "Brothers"},
@@ -366,7 +442,25 @@ CURRICULO = {
         "tema": "Presente Simple - Rutinas",
         "objetivo": "Hablar de hábitos",
         "duracion": "50 minutos",
-        "explicacion": """<div class='explanation-box'><h3>📚 LECCIÓN 7: Rutinas</h3><p>I work, She works (add S), I don't work, Do you work?</p></div>""",
+        "explicacion": """
+<div class='explanation-box'>
+    <h2>📚 LECCIÓN 7: Rutinas Diarias (Presente Simple)</h2>
+    <p>Se usa para cosas que haces siempre o rutinas.</p>
+    
+    <h3>La Regla de la "S"</h3>
+    <p>Si hablas de <strong>She, He, It</strong>, debes poner una 'S' al final del verbo.</p>
+    <ul>
+        <li>I work (Yo trabajo)</li>
+        <li><strong>She</strong> work<strong>s</strong> (Ella trabaja)</li>
+    </ul>
+    
+    <h3>Preguntas (DO / DOES)</h3>
+    <ul>
+        <li><strong>Do</strong> you work? (¿Trabajas?)</li>
+        <li><strong>Does</strong> she work? (¿Trabaja ella?)</li>
+    </ul>
+</div>
+""",
         "frases": [
             {"ingles": "I wake up at seven", "español": "Despierto a las 7", "fonética": "ái uéik ap at séven", "contexto": "Rutina", "tip": "Wake up"},
             {"ingles": "She drinks coffee every day", "español": "Ella toma café diario", "fonética": "shi drinks cófi évri déi", "contexto": "Hábito 3ra", "tip": "Drinks"},
@@ -393,7 +487,22 @@ CURRICULO = {
         "tema": "Pasado Simple Regular",
         "objetivo": "Verbos con ED",
         "duracion": "50 minutos",
-        "explicacion": """<div class='explanation-box'><h3>📚 LECCIÓN 8: Pasado Regular</h3><p>Work -> Worked, Play -> Played. Did you work? I didn't work.</p></div>""",
+        "explicacion": """
+<div class='explanation-box'>
+    <h2>📚 LECCIÓN 8: Pasado Simple (Regulares)</h2>
+    <p>Para hablar del pasado con la mayoría de verbos, solo agregamos <strong>-ED</strong> al final.</p>
+    
+    <ul>
+        <li>Work (Trabajar) → <strong>Worked</strong> (Trabajé)</li>
+        <li>Play (Jugar) → <strong>Played</strong> (Jugué)</li>
+        <li>Cook (Cocinar) → <strong>Cooked</strong> (Cociné)</li>
+    </ul>
+    
+    <h3>Preguntas en Pasado</h3>
+    <p>Usa el auxiliar <strong>DID</strong>:</p>
+    <p><em><strong>Did</strong> you work yesterday?</em> (¿Trabajaste ayer?)</p>
+</div>
+""",
         "frases": [
             {"ingles": "I worked yesterday", "español": "Trabajé ayer", "fonética": "ái uórkt yésterdei", "contexto": "Trabajo", "tip": "Worked"},
             {"ingles": "She studied English", "español": "Estudió inglés", "fonética": "shi stádid ínglish", "contexto": "Estudio", "tip": "Studied"},
@@ -420,7 +529,21 @@ CURRICULO = {
         "tema": "Pasado Simple Irregular",
         "objetivo": "Verbos que cambian",
         "duracion": "50 minutos",
-        "explicacion": """<div class='explanation-box'><h3>📚 LECCIÓN 9: Pasado Irregular</h3><p>Go->Went, Have->Had, Do->Did, See->Saw.</p></div>""",
+        "explicacion": """
+<div class='explanation-box'>
+    <h2>📚 LECCIÓN 9: Pasado Irregular</h2>
+    <p>Estos verbos son rebeldes. NO usan -ed, cambian completamente. Debes memorizarlos.</p>
+    
+    <table>
+      <tr><th>Presente</th><th>Pasado</th><th>Significado</th></tr>
+      <tr><td>Go</td><td><strong>Went</strong></td><td>Fui</td></tr>
+      <tr><td>Have</td><td><strong>Had</strong></td><td>Tuve</td></tr>
+      <tr><td>Do</td><td><strong>Did</strong></td><td>Hice</td></tr>
+      <tr><td>See</td><td><strong>Saw</strong></td><td>Vi</td></tr>
+      <tr><td>Eat</td><td><strong>Ate</strong></td><td>Comí</td></tr>
+    </table>
+</div>
+""",
         "frases": [
             {"ingles": "I went to the park", "español": "Fui al parque", "fonética": "ái uent tu de park", "contexto": "Ir", "tip": "Went"},
             {"ingles": "She had breakfast", "español": "Ella desayunó", "fonética": "shi jad brékfast", "contexto": "Tener", "tip": "Had"},
@@ -447,7 +570,21 @@ CURRICULO = {
         "tema": "Futuro (Will / Going to)",
         "objetivo": "Planes y predicciones",
         "duracion": "50 minutos",
-        "explicacion": """<div class='explanation-box'><h3>📚 LECCIÓN 10: Futuro</h3><p>Will (espontáneo), Going to (plan). I will help, I am going to travel.</p></div>""",
+        "explicacion": """
+<div class='explanation-box'>
+    <h2>📚 LECCIÓN 10: Futuro</h2>
+    
+    <h3>1. WILL (Futuro Espontáneo)</h3>
+    <p>Se usa para decisiones del momento o promesas.</p>
+    <p><em>I <strong>will</strong> call you.</em> (Te llamaré)</p>
+    
+    <hr>
+    
+    <h3>2. GOING TO (Planes)</h3>
+    <p>Se usa para planes que ya decidiste hacer.</p>
+    <p><em>I am <strong>going to</strong> travel.</em> (Voy a viajar)</p>
+</div>
+""",
         "frases": [
             {"ingles": "I will help you", "español": "Te ayudaré", "fonética": "ái uil jelp iú", "contexto": "Ayuda", "tip": "Will"},
             {"ingles": "She is going to travel", "español": "Va a viajar", "fonética": "shi is góin tu trável", "contexto": "Plan", "tip": "Going to"},
@@ -474,7 +611,23 @@ CURRICULO = {
         "tema": "Presente Perfecto",
         "objetivo": "Experiencias (Have/Has + Participio)",
         "duracion": "60 minutos",
-        "explicacion": """<div class='explanation-box'><h3>📚 LECCIÓN 11: Presente Perfecto</h3><p>I have worked, She has eaten. Ever, Never, Just, Yet.</p></div>""",
+        "explicacion": """
+<div class='explanation-box'>
+    <h2>📚 LECCIÓN 11: Presente Perfecto</h2>
+    <p>Se usa para experiencias de vida (He comido, He viajado).</p>
+    <p><strong>Fórmula:</strong> Have/Has + Verbo Participio</p>
+    <ul>
+        <li>I <strong>have been</strong> to Paris. (He estado en París)</li>
+        <li>She <strong>has eaten</strong> sushi. (Ella ha comido sushi)</li>
+    </ul>
+    <h3>Palabras Clave</h3>
+    <ul>
+        <li><strong>Never</strong> (Nunca)</li>
+        <li><strong>Ever</strong> (Alguna vez)</li>
+        <li><strong>Just</strong> (Recién/Acabar de)</li>
+    </ul>
+</div>
+""",
         "frases": [
             {"ingles": "I have been to Paris", "español": "He estado en París", "fonética": "ái jav bin tu páris", "contexto": "Experiencia", "tip": "Have been"},
             {"ingles": "She has just arrived", "español": "Acaba de llegar", "fonética": "shi jas yast aráivd", "contexto": "Reciente", "tip": "Has just"},
@@ -501,7 +654,19 @@ CURRICULO = {
         "tema": "Modales (Can, Could, Should, Must)",
         "objetivo": "Poder, deber, consejo",
         "duracion": "60 minutos",
-        "explicacion": """<div class='explanation-box'><h3>📚 LECCIÓN 12: Modales</h3><p>Can (poder), Could (podría), Should (consejo), Must (obligación).</p></div>""",
+        "explicacion": """
+<div class='explanation-box'>
+    <h2>📚 LECCIÓN 12: Verbos Modales</h2>
+    <p>Son verbos especiales que expresan habilidad, consejo u obligación.</p>
+    <table>
+      <tr><th>Modal</th><th>Uso</th><th>Ejemplo</th></tr>
+      <tr><td><strong>Can</strong></td><td>Poder (Habilidad)</td><td>I can swim</td></tr>
+      <tr><td><strong>Could</strong></td><td>Podría (Posibilidad)</td><td>I could go</td></tr>
+      <tr><td><strong>Should</strong></td><td>Debería (Consejo)</td><td>You should study</td></tr>
+      <tr><td><strong>Must</strong></td><td>Deber (Obligación)</td><td>You must stop</td></tr>
+    </table>
+</div>
+""",
         "frases": [
             {"ingles": "I can speak English", "español": "Puedo hablar inglés", "fonética": "ái can spík ínglish", "contexto": "Habilidad", "tip": "Can"},
             {"ingles": "She could help you", "español": "Podría ayudarte", "fonética": "shi cud jelp iú", "contexto": "Posibilidad", "tip": "Could"},
@@ -528,7 +693,21 @@ CURRICULO = {
         "tema": "Condicionales Tipo 1 y 2",
         "objetivo": "Condiciones reales e hipotéticas",
         "duracion": "60 minutos",
-        "explicacion": """<div class='explanation-box'><h3>📚 LECCIÓN 13: Condicionales</h3><p>Tipo 1: If + Presente, Will. Tipo 2: If + Pasado, Would.</p></div>""",
+        "explicacion": """
+<div class='explanation-box'>
+    <h2>📚 LECCIÓN 13: Condicionales</h2>
+    
+    <h3>Tipo 1 (Real)</h3>
+    <p>Si pasa A, pasará B (Futuro).</p>
+    <p><em>If it rains, I <strong>will</strong> stay home.</em></p>
+    
+    <hr>
+    
+    <h3>Tipo 2 (Hipotético)</h3>
+    <p>Si pasara A, pasaría B (Imaginario).</p>
+    <p><em>If I had money, I <strong>would</strong> travel.</em></p>
+</div>
+""",
         "frases": [
             {"ingles": "If it rains I will stay home", "español": "Si llueve me quedo", "fonética": "if it réins ái uil stéi jóum", "contexto": "Real", "tip": "Will"},
             {"ingles": "If I study I will pass", "español": "Si estudio paso", "fonética": "if ái stádi ái uil pas", "contexto": "Causa", "tip": "Will"},
@@ -552,7 +731,7 @@ CURRICULO = {
     }
 }
 
-# ==================== FUNCIONES (LOGICA) ====================
+# ==================== 5. FUNCIONES LÓGICAS ====================
 
 def similitud_texto(texto1, texto2):
     t1 = re.sub(r'[^\w\s]', '', texto1.lower().strip())
@@ -639,7 +818,7 @@ def generar_audio_ingles(texto, lento=False):
     except:
         return None
 
-# ==================== ESTADO Y VARIABLES ====================
+# ==================== 6. INICIALIZACIÓN DE ESTADO ====================
 
 if "datos_cargados" not in st.session_state:
     if st.session_state.usuario_activo:
@@ -660,7 +839,7 @@ for var, default in variables_default.items():
     if var not in st.session_state:
         st.session_state[var] = default
 
-# ==================== INTERFAZ PRINCIPAL ====================
+# ==================== 7. INTERFAZ PRINCIPAL ====================
 
 nivel_actual = st.session_state.nivel_actual
 config = CURRICULO.get(nivel_actual, CURRICULO["A1.1"])
@@ -668,11 +847,11 @@ niveles_list = list(CURRICULO.keys())
 indice = niveles_list.index(nivel_actual)
 progreso_total = int((indice / len(niveles_list)) * 100)
 
-# -------------------- SIDEBAR --------------------
+# --- SIDEBAR ---
 with st.sidebar:
     if st.session_state.usuario_activo:
         st.markdown(f"""
-        <div style='text-align: center; background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;'>
+        <div style='text-align: center; background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; color: black;'>
             <h2 style='color: #667eea; margin: 0;'>👤 {st.session_state.usuario_activo.upper()}</h2>
         </div>
         """, unsafe_allow_html=True)
@@ -684,22 +863,15 @@ with st.sidebar:
             st.metric("🔥 Racha", f"{st.session_state.racha_dias}")
         
         st.divider()
-        st.markdown(f"""
-        <div class='metric-card' style='padding: 10px;'>
-            <h4 style='margin:0;'>📍 Nivel Actual</h4>
-            <p style='margin:0;'>{nivel_actual}</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
         st.subheader("🗺️ Roadmap")
         for i, key in enumerate(niveles_list):
             tema = CURRICULO[key]["tema"]
             if i < indice:
-                st.success(f"✅ {key}")
+                st.success(f"✅ {key}: {tema[:20]}...")
             elif i == indice:
-                st.info(f"📍 {key}")
+                st.info(f"📍 {key}: {tema[:20]}...")
             else:
-                st.caption(f"🔒 {key}")
+                st.caption(f"🔒 {key}: {tema[:20]}...")
         
         st.divider()
         
@@ -722,7 +894,7 @@ with st.sidebar:
             st.session_state.usuario_activo = None
             st.rerun()
 
-# -------------------- CONTENIDO --------------------
+# --- ÁREA PRINCIPAL ---
 
 if st.session_state.usuario_activo:
     st.markdown("""
@@ -732,7 +904,7 @@ if st.session_state.usuario_activo:
     </div>
     """, unsafe_allow_html=True)
 
-    # 1. EXPLICACIÓN
+    # --- FASE 1: EXPLICACIÓN (Teoría) ---
     if st.session_state.fase == "explicacion":
         st.markdown(f"## 📖 {nivel_actual}: {config['tema']}")
         
@@ -740,7 +912,7 @@ if st.session_state.usuario_activo:
         with col1: st.info(f"**Objetivo:** {config['objetivo']}")
         with col2: st.info(f"**Duración:** {config['duracion']}")
         
-        # AQUÍ ESTÁ LA MAGIA: unsafe_allow_html=True permite ver las tablas bonitas
+        # Renderizado de HTML seguro para ver las tablas bonitas
         st.markdown(config['explicacion'], unsafe_allow_html=True)
         
         if st.button("✅ ENTENDIDO - COMENZAR PRÁCTICA", use_container_width=True, type="primary"):
@@ -749,10 +921,10 @@ if st.session_state.usuario_activo:
             guardar_datos()
             st.rerun()
 
-    # 2. PRÁCTICA
+    # --- FASE 2: PRÁCTICA (Speaking) ---
     elif st.session_state.fase == "practica":
         
-        # FRENO DE SEGURIDAD
+        # Freno de seguridad (Evita IndexError al terminar)
         frases_disponibles = config.get('frases', [])
         if st.session_state.frase_actual >= len(frases_disponibles):
             st.session_state.fase = "examen"
@@ -778,7 +950,7 @@ if st.session_state.usuario_activo:
         </div>
         """, unsafe_allow_html=True)
 
-        # CAJA AMARILLA DE PRONUNCIACIÓN
+        # Caja Amarilla de Pronunciación
         st.markdown(f"""
         <div class='pronunciation-box'>
             <h4>🗣️ CÓMO SE PRONUNCIA:</h4>
@@ -821,16 +993,24 @@ if st.session_state.usuario_activo:
                             st.markdown(palabra)
                             
                     time.sleep(1)
+                    # Botón para avanzar manualmente si se prefiere
                     if st.button("➡️ Siguiente"):
                         st.session_state.frase_actual += 1
                         st.session_state.intentos_frase = 0
                         guardar_datos()
                         st.rerun()
+                    
+                    # O avance automático
+                    st.session_state.frase_actual += 1
+                    st.session_state.intentos_frase = 0
+                    guardar_datos()
+                    st.rerun()
+                    
                 else:
                     st.error(f"Intenta de nuevo ({prec}%)")
                     st.info(f"Tip: {frase_obj['tip']}")
 
-    # 3. EXAMEN
+    # --- FASE 3: EXAMEN ---
     elif st.session_state.fase == "examen":
         preguntas_disponibles = config.get('examen', [])
         
