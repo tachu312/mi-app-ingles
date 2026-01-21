@@ -1,202 +1,65 @@
-import streamlit as st
-import openai
-from gtts import gTTS
-from streamlit_mic_recorder import mic_recorder
-import io
-import re
-import json
-import os
-import base64
-from datetime import datetime, timedelta
-from difflib import SequenceMatcher
-import time
-
-# ==================== CONFIGURACIÓN INICIAL ====================
-st.set_page_config(
-    page_title="Nexus Pro Elite - Bootcamp A1→C1",
-    page_icon="🎓",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-# ==================== CSS (ESTILOS VISUALES) ====================
-# Forzamos texto negro (#000000) para evitar que se vea blanco sobre blanco
-st.markdown("""
-<style>
-    /* Fondo degradado de la aplicación */
-    .stApp {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-    
-    /* Regla Maestra: Texto negro en todas las cajas de contenido */
-    .metric-card, .word-card, .success-box, .error-box, .info-box, .explanation-box {
-        color: #000000 !important;
-    }
-    
-    /* Forzar color en etiquetas específicas */
-    .metric-card h1, .metric-card h2, .metric-card h3, .metric-card h4, .metric-card p, .metric-card li, .metric-card td, .metric-card th {
-        color: #000000 !important;
-    }
-    
-    /* Caja Blanca Principal */
-    .metric-card {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        margin: 10px 0;
-    }
-    
-    /* Caja de Explicación (Para las tablas y teoría) */
-    .explanation-box {
-        background: white;
-        padding: 25px;
-        border-radius: 10px;
-        color: #000000 !important;
-        margin-bottom: 20px;
-        border-left: 5px solid #667eea;
-    }
-    .explanation-box table {
-        width: 100%;
-        border-collapse: collapse;
-        color: #000000 !important;
-    }
-    .explanation-box td, .explanation-box th {
-        border: 1px solid #ddd;
-        padding: 8px;
-        color: #000000 !important;
-    }
-    .explanation-box tr:nth-child(even){background-color: #f2f2f2;}
-
-    /* Caja de Éxito (Verde) */
-    .success-box {
-        background: #d4edda;
-        border-left: 4px solid #28a745;
-        padding: 15px;
-        border-radius: 5px;
-        margin: 10px 0;
-        color: #155724 !important;
-    }
-    .success-box h3, .success-box p { color: #155724 !important; }
-    
-    /* Caja de Error (Rojo) */
-    .error-box {
-        background: #f8d7da;
-        border-left: 4px solid #dc3545;
-        padding: 15px;
-        border-radius: 5px;
-        margin: 10px 0;
-        color: #721c24 !important;
-    }
-    .error-box p, .error-box h4 { color: #721c24 !important; }
-    
-    /* Caja de Información (Azul) */
-    .info-box {
-        background: #d1ecf1;
-        border-left: 4px solid #0c5460;
-        padding: 15px;
-        border-radius: 5px;
-        margin: 10px 0;
-        color: #0c5460 !important;
-    }
-    .info-box p, .info-box h3 { color: #0c5460 !important; }
-    
-    /* Tarjeta de la Palabra (Gris Claro) */
-    .word-card {
-        background: #f8f9fa;
-        padding: 10px;
-        border-radius: 5px;
-        margin: 5px 0;
-        border-left: 3px solid #667eea;
-        color: #333333 !important;
-    }
-    .word-card h4, .word-card p { color: #333333 !important; }
-</style>
-""", unsafe_allow_html=True)
-
-# Manejo de API Key
-try:
-    OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
-except:
-    OPENAI_API_KEY = ""
-
-# ==================== USUARIOS Y LOGIN ====================
-USUARIOS = {"nasly": "1994", "sofia": "2009", "andres": "1988"}
-
-if "usuario_activo" not in st.session_state:
-    st.session_state.usuario_activo = None
-
-if not st.session_state.usuario_activo:
-    st.markdown("""
-    <div style='text-align: center; padding: 50px;'>
-        <h1 style='color: white; font-size: 48px;'>🎓 Nexus Pro Elite</h1>
-        <p style='color: white; font-size: 20px;'>Sistema Profesional de Inglés A1 → C1</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    col1, col2, col3 = st.columns([1,2,1])
-    with col2:
-        with st.container():
-            st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
-            st.markdown("### 🔐 Acceso al Sistema")
-            u = st.text_input("👤 Usuario", key="login_user")
-            p = st.text_input("🔒 Contraseña", type="password", key="login_pass")
-            
-            if st.button("🚀 ENTRAR AL BOOTCAMP", use_container_width=True, type="primary"):
-                if u in USUARIOS and USUARIOS[u] == p:
-                    st.session_state.usuario_activo = u
-                    st.success("✅ Acceso concedido")
-                    time.sleep(1)
-                    st.rerun()
-                else:
-                    st.error("❌ Credenciales incorrectas")
-            st.markdown("</div>", unsafe_allow_html=True)
-    st.stop()
-
-# ==================== CURRÍCULO COMPLETO (CONTENIDO EDUCATIVO) ====================
+# ==================== CURRÍCULO PROFESIONAL MEJORADO ====================
 
 CURRICULO = {
     "A1.1": {
         "tema": "Saludos y Presentaciones Básicas",
-        "objetivo": "Aprender a saludar y presentarse",
+        "objetivo": "Aprender a saludar y presentarse formalmente e informalmente",
         "duracion": "30-45 minutos",
         "explicacion": """
 <div class='explanation-box'>
-    <h2>📚 LECCIÓN 1: Saludos y Presentaciones</h2>
-    <p>Antes de practicar, revisemos lo básico:</p>
+    <h2>👋 LECCIÓN 1: Saludos y Presentaciones</h2>
+    <p>Bienvenido. Antes de hablar, necesitas saber cómo iniciar una conversación en cualquier situación.</p>
+    
     <hr>
+    
     <h3>1. SALUDOS (Greetings)</h3>
-    <ul>
-        <li><strong>Hello</strong>: Hola (Formal/Universal)</li>
-        <li><strong>Hi</strong>: Hola (Informal)</li>
-        <li><strong>Good morning</strong>: Buenos días</li>
-        <li><strong>Good afternoon</strong>: Buenas tardes</li>
-        <li><strong>Good evening</strong>: Buenas noches (al llegar)</li>
-    </ul>
+    <table style="width:100%; border-collapse: collapse;">
+      <tr style="background-color: #e0e0e0;"><th>Inglés</th><th>Español</th><th>Uso</th></tr>
+      <tr><td><strong>Hello</strong></td><td>Hola</td><td>Formal / Universal</td></tr>
+      <tr><td><strong>Hi</strong></td><td>Hola</td><td>Informal (Amigos)</td></tr>
+      <tr><td><strong>Good morning</strong></td><td>Buenos días</td><td>Hasta las 12:00 PM</td></tr>
+      <tr><td><strong>Good afternoon</strong></td><td>Buenas tardes</td><td>12:00 PM - 6:00 PM</td></tr>
+      <tr><td><strong>Good evening</strong></td><td>Buenas noches</td><td>Al llegar a un lugar</td></tr>
+    </table>
+    
     <br>
-    <h3>2. PRESENTARSE</h3>
-    <p>Formal: <strong>"My name is..."</strong> (Mi nombre es...)</p>
-    <p>Informal: <strong>"I'm..."</strong> (Soy...)</p>
+    
+    <h3>2. ¿CÓMO PRESENTARSE?</h3>
+    <ul>
+        <li><strong>Formal:</strong> "My name is Andres" (Mi nombre es Andres).</li>
+        <li><strong>Informal:</strong> "I'm Andres" (Soy Andres).</li>
+        <li><strong>Respuesta educada:</strong> "Nice to meet you" (Mucho gusto).</li>
+    </ul>
+    
+    <br>
+    
+    <h3>3. PREGUNTAS CLAVE</h3>
+    <p>Memoriza estas estructuras:</p>
+    <ul>
+        <li>🗣️ <strong>What is your name?</strong> (¿Cómo te llamas?)</li>
+        <li>🗣️ <strong>How are you?</strong> (¿Cómo estás?) → Rta: <em>I am fine, thank you.</em></li>
+        <li>🗣️ <strong>Where are you from?</strong> (¿De dónde eres?) → Rta: <em>I am from Colombia.</em></li>
+    </ul>
 </div>
 """,
         "frases": [
-            {"ingles": "Hello", "español": "Hola", "fonética": "jelóu", "contexto": "Saludo universal", "tip": "H aspirada"},
-            {"ingles": "My name is Anna", "español": "Mi nombre es Anna", "fonética": "mái néim is ána", "contexto": "Presentación formal", "tip": "Enfatiza name"},
-            {"ingles": "What is your name", "español": "¿Cuál es tu nombre?", "fonética": "uát is ior néim", "contexto": "Pregunta formal", "tip": "Entonación sube"},
-            {"ingles": "I am from Colombia", "español": "Soy de Colombia", "fonética": "ái am from colómbia", "contexto": "Origen", "tip": "I am junto"},
-            {"ingles": "Nice to meet you", "español": "Mucho gusto", "fonética": "náis tu míit iú", "contexto": "Saludo cortés", "tip": "Frase fija"},
-            {"ingles": "How are you", "español": "¿Cómo estás?", "fonética": "jáu ar iú", "contexto": "Saludo común", "tip": "R suave"},
-            {"ingles": "I am fine thank you", "español": "Estoy bien, gracias", "fonética": "ái am fáin zánk iú", "contexto": "Respuesta estándar", "tip": "TH lengua dientes"},
-            {"ingles": "Good morning", "español": "Buenos días", "fonética": "gud mórnin", "contexto": "Mañana", "tip": "G suave"},
-            {"ingles": "Where are you from", "español": "¿De dónde eres?", "fonética": "uér ar iú from", "contexto": "Preguntar origen", "tip": "Enfatiza where"},
+            {"ingles": "Hello", "español": "Hola", "fonética": "jelóu", "contexto": "Saludo universal", "tip": "H aspirada (como un suspiro)"},
+            {"ingles": "My name is Anna", "español": "Mi nombre es Anna", "fonética": "mái néim is ána", "contexto": "Presentación formal", "tip": "Enfatiza 'name'"},
+            {"ingles": "What is your name", "español": "¿Cuál es tu nombre?", "fonética": "uát is ior néim", "contexto": "Pregunta formal", "tip": "La entonación sube al final"},
+            {"ingles": "I am from Colombia", "español": "Soy de Colombia", "fonética": "ái am from colómbia", "contexto": "Origen", "tip": "Di 'I am' junto: áiam"},
+            {"ingles": "Nice to meet you", "español": "Mucho gusto", "fonética": "náis tu míit iú", "contexto": "Saludo cortés", "tip": "La 'ee' suena como 'i' larga"},
+            {"ingles": "How are you", "español": "¿Cómo estás?", "fonética": "jáu ar iú", "contexto": "Saludo común", "tip": "La 'h' suena como 'j' suave"},
+            {"ingles": "I am fine thank you", "español": "Estoy bien, gracias", "fonética": "ái am fáin zánk iú", "contexto": "Respuesta estándar", "tip": "'Th' lengua entre dientes"},
+            {"ingles": "Good morning", "español": "Buenos días", "fonética": "gud mórnin", "contexto": "Mañana", "tip": "La 'g' es suave"},
+            {"ingles": "Where are you from", "español": "¿De dónde eres?", "fonética": "uér ar iú from", "contexto": "Preguntar origen", "tip": "Enfatiza 'where'"},
             {"ingles": "Goodbye see you later", "español": "Adiós, nos vemos luego", "fonética": "gudbái si iú léiter", "contexto": "Despedida", "tip": "Later rima con waiter"}
         ],
         "examen": [
-            {"pregunta": "¿Cómo saludas formalmente?", "respuesta": "Hello", "explicacion": "Hello es formal"},
-            {"pregunta": "Preséntate formalmente", "respuesta": "My name is", "explicacion": "My name is..."},
-            {"pregunta": "Di 'Mucho gusto'", "respuesta": "Nice to meet you", "explicacion": "Estándar"},
-            {"pregunta": "¿Cómo preguntas '¿Cómo estás?'", "respuesta": "How are you", "explicacion": "Común"},
-            {"pregunta": "Responde 'Estoy bien gracias'", "respuesta": "I am fine thank you", "explicacion": "Formal"}
+            {"pregunta": "¿Cómo saludas formalmente?", "respuesta": "Hello", "explicacion": "Hello es el saludo estándar."},
+            {"pregunta": "Preséntate formalmente", "respuesta": "My name is", "explicacion": "My name is... es lo más correcto."},
+            {"pregunta": "Di 'Mucho gusto'", "respuesta": "Nice to meet you", "explicacion": "Frase fija de cortesía."},
+            {"pregunta": "¿Cómo preguntas '¿Cómo estás?'", "respuesta": "How are you", "explicacion": "Pregunta de estado."},
+            {"pregunta": "Responde 'Estoy bien gracias'", "respuesta": "I am fine thank you", "explicacion": "Respuesta educada."}
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
@@ -207,39 +70,59 @@ CURRICULO = {
         "duracion": "45-60 minutos",
         "explicacion": """
 <div class='explanation-box'>
-    <h2>📚 LECCIÓN 2: Verbo TO BE (Ser o Estar)</h2>
-    <p>Este verbo es fundamental. Significa SER (Yo soy) o ESTAR (Yo estoy).</p>
+    <h2>🔥 LECCIÓN 2: El Poder del Verbo TO BE</h2>
+    <p>Este verbo es la base de todo. Significa <strong>SER</strong> (yo soy médico) o <strong>ESTAR</strong> (yo estoy feliz).</p>
+    
     <hr>
-    <h3>📖 CONJUGACIÓN</h3>
-    <table border="1">
-      <tr><th>Pronombre</th><th>Verbo</th><th>Ejemplo</th></tr>
-      <tr><td>I (Yo)</td><td><strong>am</strong></td><td>I am happy</td></tr>
-      <tr><td>You (Tú)</td><td><strong>are</strong></td><td>You are tall</td></tr>
-      <tr><td>He/She/It</td><td><strong>is</strong></td><td>She is a doctor</td></tr>
-      <tr><td>We/They</td><td><strong>are</strong></td><td>We are friends</td></tr>
+    
+    <h3>1. ESTRUCTURA AFIRMATIVA (+)</h3>
+    <p>Apréndete las contracciones, así es como habla la gente real:</p>
+    <table style="width:100%; border-collapse: collapse;">
+      <tr style="background-color: #e0e0e0;"><th>Pronombre</th><th>Verbo</th><th>Contracción (Real)</th><th>Ejemplo</th></tr>
+      <tr><td>I (Yo)</td><td>am</td><td><strong>I'm</strong></td><td>I'm happy (Estoy feliz)</td></tr>
+      <tr><td>You (Tú)</td><td>are</td><td><strong>You're</strong></td><td>You're tall (Eres alto)</td></tr>
+      <tr><td>He (Él)</td><td>is</td><td><strong>He's</strong></td><td>He's my friend (Es mi amigo)</td></tr>
+      <tr><td>She (Ella)</td><td>is</td><td><strong>She's</strong></td><td>She's a doctor (Es doctora)</td></tr>
+      <tr><td>It (Eso)</td><td>is</td><td><strong>It's</strong></td><td>It's a dog (Es un perro)</td></tr>
+      <tr><td>We (Nosotros)</td><td>are</td><td><strong>We're</strong></td><td>We're family (Somos familia)</td></tr>
+      <tr><td>They (Ellos)</td><td>are</td><td><strong>They're</strong></td><td>They're here (Están aquí)</td></tr>
     </table>
+    
     <br>
-    <p>⚠️ <strong>REGLA:</strong> Nunca digas "I is" o "You is".</p>
+    
+    <h3>2. NEGATIVO (-)</h3>
+    <p>Es muy fácil: Solo agrega <strong>NOT</strong> después del verbo.</p>
+    <ul>
+        <li>I <strong>am not</strong> tired. (No estoy cansado)</li>
+        <li>She <strong>is not</strong> (isn't) here. (Ella no está aquí)</li>
+        <li>They <strong>are not</strong> (aren't) doctors. (No son doctores)</li>
+    </ul>
+
+    <br>
+    
+    <h3>3. PREGUNTAS (?)</h3>
+    <p>¡El secreto es cambiar el orden! El verbo va primero.</p>
+    <p>👉 <em>You are happy</em> (Afirmación) <br> 👉 <strong>Are you</strong> happy? (¿Estás feliz?)</p>
 </div>
 """,
         "frases": [
-            {"ingles": "I am a student", "español": "Soy estudiante", "fonética": "ái am a stiúdent", "contexto": "Ocupación", "tip": "I'm"},
-            {"ingles": "You are my friend", "español": "Eres mi amigo", "fonética": "iú ar mái frend", "contexto": "Relación", "tip": "You're"},
-            {"ingles": "She is a teacher", "español": "Ella es profesora", "fonética": "shi is a tícher", "contexto": "Profesión", "tip": "She's"},
-            {"ingles": "He is tall", "español": "Él es alto", "fonética": "ji is tol", "contexto": "Descripción", "tip": "L final"},
-            {"ingles": "It is a book", "español": "Es un libro", "fonética": "it is a buk", "contexto": "Objeto", "tip": "It's"},
-            {"ingles": "We are happy", "español": "Estamos felices", "fonética": "uí ar jápi", "contexto": "Emoción", "tip": "H fuerte"},
-            {"ingles": "They are from Spain", "español": "Son de España", "fonética": "déi ar from spéin", "contexto": "Origen", "tip": "They=Day"},
-            {"ingles": "I am not tired", "español": "No estoy cansado", "fonética": "ái am not táierd", "contexto": "Negación", "tip": "Not"},
-            {"ingles": "Are you ready", "español": "¿Estás listo?", "fonética": "ar iú rédi", "contexto": "Pregunta", "tip": "Sube tono"},
-            {"ingles": "This is my house", "español": "Esta es mi casa", "fonética": "dis is mái jáus", "contexto": "Posesión", "tip": "This=Dis"}
+            {"ingles": "I am a student", "español": "Soy estudiante", "fonética": "ái am a stiúdent", "contexto": "Ocupación (Identidad)", "tip": "Usa la contracción: I'm"},
+            {"ingles": "You are my friend", "español": "Eres mi amigo", "fonética": "iú ar mái frend", "contexto": "Relación", "tip": "La 'd' al final de friend suena suave"},
+            {"ingles": "She is a teacher", "español": "Ella es profesora", "fonética": "shi is a tícher", "contexto": "Profesión (Mujer)", "tip": "She's suena como el chistido de silencio"},
+            {"ingles": "He is tall", "español": "Él es alto", "fonética": "ji is tol", "contexto": "Descripción física", "tip": "La 'll' suena como una 'L' oscura"},
+            {"ingles": "It is a book", "español": "Es un libro", "fonética": "it is a buk", "contexto": "Objeto", "tip": "Une el sonido: Ít-is"},
+            {"ingles": "We are happy", "español": "Estamos felices", "fonética": "uí ar jápi", "contexto": "Emoción (Estar)", "tip": "La 'H' de happy es fuerte"},
+            {"ingles": "They are from Spain", "español": "Son de España", "fonética": "déi ar from spéin", "contexto": "Origen (Plural)", "tip": "They suena como 'déi'"},
+            {"ingles": "I am not tired", "español": "No estoy cansado", "fonética": "ái am not táierd", "contexto": "Negación de estado", "tip": "Enfatiza el NOT"},
+            {"ingles": "Are you ready", "español": "¿Estás listo?", "fonética": "ar iú rédi", "contexto": "Pregunta", "tip": "Sube la entonación al final"},
+            {"ingles": "This is my house", "español": "Esta es mi casa", "fonética": "dis is mái jáus", "contexto": "Posesión", "tip": "This con lengua entre dientes"}
         ],
         "examen": [
-            {"pregunta": "Completa: I ___ a student", "respuesta": "am", "explicacion": "I am"},
-            {"pregunta": "Completa: She ___ happy", "respuesta": "is", "explicacion": "She is"},
-            {"pregunta": "Completa: They ___ friends", "respuesta": "are", "explicacion": "They are"},
-            {"pregunta": "Di 'Él es alto'", "respuesta": "He is tall", "explicacion": "He is"},
-            {"pregunta": "Pregunta '¿Estás listo?'", "respuesta": "Are you ready", "explicacion": "Invertido"}
+            {"pregunta": "Completa: I ___ a student", "respuesta": "am", "explicacion": "Con 'I' siempre usas 'am'."},
+            {"pregunta": "Completa: She ___ happy", "respuesta": "is", "explicacion": "Con ella (She) usas 'is'."},
+            {"pregunta": "Completa: They ___ friends", "respuesta": "are", "explicacion": "Plural (Ellos) usa 'are'."},
+            {"pregunta": "Di 'Él es alto'", "respuesta": "He is tall", "explicacion": "Descripción con 'is'."},
+            {"pregunta": "Pregunta '¿Estás listo?'", "respuesta": "Are you ready", "explicacion": "En pregunta, 'Are' va primero."}
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
@@ -250,33 +133,51 @@ CURRICULO = {
         "duracion": "40 minutos",
         "explicacion": """
 <div class='explanation-box'>
-    <h2>📚 LECCIÓN 3: Artículos y Pronombres</h2>
-    <h3>Artículos</h3>
+    <h2>📚 LECCIÓN 3: Los Artículos y Dueños</h2>
+    
+    <h3>1. Artículos (Un/Una)</h3>
+    <p>En inglés es fácil, solo mira la siguiente palabra:</p>
     <ul>
-        <li><strong>A</strong>: Un/Una (antes de consonante). Ej: A cat.</li>
-        <li><strong>AN</strong>: Un/Una (antes de vocal). Ej: An apple.</li>
-        <li><strong>THE</strong>: El/La/Los (Específico). Ej: The book.</li>
+        <li><strong>A</strong>: Se usa si la palabra empieza con <strong>consonante</strong>.<br><em>Ejemplo: <strong>A</strong> cat, <strong>A</strong> book.</em></li>
+        <li><strong>AN</strong>: Se usa si la palabra empieza con <strong>vocal</strong> (a,e,i,o,u).<br><em>Ejemplo: <strong>An</strong> apple, <strong>An</strong> orange.</em></li>
+    </ul>
+    
+    <hr>
+    
+    <h3>2. Artículos Definidos</h3>
+    <ul>
+        <li><strong>THE</strong>: Significa El, La, Los, Las (Todo en uno).<br><em>Ejemplo: <strong>The</strong> car (El carro), <strong>The</strong> cars (Los carros).</em></li>
+    </ul>
+
+    <hr>
+
+    <h3>3. Posesivos (Mío, Tuyo, Suyo)</h3>
+    <ul>
+        <li><strong>My</strong> → Mi (My house)</li>
+        <li><strong>Your</strong> → Tu (Your friend)</li>
+        <li><strong>His</strong> → Su de él (His car)</li>
+        <li><strong>Her</strong> → Su de ella (Her bag)</li>
     </ul>
 </div>
 """,
         "frases": [
-            {"ingles": "This is a pen", "español": "Este es un bolígrafo", "fonética": "dis is a pen", "contexto": "Objeto común", "tip": "A pen"},
-            {"ingles": "That is an orange", "español": "Eso es una naranja", "fonética": "dat is an óranch", "contexto": "Vocal", "tip": "An orange"},
-            {"ingles": "The book is red", "español": "El libro es rojo", "fonética": "de buk is red", "contexto": "Específico", "tip": "The=De"},
-            {"ingles": "My car is new", "español": "Mi carro es nuevo", "fonética": "mái car is niú", "contexto": "Posesivo", "tip": "My"},
-            {"ingles": "Your phone is here", "español": "Tu teléfono está aquí", "fonética": "ior fón is jír", "contexto": "Ubicación", "tip": "Here=Jír"},
-            {"ingles": "His name is John", "español": "Su nombre es John", "fonética": "jis néim is yon", "contexto": "De él", "tip": "His"},
-            {"ingles": "Her house is big", "español": "Su casa es grande", "fonética": "jer jáus is big", "contexto": "De ella", "tip": "Her"},
-            {"ingles": "It is a dog", "español": "Es un perro", "fonética": "it is a dog", "contexto": "Animal", "tip": "It"},
-            {"ingles": "We have a cat", "español": "Tenemos un gato", "fonética": "uí jav a cat", "contexto": "Posesión pl", "tip": "Have"},
-            {"ingles": "They are our friends", "español": "Son nuestros amigos", "fonética": "déi ar áuar frends", "contexto": "Plural", "tip": "Our"}
+            {"ingles": "This is a pen", "español": "Este es un bolígrafo", "fonética": "dis is a pen", "contexto": "Objeto común", "tip": "Usa 'A' porque pen empieza con P"},
+            {"ingles": "That is an orange", "español": "Eso es una naranja", "fonética": "dat is an óranch", "contexto": "Vocal", "tip": "Usa 'AN' porque orange empieza con O"},
+            {"ingles": "The book is red", "español": "El libro es rojo", "fonética": "de buk is red", "contexto": "Específico", "tip": "The suena como 'De' suave"},
+            {"ingles": "My car is new", "español": "Mi carro es nuevo", "fonética": "mái car is niú", "contexto": "Posesivo (Mío)", "tip": "New suena como 'niú'"},
+            {"ingles": "Your phone is here", "español": "Tu teléfono está aquí", "fonética": "ior fón is jír", "contexto": "Ubicación", "tip": "Here tiene H aspirada"},
+            {"ingles": "His name is John", "español": "Su nombre es John", "fonética": "jis néim is yon", "contexto": "De él", "tip": "His se usa para hombres"},
+            {"ingles": "Her house is big", "español": "Su casa es grande", "fonética": "jer jáus is big", "contexto": "De ella", "tip": "Her se usa para mujeres"},
+            {"ingles": "It is a dog", "español": "Es un perro", "fonética": "it is a dog", "contexto": "Animal", "tip": "It para animales"},
+            {"ingles": "We have a cat", "español": "Tenemos un gato", "fonética": "uí jav a cat", "contexto": "Posesión plural", "tip": "Have se pronuncia 'jav'"},
+            {"ingles": "They are our friends", "español": "Son nuestros amigos", "fonética": "déi ar áuar frends", "contexto": "Plural (Nuestros)", "tip": "Our suena como 'áuar'"}
         ],
         "examen": [
-            {"pregunta": "Artículo para 'apple'", "respuesta": "an", "explicacion": "Vocal"},
-            {"pregunta": "Di 'El libro es rojo'", "respuesta": "The book is red", "explicacion": "The"},
-            {"pregunta": "Di 'Mi carro'", "respuesta": "My car", "explicacion": "My"},
-            {"pregunta": "Completa: ___ is a dog", "respuesta": "It", "explicacion": "It"},
-            {"pregunta": "Di 'Su casa' (ella)", "respuesta": "Her house", "explicacion": "Her"}
+            {"pregunta": "Artículo para 'apple'", "respuesta": "an", "explicacion": "Empieza con vocal -> AN"},
+            {"pregunta": "Di 'El libro es rojo'", "respuesta": "The book is red", "explicacion": "THE es el artículo definido."},
+            {"pregunta": "Di 'Mi carro'", "respuesta": "My car", "explicacion": "MY es el posesivo."},
+            {"pregunta": "Completa: ___ is a dog", "respuesta": "It", "explicacion": "IT se usa para animales."},
+            {"pregunta": "Di 'Su casa' (de ella)", "respuesta": "Her house", "explicacion": "HER es para mujeres."}
         ],
         "umbral_practica": 85, "umbral_examen": 80
     },
@@ -636,7 +537,7 @@ def generar_audio_ingles(texto, lento=False):
     except:
         return None
 
-# ==================== ESTADO DE LA SESIÓN ====================
+# ==================== INICIALIZACIÓN ====================
 
 if "datos_cargados" not in st.session_state:
     if st.session_state.usuario_activo:
@@ -657,13 +558,15 @@ for var, default in variables_default.items():
     if var not in st.session_state:
         st.session_state[var] = default
 
-# ==================== BARRA LATERAL (SIDEBAR) ====================
+# ==================== MAIN APP ====================
 
 nivel_actual = st.session_state.nivel_actual
 config = CURRICULO.get(nivel_actual, CURRICULO["A1.1"])
 niveles_list = list(CURRICULO.keys())
 indice = niveles_list.index(nivel_actual)
 progreso_total = int((indice / len(niveles_list)) * 100)
+
+# ==================== SIDEBAR ====================
 
 with st.sidebar:
     if st.session_state.usuario_activo:
@@ -680,14 +583,6 @@ with st.sidebar:
             st.metric("🔥 Racha", f"{st.session_state.racha_dias}")
         
         st.divider()
-        st.markdown(f"""
-        <div class='metric-card'>
-            <h4>🎯 Nivel Actual</h4>
-            <p style='font-size: 18px; margin: 0;'><strong>{nivel_actual}</strong></p>
-            <p style='font-size: 14px; margin: 5px 0 0 0;'>{config['tema']}</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
         st.subheader("🗺️ Roadmap")
         for i, key in enumerate(niveles_list):
             tema = CURRICULO[key]["tema"]
@@ -721,7 +616,7 @@ with st.sidebar:
             st.session_state.usuario_activo = None
             st.rerun()
 
-# ==================== LÓGICA PRINCIPAL DEL APP ====================
+# ==================== HEADER & LOGIC ====================
 
 if st.session_state.usuario_activo:
     st.markdown("""
@@ -731,7 +626,7 @@ if st.session_state.usuario_activo:
     </div>
     """, unsafe_allow_html=True)
 
-    # --- FASE 1: EXPLICACIÓN (Tablas y Teoría) ---
+    # 1. EXPLICACIÓN
     if st.session_state.fase == "explicacion":
         st.markdown(f"## 📖 {nivel_actual}: {config['tema']}")
         
@@ -739,7 +634,7 @@ if st.session_state.usuario_activo:
         with col1: st.info(f"**Objetivo:** {config['objetivo']}")
         with col2: st.info(f"**Duración:** {config['duracion']}")
         
-        # Renderizar explicación HTML (Tablas, etc.)
+        # Corrección: Agregado unsafe_allow_html=True para que se vea bien la tarjeta
         st.markdown(config['explicacion'], unsafe_allow_html=True)
         
         if st.button("✅ ENTENDIDO - COMENZAR PRÁCTICA", use_container_width=True, type="primary"):
@@ -748,21 +643,21 @@ if st.session_state.usuario_activo:
             guardar_datos()
             st.rerun()
 
-    # --- FASE 2: PRÁCTICA (Grabación) ---
+    # 2. PRÁCTICA
     elif st.session_state.fase == "practica":
         
-        # Freno de seguridad (Evita IndexError)
+        # --- FRENO DE SEGURIDAD (ARREGLO DEL INDEXERROR) ---
         frases_disponibles = config.get('frases', [])
         if st.session_state.frase_actual >= len(frases_disponibles):
             st.session_state.fase = "examen"
             st.session_state.pregunta_actual = 0
             st.rerun()
+        # ----------------------------------------------------
 
         frase_obj = frases_disponibles[st.session_state.frase_actual]
         total = len(frases_disponibles)
         
         st.progress(st.session_state.frase_actual / total)
-        
         st.markdown(f"""
         <div class='metric-card'>
             <h3>💪 Ejercicio {st.session_state.frase_actual + 1}/{total}</h3>
@@ -777,7 +672,7 @@ if st.session_state.usuario_activo:
         </div>
         """, unsafe_allow_html=True)
 
-        # Caja Amarilla de Pronunciación
+        # Caja Amarilla de Pronunciación (RECUPERADA)
         st.markdown(f"""
         <div style='background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 5px; margin: 15px 0;'>
             <h4 style='color: #856404; margin: 0 0 10px 0;'>🗣️ CÓMO SE PRONUNCIA:</h4>
@@ -810,6 +705,7 @@ if st.session_state.usuario_activo:
                     st.balloons()
                     st.success(f"🎉 ¡Bien! ({prec}%)")
                     time.sleep(1)
+                    # Avanzar
                     st.session_state.frase_actual += 1
                     st.session_state.intentos_frase = 0
                     guardar_datos()
@@ -818,7 +714,7 @@ if st.session_state.usuario_activo:
                     st.error(f"Intenta de nuevo ({prec}%)")
                     st.info(f"Tip: {frase_obj['tip']}")
 
-    # --- FASE 3: EXAMEN ---
+    # 3. EXAMEN
     elif st.session_state.fase == "examen":
         preguntas_disponibles = config.get('examen', [])
         
@@ -831,7 +727,7 @@ if st.session_state.usuario_activo:
              </div>
              """, unsafe_allow_html=True)
              
-             if st.button("➡️ Siguiente Nivel / Inicio", type="primary"):
+             if st.button("Siguiente Nivel / Inicio"):
                  siguiente_idx = indice + 1
                  if siguiente_idx < len(niveles_list):
                      st.session_state.nivel_actual = niveles_list[siguiente_idx]
